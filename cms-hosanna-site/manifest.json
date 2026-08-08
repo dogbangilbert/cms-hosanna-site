@@ -1,0 +1,27 @@
+{
+  "name": "CMS HOSANNA",
+  "short_name": "CMS HOSANNA",
+  "description": "Centre Médico-Social HOSANNA — Lomé, Togo. Médecine générale, gynécologie, infertilité, PVVIH, bilans de santé.",
+  "start_url": "/?source=pwa",
+  "id": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1F3B57",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/img/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
