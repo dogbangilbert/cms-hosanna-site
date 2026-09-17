@@ -5,21 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Le centre — CMS HOSANNA</title>
 <meta name="description" content="Vision, mission, équipe et partenaires du CMS HOSANNA, centre médico-social agréé à Lomé, Togo, ouvert aux patients locaux et internationaux.">
-<link rel="canonical" href="https://cmshosanna.netlify.app/apropos">
+<link rel="canonical" href="https://cmshosanna.com/apropos">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Le centre — CMS HOSANNA">
 <meta property="og:description" content="Vision, mission, équipe et partenaires du CMS HOSANNA, centre médico-social agréé à Lomé, Togo, ouvert aux patients locaux et internationaux.">
-<meta property="og:url" content="https://cmshosanna.netlify.app/apropos">
+<meta property="og:url" content="https://cmshosanna.com/apropos">
 <meta property="og:site_name" content="CMS HOSANNA">
-<meta property="og:image" content="https://cmshosanna.netlify.app/img/logo-3d-clair.jpg">
-<meta name="twitter:image" content="https://cmshosanna.netlify.app/img/logo-3d-clair.jpg">
+<meta property="og:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
+<meta name="twitter:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Le centre — CMS HOSANNA">
 <meta name="twitter:description" content="Vision, mission, équipe et partenaires du CMS HOSANNA, centre médico-social agréé à Lomé, Togo, ouvert aux patients locaux et internationaux.">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" href="img/favicon-180.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#003399">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CMS HOSANNA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -28,7 +33,7 @@
   "@context": "https://schema.org",
   "@type": "MedicalClinic",
   "name": "Centre Médico-Social HOSANNA (CMS HOSANNA)",
-  "url": "https://cmshosanna.netlify.app/",
+  "url": "https://cmshosanna.com/",
   "telephone": ["+22890038313", "+22896658989"],
   "email": "cmshosanna@gmail.com",
   "address": {
@@ -280,6 +285,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <li><a href="temoignages.html">Témoignages</a></li>
         <li><a href="blog.html">Blog santé</a></li>
         <li><a href="contact.html">Contact</a></li>
+      <li><a href="telecharger.html">📱 App</a></li>
       </ul>
     </nav>
     <div class="header-actions" style="display:flex; gap:12px; align-items:center;">
@@ -408,7 +414,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           <li><a href="pvvih.html">PVVIH</a></li>
           <li><a href="blog.html">Blog santé</a></li>
           <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <li><a href="telecharger.html">📱 Application</a></li>
+          </ul>
       </div>
       <div>
         <h4>Téléphone</h4>
@@ -476,5 +483,12 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- Cloudflare Web Analytics -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "49ef6eb473ba42779b00cfac15d8ef0d"}'></script>
 <!-- End Cloudflare Web Analytics -->
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

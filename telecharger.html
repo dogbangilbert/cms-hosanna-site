@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Témoignages patients — CMS HOSANNA</title>
-<meta name="description" content="Avis et témoignages de patients du CMS HOSANNA à Lomé — note de 4,4/5 sur Google.">
-<link rel="canonical" href="https://cmshosanna.com/temoignages">
+<title>Télécharger l'application — CMS HOSANNA</title>
+<meta name="description" content="Téléchargez l'application Android CMS HOSANNA (.apk) directement depuis le site officiel, sans passer par le Google Play Store. Guide d'installation pas à pas.">
+<link rel="canonical" href="https://cmshosanna.com/telecharger">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Témoignages patients — CMS HOSANNA">
-<meta property="og:description" content="Avis et témoignages de patients du CMS HOSANNA à Lomé — note de 4,4/5 sur Google.">
-<meta property="og:url" content="https://cmshosanna.com/temoignages">
+<meta property="og:title" content="Télécharger l'application — CMS HOSANNA">
+<meta property="og:description" content="Téléchargez l'application Android CMS HOSANNA (.apk) directement depuis le site officiel, sans passer par le Google Play Store. Guide d'installation pas à pas.">
+<meta property="og:url" content="https://cmshosanna.com/telecharger">
 <meta property="og:site_name" content="CMS HOSANNA">
 <meta property="og:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
 <meta name="twitter:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Témoignages patients — CMS HOSANNA">
-<meta name="twitter:description" content="Avis et témoignages de patients du CMS HOSANNA à Lomé — note de 4,4/5 sur Google.">
+<meta name="twitter:title" content="Télécharger l'application — CMS HOSANNA">
+<meta name="twitter:description" content="Téléchargez l'application Android CMS HOSANNA (.apk) directement depuis le site officiel, sans passer par le Google Play Store. Guide d'installation pas à pas.">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" href="img/favicon-180.png">
 <link rel="manifest" href="/manifest.json">
@@ -265,6 +265,35 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
   .footer-grid{grid-template-columns:1fr;}
 }
 
+/* --- Page Télécharger (APK) --- */
+.app-icon-preview{width:96px; height:96px; border-radius:22px; margin:0 auto 24px; box-shadow:0 16px 40px rgba(0,17,66,0.35);}
+.hero-download-btn{display:inline-flex; align-items:center; gap:12px; background:var(--jaune); color:#1a1200; padding:18px 34px; border-radius:999px; font-weight:800; font-size:1.05rem; box-shadow:0 10px 26px rgba(249,168,37,0.4);}
+.hero-download-btn:hover{transform:translateY(-2px);}
+.file-meta{margin-top:14px; font-size:0.85rem; color:rgba(255,255,255,0.7);}
+/* ÉTAPES */
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+.step-card{background:var(--gris-fond); border-radius:var(--radius); padding:26px 22px; border-top:4px solid var(--bleu-clair); position:relative;}
+.step-num{width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg, var(--bleu-fonce), var(--bleu-clair)); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Poppins',sans-serif; font-weight:800; margin-bottom:14px;}
+.step-card h3{font-size:0.98rem; margin-bottom:8px;}
+.step-card p{font-size:0.87rem; color:#5b6474;}
+/* AVERTISSEMENT SÉCURITÉ */
+.safety-box{background:#fff8ec; border:1px solid #f5deb0; border-radius:var(--radius); padding:26px 28px; display:flex; gap:16px; align-items:flex-start;}
+.safety-box .icon{font-size:1.6rem;}
+.safety-box h3{font-size:1rem; color:var(--rouge); margin-bottom:6px;}
+.safety-box p{font-size:0.9rem; color:#5b6474;}
+.faq{background:var(--gris-fond);}
+.faq-item{background:#fff; border:1px solid #e4e9f0; border-radius:var(--radius); padding:22px 24px; margin-bottom:14px;}
+.faq-item h4{font-size:0.95rem; margin-bottom:8px;}
+.faq-item p{font-size:0.88rem; color:#5b6474;}
+.cta-bottom{text-align:center; background:linear-gradient(135deg, var(--bleu-fonce), var(--vert)); border-radius:24px; padding:48px 32px; color:#fff;}
+.cta-bottom h2{color:#fff; margin-bottom:12px;}
+.cta-bottom p{color:rgba(255,255,255,0.85); max-width:520px; margin:0 auto 26px;}
+@media (max-width:960px){
+  .steps{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:680px){
+  .steps{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
@@ -282,10 +311,10 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <li><a href="infertilite.html">Infertilité</a></li>
         <li><a href="pvvih.html">PVVIH</a></li>
         <li><a href="apropos.html">Le centre</a></li>
-        <li><a href="temoignages.html" class="active">Témoignages</a></li>
+        <li><a href="temoignages.html">Témoignages</a></li>
         <li><a href="blog.html">Blog santé</a></li>
         <li><a href="contact.html">Contact</a></li>
-      <li><a href="telecharger.html">📱 App</a></li>
+      <li><a href="telecharger.html" class="active">📱 App</a></li>
       </ul>
     </nav>
     <div class="header-actions" style="display:flex; gap:12px; align-items:center;">
@@ -298,45 +327,106 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 
 <section class="page-hero">
   <div class="container">
-    <span class="eyebrow">Témoignages</span>
-    <h1>Ce que disent nos patients</h1>
-    <p>Note moyenne de 4,4/5 sur Google, à partir de 34 avis.</p>
+    <span class="eyebrow">📱 Nouveau</span>
+    <img src="img/icon-192.png" alt="Icône application CMS HOSANNA" class="app-icon-preview">
+    <h1>L'application CMS HOSANNA sur votre téléphone</h1>
+    <p>Retrouvez nos services, prenez rendez-vous et contactez-nous en un clic — installez l'application directement, sans passer par le Play Store.</p>
+
+    <!-- ⚠️ À METTRE À JOUR : remplacez le lien ci-dessous par l'URL réelle une fois
+         l'APK généré via PWABuilder et déposé dans /download/ sur Netlify -->
+    <a href="download/cms-hosanna.apk" class="hero-download-btn" download>
+      ⬇️ Télécharger l'application (.apk)
+    </a>
+    <p class="file-meta">Fichier .apk · Compatible Android 8 et plus · Gratuit</p>
   </div>
 </section>
 
-<section class="testimonials">
+<section>
   <div class="container">
-    <div class="grid-3">
-      <div class="testi-card reveal">
-        <div class="stars">★★★★★</div>
-        <p>« Un centre qui prend vraiment bien soin des patients, à moindre coût, avec des consultations adaptées. »</p>
-        <div class="testi-author"><div class="testi-avatar">P.</div><div><b>Avis Google</b><small>Patient CMS HOSANNA</small></div></div>
+    <div class="section-head">
+      <span class="tag">Installation</span>
+      <h2>Comment installer l'application</h2>
+      <p>4 étapes simples, à faire une seule fois.</p>
+    </div>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Téléchargez le fichier</h3>
+        <p>Appuyez sur le bouton "Télécharger l'application" ci-dessus depuis votre téléphone Android.</p>
       </div>
-      <div class="testi-card reveal">
-        <div class="stars">★★★★★</div>
-        <p>« Le centre est impeccable, j'adore ! L'emplacement est parfait aussi. »</p>
-        <div class="testi-author"><div class="testi-avatar">M.</div><div><b>Avis Google</b><small>Patient CMS HOSANNA</small></div></div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Autorisez l'installation</h3>
+        <p>Votre téléphone affichera un message "Source inconnue bloquée". Appuyez sur <b>Paramètres</b>, puis activez <b>Autoriser depuis cette source</b>.</p>
       </div>
-      <div class="testi-card reveal">
-        <div class="stars">★★★★★</div>
-        <p>« Accueil chaleureux, personnel professionnel, soins de qualité. Aucun traitement à l'aveugle : chaque diagnostic s'appuie sur des examens biologiques, physiques et l'imagerie. Disponible 24h/24, avec suivi à domicile. Je recommande vivement. »</p>
-        <div class="testi-author"><div class="testi-avatar">A.</div><div><b>Avis Google</b><small>Patient CMS HOSANNA</small></div></div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Installez l'application</h3>
+        <p>Revenez en arrière, appuyez de nouveau sur le fichier téléchargé, puis sur <b>Installer</b>.</p>
       </div>
-      <div class="testi-card reveal">
-        <div class="stars">★★★★★</div>
-        <p>« Un centre médical qui traite presque toutes les pathologies. »</p>
-        <div class="testi-author"><div class="testi-avatar">K.</div><div><b>Avis Google</b><small>Patient CMS HOSANNA</small></div></div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <h3>C'est prêt</h3>
+        <p>L'icône CMS HOSANNA apparaît sur votre écran d'accueil. Ouvrez-la comme n'importe quelle application.</p>
       </div>
     </div>
-    <p class="source-note">Avis authentiques issus de la fiche Google du centre — <a href="https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4" target="_blank" rel="noopener noreferrer">voir la fiche complète et laisser un avis</a></p>
   </div>
 </section>
 
-<section style="text-align:center;">
-  <div class="container reveal">
-    <h2 style="margin-bottom:16px;">Vous êtes déjà patient chez nous ?</h2>
-    <p style="color:#6b7280; margin-bottom:28px;">Votre avis aide d'autres patients à nous faire confiance.</p>
-    <a href="https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Laisser un avis sur Google</a>
+<section>
+  <div class="container">
+    <div class="safety-box">
+      <span class="icon">🔒</span>
+      <div>
+        <h3>Est-ce sans danger ?</h3>
+        <p>Oui. Ce fichier provient uniquement de notre site officiel <b>cmshosanna.com</b>. Le message "source inconnue" de votre téléphone est une précaution automatique d'Android pour toute application qui n'est pas installée depuis le Google Play Store — il ne signifie pas que le fichier est dangereux. Ne téléchargez jamais l'application CMS HOSANNA depuis un autre site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width:760px;">
+    <div class="panel-dark">
+      <h3>🍎 Vous avez un iPhone ?</h3>
+      <p style="color:#e5e7eb; margin-bottom:10px;">Le fichier .apk ne fonctionne que sur Android. Sur iPhone, installez le site comme une application :</p>
+      <ol style="color:#e5e7eb; line-height:1.9; padding-left:20px;">
+        <li>Ouvrez cmshosanna.com dans Safari.</li>
+        <li>Appuyez sur le bouton de partage (le carré avec une flèche vers le haut).</li>
+        <li>Choisissez « Sur l'écran d'accueil », puis confirmez.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">Questions fréquentes</span>
+      <h2>Besoin d'aide ?</h2>
+    </div>
+    <div class="faq-item">
+      <h4>Mon téléphone ne trouve pas le fichier téléchargé</h4>
+      <p>Ouvrez l'application "Fichiers" ou "Mes fichiers" de votre téléphone, puis le dossier "Téléchargements".</p>
+    </div>
+    <div class="faq-item">
+      <h4>Un message "Play Protect a bloqué l'application" apparaît</h4>
+      <p>Appuyez sur "Plus de détails" puis "Installer quand même". C'est normal pour toute application installée en dehors du Play Store.</p>
+    </div>
+    <div class="faq-item">
+      <h4>L'application ne s'installe pas</h4>
+      <p>Contactez-nous directement sur WhatsApp, nous vous guiderons pas à pas.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta-bottom">
+      <h2>Une question avant d'installer ?</h2>
+      <p>Notre équipe reste disponible pour vous accompagner, par téléphone ou WhatsApp.</p>
+      <a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20j'ai%20une%20question%20sur%20l'application" class="btn btn-primary">💬 Écrire sur WhatsApp</a>
+    </div>
   </div>
 </section>
 
