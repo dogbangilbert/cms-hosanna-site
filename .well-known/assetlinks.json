@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.netlify.cmshosanna.twa",
+      "sha256_cert_fingerprints": [
+        "8E:1A:8B:41:EA:53:E0:3E:4A:B0:F6:8D:A1:67:2E:EF:07:25:93:21:96:0F:4B:72:D8:8C:E4:E1:93:00:39:27"
+      ]
+    }
+  }
+]
