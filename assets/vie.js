@@ -39,6 +39,16 @@
     }).catch(function(){});
   }
 
+  // Barre d'actions fixe sur téléphone (pas sur les pages campagne, qui ont leurs propres boutons)
+  if (!/octobre-rose|test-sein/.test(location.pathname)) {
+    var barreBas = document.createElement('div'); barreBas.setAttribute('role', 'navigation'); barreBas.className = 'vie-barre'; barreBas.setAttribute('aria-label', 'Actions rapides');
+    barreBas.innerHTML = '<a href="tel:+22890038313"><span>📞</span>Appeler</a>'
+      + '<a href="https://wa.me/22890038313?text=' + encodeURIComponent('Bonjour CMS HOSANNA, ') + '" target="_blank" rel="noopener"><span>💬</span>WhatsApp</a>'
+      + '<a href="https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4" target="_blank" rel="noopener"><span>📍</span>Itinéraire</a>'
+      + '<a href="/contact" class="rdv"><span>📅</span>Rendez-vous</a>';
+    document.body.appendChild(barreBas); document.body.classList.add('vie-avec-barre');
+  }
+
   // Onde au toucher sur les boutons
   document.addEventListener('pointerdown', function(e){
     var btn = e.target.closest && e.target.closest('.btn'); if (!btn || calme) return;
