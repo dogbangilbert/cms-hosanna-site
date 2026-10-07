@@ -1,0 +1,8 @@
+{
+  "name": "cms-hosanna-site",
+  "private": true,
+  "description": "Site statique CMS HOSANNA + fonctions Netlify (réservations Octobre rose)",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.3"
+  }
+}

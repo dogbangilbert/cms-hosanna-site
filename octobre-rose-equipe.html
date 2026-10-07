@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Octobre rose — liste de l'équipe</title>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<style>
+:root{--bleu:#003399;--vert:#2E7D32;--jaune:#F9A825;--rouge:#C62828;--rose:#E91E78;--fond:#F5F8FC;--bord:#D9E1EE;--doux:#5B6577;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,'Segoe UI',sans-serif;background:var(--fond);color:#2B3240;font-size:15px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+h1{color:var(--bleu);font-size:1.35rem;margin:8px 0 4px}
+.sous{color:var(--doux);font-size:.9rem;margin-bottom:16px}
+.cle{display:flex;gap:8px;flex-wrap:wrap;background:#fff;padding:16px;border-radius:14px;max-width:460px}
+input{flex:1;min-width:180px;font:inherit;padding:11px 12px;border:1.5px solid var(--bord);border-radius:10px}
+button,.b{font:inherit;font-weight:700;border:none;border-radius:999px;padding:10px 16px;cursor:pointer;text-decoration:none;display:inline-block}
+.bleu{background:var(--bleu);color:#fff}.vert{background:var(--vert);color:#fff}.gris{background:#E6EBF3;color:var(--bleu)}.rouge{background:#FDECEC;color:var(--rouge)}
+.barre{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.stat{background:#fff;border-radius:12px;padding:10px 14px}.stat b{color:var(--bleu);font-size:1.2rem;display:block}
+.jour{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px}
+.jour h2{font-size:1.02rem;color:var(--bleu);display:flex;justify-content:space-between;margin-bottom:8px}
+.p{border-top:1px solid var(--bord);padding:10px 0;display:grid;grid-template-columns:1fr auto;gap:8px}
+.p:first-of-type{border-top:none}
+.nom{font-weight:700}.det{font-size:.85rem;color:var(--doux)}
+.prio{background:var(--rouge);color:#fff;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 8px;margin-left:6px}
+.atcd{background:#FFF3E0;color:#8a4b00;font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 8px;margin-left:6px}
+.act{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.act .b,.act button{padding:7px 12px;font-size:.85rem}
+#msg{color:var(--rouge);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎀 Octobre rose — réservations</h1>
+  <p class="sous">Page réservée à l'équipe du CMS HOSANNA. Ne pas partager ce lien ni la clé.</p>
+  <form class="cle" id="f"><input type="password" id="k" placeholder="Clé de l'équipe" autocomplete="current-password"><button class="bleu">Afficher</button></form>
+  <p id="msg"></p>
+  <div id="zone" style="display:none">
+    <div class="barre">
+      <div class="stat"><b id="s-total">0</b>réservations</div>
+      <div class="stat"><b id="s-prio">0</b>avec un signe</div>
+      <div class="stat"><b id="s-atcd">0</b>antécédent familial</div>
+      <button class="gris" id="actu">↻ Actualiser</button>
+      <button class="gris" id="csv">⬇ Export CSV</button>
+    </div>
+    <div id="liste"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var cle = '', donnees = [];
+  var MOIS = ['','','','','','','','','','','octobre'];
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function jourTxt(iso){ var d = new Date(iso+'T12:00:00Z'); return ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'][d.getUTCDay()]+' '+d.getUTCDate()+' octobre'; }
+  function charger(){
+    document.getElementById('msg').textContent = 'Chargement…';
+    fetch('/api/octobre-rose/liste', {headers:{'x-cle-equipe':cle}, cache:'no-store'})
+      .then(function(r){ if (r.status === 401) throw new Error('Clé incorrecte.'); if (!r.ok) throw new Error('Erreur serveur.'); return r.json(); })
+      .then(function(d){ donnees = d.reservations || []; afficher(); document.getElementById('msg').textContent=''; document.getElementById('zone').style.display='block'; try{sessionStorage.setItem('or-cle',cle);}catch(e){} })
+      .catch(function(e){ document.getElementById('msg').textContent = e.message; });
+  }
+  function afficher(){
+    var parJour = {};
+    donnees.forEach(function(r){ (parJour[r.jour] = parJour[r.jour] || []).push(r); });
+    document.getElementById('s-total').textContent = donnees.length;
+    document.getElementById('s-prio').textContent = donnees.filter(function(r){return r.prioritaire;}).length;
+    document.getElementById('s-atcd').textContent = donnees.filter(function(r){return r.antecedent==='oui';}).length;
+    var html = '';
+    Object.keys(parJour).sort().forEach(function(j){
+      var l = parJour[j];
+      html += '<div class="jour"><h2><span>'+jourTxt(j)+'</span><span>'+l.length+'/5</span></h2>';
+      l.forEach(function(r){
+        var wa = 'https://wa.me/'+r.telephone+'?text='+encodeURIComponent('Bonjour '+r.nom+', ici le CMS HOSANNA. Nous confirmons votre passage pour Octobre rose le '+jourTxt(r.jour)+' (réf. '+r.ref+'). À quelle heure vous convient-il de venir ?');
+        html += '<div class="p"><div><div class="nom">'+esc(r.nom)+
+          (r.prioritaire?'<span class="prio">SIGNE : '+esc(r.signes.join(', '))+'</span>':'')+
+          (r.antecedent==='oui'?'<span class="atcd">antécédent familial</span>':'')+
+          '</div><div class="det">'+esc(r.ref)+' · +'+esc(r.telephone)+' · '+esc(r.age)+(r.quartier?' · '+esc(r.quartier):'')+' · examen antérieur : '+esc(r.dejaFait)+'</div></div>'+
+          '<div class="act"><a class="b bleu" href="tel:+'+esc(r.telephone)+'">Appeler</a><a class="b vert" target="_blank" rel="noopener" href="'+wa+'">WhatsApp</a><button class="rouge" data-ref="'+esc(r.ref)+'">Annuler</button></div></div>';
+      });
+      html += '</div>';
+    });
+    document.getElementById('liste').innerHTML = html || '<p class="sous">Aucune réservation pour l\'instant.</p>';
+  }
+  document.getElementById('liste').addEventListener('click', function(e){
+    var ref = e.target.getAttribute('data-ref'); if (!ref) return;
+    if (!confirm('Annuler la réservation '+ref+' ? La place sera libérée.')) return;
+    fetch('/api/octobre-rose/annuler', {method:'POST', headers:{'x-cle-equipe':cle,'content-type':'application/json'}, body:JSON.stringify({ref:ref})})
+      .then(function(r){ return r.json(); }).then(function(d){ if (!d.ok) alert(d.erreur||'Erreur'); charger(); });
+  });
+  document.getElementById('f').addEventListener('submit', function(e){ e.preventDefault(); cle = document.getElementById('k').value.trim(); charger(); });
+  document.getElementById('actu').onclick = charger;
+  document.getElementById('csv').onclick = function(){
+    var cols = ['ref','jour','nom','telephone','age','quartier','dejaFait','antecedent','signes','prioritaire','creeLe'];
+    var lignes = [cols.join(';')].concat(donnees.map(function(r){ return cols.map(function(c){ var v = Array.isArray(r[c]) ? r[c].join(', ') : r[c]; return '"'+String(v==null?'':v).replace(/"/g,'""')+'"'; }).join(';'); }));
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+lignes.join('\r\n')], {type:'text/csv'})); a.download = 'octobre-rose-reservations.csv'; a.click();
+  };
+  try { var s = sessionStorage.getItem('or-cle'); if (s) { cle = s; charger(); } } catch(e){}
+})();
+</script>
+</body>
+</html>
