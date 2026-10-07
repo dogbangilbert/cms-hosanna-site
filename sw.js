@@ -3,7 +3,7 @@
 // des pages déjà visitées pour un accès plus rapide et un minimum
 // de tolérance hors-ligne (pas de données patient stockées ici).
 
-const CACHE_NAME = "cms-hosanna-v2";
+const CACHE_NAME = "cms-hosanna-v3";
 const OFFLINE_URLS = [
   "/",
   "/services",

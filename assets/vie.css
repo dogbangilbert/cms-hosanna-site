@@ -1,0 +1,78 @@
+/* CMS HOSANNA — animations et éléments vivants, partagés par toutes les pages */
+.vie-progress{position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,#4A90D9,#F9A825); z-index:1000; transition:width .1s linear;}
+header.vie-scrolled{box-shadow:0 6px 24px rgba(0,51,153,.14) !important;}
+header .nav-wrap{transition:padding .25s ease;}
+header.vie-scrolled .nav-wrap{padding-top:8px; padding-bottom:8px;}
+
+/* Bandeau campagne */
+.vie-bandeau{display:block; background:linear-gradient(90deg,#E91E78,#C2185B,#E91E78); background-size:200% 100%; animation:vie-glisse 6s linear infinite; color:#fff; text-decoration:none; font-family:'Poppins',sans-serif; font-weight:600; font-size:.9rem; text-align:center; padding:9px 16px; line-height:1.4;}
+.vie-bandeau b{color:#FFE08A;}
+.vie-bandeau .vie-fleche{display:inline-block; margin-left:6px; animation:vie-pousse 1.4s ease-in-out infinite;}
+@keyframes vie-glisse{to{background-position:-200% 0;}}
+@keyframes vie-pousse{50%{transform:translateX(4px);}}
+
+/* Boutons : reflet qui passe et onde au toucher */
+.btn{position:relative; overflow:hidden; isolation:isolate;}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary::after{content:""; position:absolute; top:0; left:-60%; width:40%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent); transform:skewX(-20deg); animation:vie-reflet 4.5s ease-in-out infinite; z-index:-1;}
+@keyframes vie-reflet{0%,70%{left:-60%;} 100%{left:130%;}}
+.vie-onde{position:absolute; border-radius:50%; background:rgba(255,255,255,.45); transform:scale(0); animation:vie-onde .6s ease-out forwards; pointer-events:none;}
+@keyframes vie-onde{to{transform:scale(4); opacity:0;}}
+
+/* Cartes : légère élévation, icône qui s'anime */
+.card, .testi-card, .photo-card{transition:transform .3s ease, box-shadow .3s ease;}
+.card:hover, .testi-card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,51,153,.14);}
+.card:hover .card-icon, .card:hover .icon{animation:vie-saut .6s ease;}
+@keyframes vie-saut{40%{transform:translateY(-6px) scale(1.08);} 70%{transform:translateY(1px);}}
+
+/* Apparition en cascade */
+.reveal.vie-d1{transition-delay:.08s;} .reveal.vie-d2{transition-delay:.16s;} .reveal.vie-d3{transition-delay:.24s;}
+
+/* Héros vivant */
+.hero{background-size:180% 180% !important; animation:vie-degrade 14s ease-in-out infinite alternate;}
+@keyframes vie-degrade{from{background-position:0% 0%;} to{background-position:100% 100%;}}
+.vie-bulle{position:absolute; border-radius:50%; background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.28),rgba(74,144,217,.12)); pointer-events:none; z-index:1; animation:vie-flotte linear infinite;}
+@keyframes vie-flotte{0%{transform:translateY(0) translateX(0);} 50%{transform:translateY(-40px) translateX(14px);} 100%{transform:translateY(0) translateX(0);}}
+.hero h1, .hero .motto, .hero p, .hero .hero-actions, .hero .eyebrow{animation:vie-entree .9s cubic-bezier(.2,.7,.2,1) both;}
+.hero .eyebrow{animation-delay:.05s;} .hero h1{animation-delay:.15s;} .hero .motto{animation-delay:.3s;} .hero p{animation-delay:.4s;} .hero .hero-actions{animation-delay:.55s;}
+@keyframes vie-entree{from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:none;}}
+.vie-defile{display:block; font-family:'Poppins',sans-serif; font-weight:700; color:#fff; font-size:1.05rem; min-height:1.6em; margin:-6px 0 14px;}
+.vie-defile span{color:#F9A825; border-right:3px solid #F9A825; padding-right:3px; animation:vie-curseur .8s step-end infinite;}
+@keyframes vie-curseur{50%{border-color:transparent;}}
+
+/* Bande de chiffres */
+.vie-chiffres{position:relative; z-index:5; margin-top:-56px; padding:0 0 8px;}
+.vie-chiffres .grille{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; background:#fff; border-radius:20px; padding:22px; box-shadow:0 18px 44px rgba(0,51,153,.13);}
+.vie-chiffre{text-align:center; padding:6px;}
+.vie-chiffre b{display:block; font-family:'Poppins',sans-serif; font-size:clamp(1.6rem,4vw,2.2rem); font-weight:800; color:#003399; line-height:1.1;}
+.vie-chiffre b small{font-size:.55em; color:#4A90D9;}
+.vie-chiffre > span{font-size:.85rem; color:#5B6577;}
+@media (max-width:760px){.vie-chiffres .grille{grid-template-columns:repeat(2,1fr);} .vie-chiffres{margin-top:-40px;}}
+
+/* Témoignages en carrousel sur téléphone */
+@media (max-width:760px){
+  .vie-carrousel{display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; gap:14px; padding-bottom:10px; scrollbar-width:none;}
+  .vie-carrousel::-webkit-scrollbar{display:none;}
+  .vie-carrousel > *{flex:0 0 86%; scroll-snap-align:center;}
+  .vie-points{display:flex; justify-content:center; gap:8px; margin-top:8px;}
+  .vie-points i{width:8px; height:8px; border-radius:50%; background:#D6E3F2; transition:all .3s;}
+  .vie-points i.on{width:22px; border-radius:6px; background:#4A90D9;}
+}
+@media (min-width:761px){.vie-points{display:none;}}
+
+/* Retour en haut */
+.vie-haut{position:fixed; left:20px; bottom:24px; width:46px; height:46px; border-radius:50%; border:none; background:#003399; color:#fff; font-size:1.3rem; cursor:pointer; box-shadow:0 8px 20px rgba(0,51,153,.3); opacity:0; transform:translateY(20px); transition:all .3s; z-index:199;}
+.vie-haut.on{opacity:1; transform:none;}
+
+@media (prefers-reduced-motion: reduce){
+  .vie-bandeau, .vie-bandeau .vie-fleche, .btn-primary::after, .hero, .vie-bulle, .hero h1, .hero .motto, .hero p, .hero .hero-actions, .hero .eyebrow, .vie-defile span{animation:none !important;}
+}
+
+/* Menu mobile : totalement caché quand il est fermé */
+@media (max-width:960px){
+  header nav:not(.open){visibility:hidden; transition:transform .3s ease, visibility 0s linear .3s;}
+  header nav.open{visibility:visible; transition:transform .3s ease;}
+}
+
+.vie-court{display:none;}
+@media (max-width:640px){.vie-long{display:none;} .vie-court{display:inline;} .vie-bandeau{font-size:.85rem; padding:8px 12px;}}
