@@ -104,7 +104,7 @@ async function reserver(req: Request, context: Context) {
 
 // Clé de l'équipe : seule son empreinte SHA-256 figure ici (le dépôt est public).
 // Pour changer de clé : variable d'environnement OCTOBRE_ROSE_CLE, ou nouvelle empreinte.
-const EMPREINTE_CLE = "ec523fbe8a3672f2833353868e42b653da3838b078e931a289933ea628a4d882";
+const EMPREINTE_CLE = "e38ec064091cb8bdecd330a211817827209566477a4bf0aee955950ac56b4089";
 async function accesEquipe(req: Request) {
   const fournie = req.headers.get("x-cle-equipe") || "";
   if (!fournie) return false;

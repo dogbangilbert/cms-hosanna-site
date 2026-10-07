@@ -131,6 +131,8 @@ aside .signes li::before{content:"•"; color:var(--rose); font-weight:800;}
 aside .carte + .carte{margin-top:16px;}
 
 #confirmation{display:none;}
+.test-lien{display:block; background:#EAF3FC; border:1.5px solid #4A90D9; color:var(--bleu); text-decoration:none; border-radius:12px; padding:12px 14px; margin-bottom:20px; font-size:.95rem;}
+.test-lien b{color:var(--bleu);}
 .ok-tete{text-align:center; padding:8px 0 18px;}
 .ok-rond{width:68px; height:68px; border-radius:50%; background:var(--vert); color:#fff; display:grid; place-items:center; font-size:2rem; margin:0 auto 14px;}
 .ticket{border:2px dashed var(--bord); border-radius:16px; padding:18px; margin:6px 0 18px; display:grid; grid-template-columns:1fr 1fr; gap:12px;}
@@ -175,7 +177,7 @@ footer a{color:#fff;}
     <div>
       <span class="ruban">🎀 Octobre rose 2026</span>
       <h1>Prenez soin de vos seins.<br>Réservez votre place.</h1>
-      <p class="lead">Un bilan des seins complet, avec nos sages-femmes et nos échographistes, en toute discrétion. Les places sont limitées chaque jour.</p>
+      <p class="lead">Un bilan des seins complet en toute discrétion, avec notre équipe : sages-femmes, médecin gynécologue et échographistes. Les places sont limitées chaque jour.</p>
       <div class="faits">
         <div class="fait"><b>15 → 30 oct.</b><span>tous les jours</span></div>
         <div class="fait"><b>10 000 F CFA</b><span>tout compris</span></div>
@@ -189,9 +191,9 @@ footer a{color:#fff;}
 
 <div class="wrap">
   <div class="inclus">
-    <div><div class="ic">🩺</div><div><h3>Consultation</h3><p>Écoute, questions et évaluation de vos facteurs de risque.</p></div></div>
-    <div><div class="ic">🤲</div><div><h3>Examen des seins</h3><p>Palpation des seins et des aisselles par une sage-femme.</p></div></div>
-    <div><div class="ic">🖥️</div><div><h3>Échographie mammaire</h3><p>L'examen d'imagerie adapté, notamment avant 40 ans.</p></div></div>
+    <div><div class="ic">🩺</div><div><h3>Consultation</h3><p>Évaluation de votre risque, que nous revoyons avec vous.</p></div></div>
+    <div><div class="ic">🤲</div><div><h3>Examen des seins</h3><p>Palpation des seins et des aisselles par une sage-femme ou un médecin gynécologue, qui vous montre comment vous palper.</p></div></div>
+    <div><div class="ic">🖥️</div><div><h3>Échographie mammaire</h3><p>Faite systématiquement, à toutes les femmes examinées.</p></div></div>
   </div>
 </div>
 
@@ -201,6 +203,7 @@ footer a{color:#fff;}
       <div id="formulaire">
         <h2>Réserver ma place</h2>
         <p class="sous">Une minute suffit. Nous vous appelons ensuite pour fixer l'heure.</p>
+        <a class="test-lien" href="/test-sein">Pas sûre ? <b>Testez votre risque en 2 minutes</b> →</a>
         <div class="erreur" id="erreur" role="alert"></div>
         <form id="rdv" novalidate>
           <input type="text" name="siteweb" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -305,6 +308,7 @@ footer a{color:#fff;}
             <li>Le règlement de 10 000 F CFA se fait sur place.</li>
           </ul>
         </div>
+        <a class="test-lien" href="/test-sein" style="margin-top:16px">En attendant votre passage : <b>testez votre risque de cancer du sein</b> →</a>
         <p class="sous" style="margin:16px 0 0; font-size:.85rem">Gardez votre référence. Faites une capture d'écran de cette page.</p>
       </div>
     </div>
