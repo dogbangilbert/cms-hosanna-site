@@ -522,6 +522,20 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+<script>
+/* Articles publiés depuis la Rédaction HOSANNA : ajoutés en tête de la grille */
+(function(){
+  var grille=document.querySelector(".grid-3");if(!grille||!window.fetch)return;
+  function e(t){return String(t||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  fetch("/api/conseils").then(function(r){return r.ok?r.json():[]}).then(function(liste){
+    liste.slice().reverse().forEach(function(c){
+      var d=document.createElement("div");d.className="blog-card";
+      d.innerHTML='<div class="blog-thumb"'+(c.image?' style="background:#E8EEF9 url(\''+e(c.image)+'\') center/cover;color:transparent"':'')+'>'+e(c.category||"Conseil")+'</div><div class="blog-body"><span class="blog-cat">'+e(c.category||"Conseil santé")+'</span><h3>'+e(c.title)+'</h3><p>'+e(c.excerpt)+'</p><a href="/conseils/'+e(c.slug)+'" class="link">Lire l\'article →</a></div>';
+      grille.insertBefore(d,grille.firstChild);
+    });
+  }).catch(function(){});
+})();
+</script>
 <script src="/assets/vie.js" defer></script>
 </body>
 </html>

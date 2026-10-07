@@ -19,5 +19,8 @@ Allow: /
 User-agent: *
 Allow: /
 Disallow: /octobre-rose-equipe
+Disallow: /redaction
+Disallow: /conseils/apercu/
 
 Sitemap: https://cmshosanna.com/sitemap.xml
+Sitemap: https://cmshosanna.com/sitemap-conseils.xml

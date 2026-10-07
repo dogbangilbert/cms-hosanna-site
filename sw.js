@@ -3,7 +3,7 @@
 // des pages déjà visitées pour un accès plus rapide et un minimum
 // de tolérance hors-ligne (pas de données patient stockées ici).
 
-const CACHE_NAME = "cms-hosanna-v4";
+const CACHE_NAME = "cms-hosanna-v5";
 const OFFLINE_URLS = [
   "/",
   "/services",
@@ -40,7 +40,7 @@ self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   // Jamais de mise en cache des données de réservation ou de la page équipe
   const url = new URL(event.request.url);
-  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/octobre-rose-equipe")) return;
+  if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/octobre-rose-equipe") || url.pathname.startsWith("/redaction") || url.pathname.startsWith("/conseils/apercu")) return;
 
   event.respondWith(
     fetch(event.request)

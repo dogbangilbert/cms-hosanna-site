@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#003399">
+<title>Rédaction HOSANNA</title>
+<link rel="icon" href="/img/logo-3d-clair.jpg">
+<style>
+:root{--bleu:#003399;--bleu2:#4A90D9;--vert:#2E7D32;--jaune:#F9A825;--rouge:#C62828;--fond:#F5F8FC;--texte:#1F2733;--gris:#667085;--trait:#E3E8F0;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--fond);color:var(--texte);font-size:16px;line-height:1.5;padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+[hidden]{display:none!important}
+.barre-haut{position:sticky;top:0;z-index:20;background:var(--bleu);color:#fff;display:flex;align-items:center;gap:10px;padding:12px 16px}
+.barre-haut h1{font-size:17px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.barre-haut button{color:#fff;font-size:14px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.14);min-height:40px}
+.page{max-width:820px;margin:0 auto;padding:16px}
+.carte{background:#fff;border:1px solid var(--trait);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:12px;font-weight:650;background:var(--bleu);color:#fff;text-decoration:none}
+.btn.clair{background:#fff;color:var(--bleu);border:1.5px solid var(--bleu)}
+.btn.vert{background:var(--vert)}
+.btn.rouge{background:#fff;color:var(--rouge);border:1.5px solid var(--rouge)}
+.btn.petit{min-height:40px;padding:0 12px;font-size:14px;border-radius:10px}
+.btn:disabled{opacity:.5}
+.btn.large{width:100%}
+label{display:block;font-weight:650;font-size:14px;margin:14px 0 6px}
+label small,.aide{font-weight:400;color:var(--gris);font-size:13px}
+input[type=text],input[type=password],input[type=url],input[type=date],input[type=search],select,textarea{width:100%;border:1.5px solid var(--trait);border-radius:10px;padding:12px;background:#fff;min-height:48px}
+textarea{min-height:96px;resize:vertical;line-height:1.55}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--bleu2);outline-offset:1px;border-color:var(--bleu2)}
+.ligne{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ligne>*{flex:1 1 140px}
+.ligne>.fixe{flex:0 0 auto}
+/* Connexion */
+.connexion{max-width:420px;margin:8vh auto 0;text-align:center}
+.connexion img{width:84px;height:84px;border-radius:20px;margin-bottom:12px}
+.connexion h2{color:var(--bleu);font-size:24px}
+.case{display:flex;align-items:center;gap:10px;font-weight:400;text-align:left}
+.case input{width:22px;height:22px;flex:0 0 auto}
+/* Tableau */
+.actions-rapides{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.actions-rapides .btn:first-child{grid-column:1/-1}
+.filtres{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin:12px 0;scrollbar-width:none}
+.filtres::-webkit-scrollbar{display:none}
+.puce{flex:0 0 auto;padding:8px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--trait);font-size:14px;min-height:40px}
+.puce.actif{background:var(--bleu);color:#fff;border-color:var(--bleu)}
+.puce b{margin-left:4px}
+.item{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:#fff;border:1px solid var(--trait);border-radius:var(--r);padding:12px;margin-bottom:10px}
+.item .vignette{width:56px;height:56px;border-radius:10px;background:#E8EEF9 center/cover;flex:0 0 auto;display:grid;place-items:center;color:var(--bleu);font-weight:700}
+.item h3{font-size:16px;line-height:1.3}
+.item p{font-size:13px;color:var(--gris)}
+.etat{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:#EEF1F6;color:#475467}
+.etat.publie{background:#E1F3E3;color:var(--vert)}
+.etat.a_relire,.etat.brouillon_ia{background:#FFF3D6;color:#8A5A00}
+.etat.valide,.etat.pret{background:#E3ECFB;color:var(--bleu)}
+.etat.depublie{background:#FBE4E4;color:var(--rouge)}
+.vide{text-align:center;color:var(--gris);padding:30px 10px}
+/* Éditeur */
+details.bloc{background:#fff;border:1px solid var(--trait);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+details.bloc>summary{list-style:none;padding:16px;font-weight:700;display:flex;align-items:center;gap:10px;cursor:pointer;min-height:56px}
+details.bloc>summary::-webkit-details-marker{display:none}
+details.bloc>summary::after{content:"▾";margin-left:auto;color:var(--gris);transition:transform .2s}
+details.bloc[open]>summary::after{transform:rotate(180deg)}
+details.bloc>summary .n{width:28px;height:28px;border-radius:50%;background:#E8EEF9;color:var(--bleu);display:grid;place-items:center;font-size:14px;flex:0 0 auto}
+details.bloc>div{padding:0 16px 16px}
+.outils{display:flex;gap:6px;overflow-x:auto;margin-bottom:6px;scrollbar-width:none}
+.outils button{flex:0 0 auto;min-width:44px;min-height:44px;padding:0 10px;border-radius:10px;background:#EEF2F8;font-weight:700;font-size:14px}
+#texte{min-height:46vh;font-size:16px}
+.compteur{font-size:12px;color:var(--gris);text-align:right;margin-top:4px}
+.compteur.trop{color:var(--rouge);font-weight:700}
+.rep{border:1px dashed var(--trait);border-radius:12px;padding:12px;margin-bottom:10px}
+.rep label:first-child{margin-top:0}
+.apercu-img{max-width:100%;border-radius:12px;margin-top:10px;display:block}
+.google{border:1px solid var(--trait);border-radius:12px;padding:12px;margin-top:12px;font-family:Arial,sans-serif}
+.google .u{font-size:12px;color:#202124;word-break:break-all}
+.google .t{font-size:18px;color:#1a0dab;line-height:1.3;margin:2px 0}
+.google .d{font-size:13px;color:#4d5156}
+.manque{background:#FFF3D6;border:1px solid #F3D48A;border-radius:12px;padding:12px;font-size:14px;margin-bottom:12px}
+.manque.ok{background:#E1F3E3;border-color:#A9D8AE}
+.manque ul{margin:6px 0 0 18px}
+.pied{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--trait);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;box-shadow:0 -6px 20px rgba(0,30,90,.08)}
+.pied .btn{flex:1;padding:0 8px;font-size:15px}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#1F2733;color:#fff;padding:12px 16px;border-radius:12px;z-index:50;max-width:92vw;font-size:15px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.toast.erreur{background:var(--rouge)}
+.toast a{color:#9CC4FF;font-weight:700}
+.voile{position:fixed;inset:0;background:rgba(15,25,45,.55);z-index:40;display:grid;place-items:end center}
+.feuille{background:#fff;width:100%;max-width:820px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom))}
+.feuille h2{font-size:20px;color:var(--bleu);margin-bottom:6px}
+@media(min-width:700px){.actions-rapides{grid-template-columns:2fr 1fr 1fr}.actions-rapides .btn:first-child{grid-column:auto}.voile{place-items:center}.feuille{border-radius:20px}}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+<div id="voile" class="voile" hidden><div class="feuille" id="feuille"></div></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+var app=$("#app"), CLE="", MOI=null, LISTE=[], COMPTE={}, FILTRE="", RECHERCHE="", A=null, SALE=false, CONTROLES=[];
+var NOMS={brouillon_ia:"Brouillon IA",brouillon:"Brouillon",a_relire:"À relire",valide:"Validé",pret:"Prêt à publier",publie:"Publié",depublie:"Dépublié"};
+var RELECTURE={non_relu:"Pas encore relu",en_relecture:"Relecture en cours",valide:"Validé médicalement"};
+function e(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function memoire(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(x){return null}}
+var tt;function toast(m,err,html){var t=$("#toast");t[html?"innerHTML":"textContent"]=m;t.className="toast"+(err?" erreur":"");t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},html?12000:err?6000:2600)}
+function api(route,corps){
+  return fetch("/api/redaction/"+route,{method:corps?"POST":"GET",headers:{"x-cle-redaction":CLE,"content-type":"application/json"},body:corps?JSON.stringify(corps):undefined})
+  .then(function(r){return r.json().catch(function(){return {erreur:"Réponse illisible du serveur."}}).then(function(d){if(!r.ok){var x=new Error(d.erreur||"Erreur "+r.status);x.status=r.status;x.d=d;throw x}return d})});
+}
+function quand(d){if(!d)return "";var x=new Date(d);return x.toLocaleDateString("fr-FR",{day:"numeric",month:"short"})+" à "+x.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}
+function haut(titre,boutons){return '<div class="barre-haut"><h1>'+e(titre)+'</h1>'+(boutons||"")+'</div>'}
+function feuille(html){$("#feuille").innerHTML=html;$("#voile").hidden=false}
+function fermer(){$("#voile").hidden=true}
+$("#voile").addEventListener("click",function(ev){if(ev.target.id==="voile")fermer()});
+window.addEventListener("beforeunload",function(ev){if(SALE){ev.preventDefault();ev.returnValue=""}});
+
+/* ---------- Connexion ---------- */
+function ecranConnexion(msg){
+  app.innerHTML='<div class="page"><div class="connexion"><img src="/img/logo-3d-clair.jpg" alt=""><h2>Rédaction HOSANNA</h2><p class="aide">Espace réservé à l\'équipe du CMS HOSANNA.</p>'+
+  '<form id="f" class="carte" style="margin-top:20px;text-align:left"><label for="cle" style="margin-top:0">Votre clé personnelle</label><input id="cle" type="password" autocomplete="current-password" autocapitalize="off" required>'+
+  '<label class="case"><input type="checkbox" id="souvenir" checked> Se souvenir de moi sur cet appareil</label>'+
+  (msg?'<p style="color:var(--rouge);margin-top:10px">'+e(msg)+'</p>':'')+
+  '<button class="btn large" style="margin-top:16px">Entrer</button></form></div></div>';
+  $("#f").addEventListener("submit",function(ev){ev.preventDefault();CLE=$("#cle").value.trim();connecter($("#souvenir").checked)});
+}
+function connecter(souvenir){
+  api("moi").then(function(d){MOI=d;if(souvenir)memoire("redaction-cle",CLE);tableau()})
+  .catch(function(x){memoire("redaction-cle",null);ecranConnexion(x.status===401?"Clé incorrecte. Vérifiez et réessayez.":x.message)});
+}
+function sortir(){memoire("redaction-cle",null);CLE="";MOI=null;ecranConnexion()}
+function droit(a){var D={administrateur:["ecrire","relire","publier","supprimer","ia","exporter"],editeur:["ecrire","publier","ia"],reviseur:["relire"],redacteur:["ecrire","ia"]};return MOI&&D[MOI.role].indexOf(a)>-1}
+
+/* ---------- Tableau de bord ---------- */
+function tableau(){
+  A=null;SALE=false;
+  app.innerHTML=haut("Rédaction HOSANNA",'<button id="sortir">Sortir</button>')+'<div class="page"><p style="margin-bottom:12px">Bonjour <b>'+e(MOI.nom)+'</b> <span class="aide">· '+e(MOI.role)+'</span></p>'+
+  '<div class="actions-rapides">'+(droit("ecrire")?'<button class="btn" id="nouveau">＋ Nouvel article</button><button class="btn clair" id="ia">✨ Créer avec l\'IA</button>':'')+(droit("exporter")?'<button class="btn clair" id="export">⬇ Tout exporter</button>':'')+'</div>'+
+  '<input type="search" id="rech" placeholder="Rechercher un article…" value="'+e(RECHERCHE)+'"><div class="filtres" id="filtres"></div><div id="liste"><p class="vide">Chargement…</p></div></div>';
+  $("#sortir").onclick=sortir;
+  if($("#nouveau"))$("#nouveau").onclick=function(){ouvrir("")};
+  if($("#ia"))$("#ia").onclick=feuilleIA;
+  if($("#export"))$("#export").onclick=exporter;
+  $("#rech").oninput=function(){RECHERCHE=this.value;dessinerListe()};
+  api("contenus").then(function(d){LISTE=d.contenus;COMPTE=d.compte;dessinerListe()}).catch(function(x){$("#liste").innerHTML='<p class="vide">'+e(x.message)+'</p>'});
+}
+function dessinerListe(){
+  var f='<button class="puce'+(FILTRE?"":" actif")+'" data-f="">Tous<b>'+LISTE.length+'</b></button>';
+  MOI.statuts.forEach(function(s){if(COMPTE[s])f+='<button class="puce'+(FILTRE===s?" actif":"")+'" data-f="'+s+'">'+NOMS[s]+'<b>'+COMPTE[s]+'</b></button>'});
+  $("#filtres").innerHTML=f;
+  $$("#filtres .puce").forEach(function(b){b.onclick=function(){FILTRE=b.dataset.f;dessinerListe()}});
+  var q=RECHERCHE.trim().toLowerCase();
+  var l=LISTE.filter(function(c){return (!FILTRE||c.status===FILTRE)&&(!q||(c.title+" "+c.category).toLowerCase().indexOf(q)>-1)});
+  $("#liste").innerHTML=l.length?l.map(function(c){
+    return '<button class="item" data-id="'+e(c.id)+'"><span class="vignette"'+(c.image?' style="background-image:url(\''+e(c.image)+'\')"':'')+'>'+(c.image?"":e((c.title||"?").charAt(0).toUpperCase()))+'</span><span style="flex:1;min-width:0"><h3>'+e(c.title)+'</h3><p><span class="etat '+c.status+'">'+NOMS[c.status]+'</span> '+(c.ai?"✨ ":"")+e(c.category||"Sans catégorie")+' · '+quand(c.updated_at)+'</p></span></button>'}).join("")
+    :'<p class="vide">'+(LISTE.length?"Aucun article ne correspond.":"Aucun article pour l\'instant.<br>Touchez « Nouvel article » pour commencer.")+'</p>';
+  $$("#liste .item").forEach(function(b){b.onclick=function(){ouvrir(b.dataset.id)}});
+}
+function exporter(){
+  toast("Préparation de l'export…");
+  api("export").then(function(d){
+    var a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(d,null,2));a.download="redaction-hosanna-export-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();
+    toast(d.fichiers.length+" article(s) exporté(s).");
+  }).catch(function(x){toast(x.message,true)});
+}
+
+/* ---------- IA ---------- */
+function feuilleIA(){
+  if(!MOI.ia.active){
+    feuille('<h2>✨ Créer avec l\'IA</h2><p>L\'assistant de rédaction intégré n\'est pas encore activé sur le site (choix volontaire, pour ne rien payer au départ).</p><p style="margin-top:10px"><b>En attendant :</b> demandez l\'article à Claude dans votre conversation habituelle. Il le dépose ici comme <span class="etat brouillon_ia">Brouillon IA</span>, et vous n\'avez plus qu\'à relire, corriger et publier.</p><p class="aide" style="margin-top:10px">L\'activation se fait plus tard en ajoutant une clé d\'API dans Netlify, sans rien changer d\'autre.</p><button class="btn large" style="margin-top:16px" id="okia">Compris</button>');
+    $("#okia").onclick=fermer;return;
+  }
+  feuille('<h2>✨ Créer avec l\'IA</h2><p class="aide">'+e(MOI.ia.fournisseur)+' · '+e(MOI.ia.modele)+'. Le résultat sera un brouillon à relire.</p>'+
+  '<label>Sujet</label><input type="text" id="i-sujet" placeholder="Ex. : les fibromes utérins">'+
+  '<label>Pour qui ?</label><input type="text" id="i-public" value="Femmes et familles de Lomé, grand public">'+
+  '<label>But de l\'article</label><input type="text" id="i-objectif" value="Informer, rassurer et inviter à consulter si besoin">'+
+  '<div class="ligne"><div><label>Longueur</label><select id="i-longueur"><option value="court">Court (400 mots)</option><option value="moyen" selected>Moyen (800 mots)</option><option value="long">Long (1 500 mots)</option></select></div><div><label>Ton</label><select id="i-ton"><option>Chaleureux et simple</option><option>Pédagogique</option><option>Rassurant</option><option>Professionnel</option></select></div></div>'+
+  '<label>Consignes particulières <small>(facultatif)</small></label><textarea id="i-instr"></textarea>'+
+  '<div class="ligne" style="margin-top:16px"><button class="btn clair" id="i-non">Annuler</button><button class="btn" id="i-go">Rédiger</button></div><p id="i-etat" class="aide" style="margin-top:10px"></p>');
+  $("#i-non").onclick=fermer;
+  $("#i-go").onclick=function(){
+    var b=this;b.disabled=true;$("#i-etat").textContent="Rédaction en cours… cela peut prendre une à deux minutes.";
+    api("ia",{sujet:$("#i-sujet").value,public:$("#i-public").value,objectif:$("#i-objectif").value,longueur:$("#i-longueur").value,ton:$("#i-ton").value,instructions:$("#i-instr").value})
+    .then(function(d){var n=0;(function suivre(){api("ia/"+d.tache).then(function(s){
+      if(s.etat==="termine"){fermer();toast("Brouillon prêt.");ouvrir(s.id)}
+      else if(s.etat==="erreur"){b.disabled=false;$("#i-etat").textContent="Échec : "+s.erreur}
+      else if(++n>90){b.disabled=false;$("#i-etat").textContent="C'est plus long que prévu. Regardez la liste dans quelques minutes."}
+      else setTimeout(suivre,4000)}).catch(function(){setTimeout(suivre,6000)})})()})
+    .catch(function(x){b.disabled=false;$("#i-etat").textContent=x.message});
+  };
+}
+
+/* ---------- Éditeur ---------- */
+function ouvrir(id){
+  app.innerHTML=haut("Chargement…")+'<div class="page"><p class="vide">Chargement…</p></div>';
+  api("contenu"+(id?"/"+id:"")).then(function(d){A=d.contenu;A._nouveau=!id;CONTROLES=d.controles;SALE=false;editeur()}).catch(function(x){toast(x.message,true);tableau()});
+}
+function lire(chemin){return chemin.split(".").reduce(function(o,k){return o==null?o:o[k]},A)}
+function ecrire(chemin,v){var p=chemin.split("."),o=A;for(var i=0;i<p.length-1;i++){if(o[p[i]]==null)o[p[i]]={};o=o[p[i]]}o[p[p.length-1]]=v;SALE=true}
+function champ(k,lab,opt){opt=opt||{};var v=lire(k);v=v==null?"":v;var id="c-"+k.replace(/\./g,"-");
+  var c=opt.multi?'<textarea id="'+id+'" data-k="'+k+'"'+(opt.h?' style="min-height:'+opt.h+'px"':'')+' placeholder="'+e(opt.ph||"")+'">'+e(v)+'</textarea>'
+    :'<input type="'+(opt.type||"text")+'" id="'+id+'" data-k="'+k+'" value="'+e(v)+'" placeholder="'+e(opt.ph||"")+'"'+(opt.list?' list="'+opt.list+'"':'')+'>';
+  return '<label for="'+id+'">'+lab+(opt.aide?' <small>'+opt.aide+'</small>':'')+'</label>'+c+(opt.max?'<div class="compteur" data-max="'+opt.max+'" data-pour="'+id+'"></div>':'');
+}
+function bloc(n,titre,html,ouvert){return '<details class="bloc"'+(ouvert?" open":"")+'><summary><span class="n">'+n+'</span>'+titre+'</summary><div>'+html+'</div></details>'}
+
+function editeur(){
+  var peutEcrire=droit("ecrire"), enLigne=A.status==="publie";
+  var statuts=MOI.statuts.filter(function(s){return s!=="publie"||enLigne}).map(function(s){return '<option value="'+s+'"'+(A.status===s?" selected":"")+'>'+NOMS[s]+'</option>'}).join("");
+  var cats='<option value="">Choisir…</option>'+MOI.categories.map(function(c){return '<option'+(A.category===c?" selected":"")+'>'+e(c)+'</option>'}).join("");
+  var rel=Object.keys(RELECTURE).map(function(s){return '<option value="'+s+'"'+(A.medical_review_status===s?" selected":"")+(s==="valide"&&!droit("relire")?" disabled":"")+'>'+RELECTURE[s]+'</option>'}).join("");
+  var img=A.featured_image||{src:"",alt:"",caption:"",credit:""}, pdf=A.pdf;
+  app.innerHTML=haut(A._nouveau?"Nouvel article":"Modifier l'article",'<button id="retour">← Liste</button>')+'<div class="page"><div id="controles"></div>'+
+  bloc(1,"L'essentiel",
+    champ("title","Titre",{ph:"Ex. : Fibromes utérins : les signes à connaître"})+
+    champ("excerpt","Résumé",{multi:true,aide:"2 ou 3 phrases, affichées sous le titre et sur la page Blog",max:300})+
+    '<div class="ligne"><div><label for="cat">Catégorie</label><select id="cat" data-k="category">'+cats+'</select></div><div><label for="statut">État</label><select id="statut" data-k="status">'+statuts+'</select></div></div>'+
+    '<label for="tags">Mots-clés <small>séparés par des virgules</small></label><input type="text" id="tags" value="'+e((A.tags||[]).join(", "))+'">',true)+
+  bloc(2,"Le texte",
+    '<div class="outils" id="outils"><button data-o="h2">Titre</button><button data-o="h3">Sous-titre</button><button data-o="b"><b>G</b></button><button data-o="i"><i>I</i></button><button data-o="ul">• Liste</button><button data-o="ol">1. Liste</button><button data-o="q">❝</button><button data-o="a">🔗 Lien</button><button data-o="img">🖼 Image</button></div>'+
+    '<textarea id="texte" data-k="content" placeholder="Écrivez ici. Les boutons ci-dessus ajoutent les titres, listes et images.">'+e(A.content)+'</textarea><div class="compteur" id="mots"></div><input type="file" id="img-texte" accept="image/*" hidden>',true)+
+  bloc(3,"Image principale",
+    '<div id="zone-img">'+(img.src?'<img class="apercu-img" src="'+e(img.src)+'" alt="">':'<p class="aide">Aucune image pour l\'instant.</p>')+'</div>'+
+    '<div class="ligne" style="margin-top:10px"><button class="btn clair petit" id="choisir-img">'+(img.src?"Changer l'image":"Choisir une image")+'</button>'+(img.src?'<button class="btn rouge petit" id="retirer-img">Retirer</button>':'')+'</div><input type="file" id="fichier-img" accept="image/*" hidden>'+
+    (img.src?champ("featured_image.alt","Description de l'image",{aide:"pour les personnes malvoyantes et pour Google"})+champ("featured_image.caption","Légende",{aide:"facultatif"})+champ("featured_image.credit","Crédit photo",{aide:"facultatif"}):''))+
+  bloc(4,"Relecture médicale",
+    '<p class="aide">Obligatoire avant publication. La personne qui relit peut être une sage-femme, un médecin gynécologue ou tout membre qualifié de l\'équipe.</p>'+
+    champ("medical_reviewer.name","Relu par",{ph:"Nom de la personne"})+champ("medical_reviewer.profession","Sa fonction",{list:"professions"})+
+    '<datalist id="professions">'+MOI.professions.map(function(p){return '<option value="'+e(p)+'">'}).join("")+'</datalist>'+
+    champ("medical_reviewer.date","Date de relecture",{type:"date"})+
+    '<label for="rel">Décision</label><select id="rel" data-k="medical_review_status">'+rel+'</select>'+(droit("relire")?'':'<p class="aide" style="margin-top:6px">Votre rôle ne permet pas de valider médicalement.</p>'))+
+  bloc(5,"Questions fréquentes",'<div id="faq"></div><button class="btn clair petit" id="plus-faq">＋ Ajouter une question</button>')+
+  bloc(6,"Sources",'<p class="aide">Cochez « vérifiée » seulement après avoir ouvert et lu la source. Une source non vérifiée bloque la publication.</p><div id="sources" style="margin-top:10px"></div><button class="btn clair petit" id="plus-source">＋ Ajouter une source</button>')+
+  bloc(7,"Document PDF à télécharger",
+    (pdf?'<p>📄 <a href="'+e(pdf.src)+'" target="_blank" rel="noopener">'+e(pdf.title)+'</a>'+(pdf.size?' <span class="aide">('+Math.round(pdf.size/1024)+' Ko)</span>':'')+'</p>'+champ("pdf.title","Titre du document")+champ("pdf.description","Description",{aide:"facultatif"})+'<button class="btn rouge petit" id="retirer-pdf" style="margin-top:10px">Retirer le PDF</button>'
+    :'<p class="aide">Fiche conseil, ordonnance type, guide… 4 Mo maximum.</p><button class="btn clair petit" id="choisir-pdf" style="margin-top:10px">Choisir un PDF</button>')+'<input type="file" id="fichier-pdf" accept="application/pdf" hidden>')+
+  bloc(8,"Référencement Google",
+    champ("seo_title","Titre pour Google",{aide:"laissez vide pour reprendre le titre",max:60})+
+    champ("seo_description","Description pour Google",{multi:true,aide:"laissez vide pour reprendre le résumé",max:160})+
+    champ("slug","Adresse de la page",{aide:"se remplit toute seule à partir du titre"})+'<div class="google" id="google"></div>')+
+  bloc(9,"Bouton WhatsApp en fin d'article",champ("cta.text","Phrase d'invitation")+champ("cta.whatsapp_message","Message prérempli envoyé au centre",{multi:true}))+
+  bloc(10,"Réseaux sociaux",
+    '<p class="aide">Préparez ici le texte de chaque réseau. La publication automatique viendra plus tard : pour l\'instant, copiez ou partagez en un geste.</p><button class="btn clair petit" id="proposer" style="margin-top:10px">Proposer des textes à partir de l\'article</button>'+
+    ["facebook","whatsapp","tiktok"].map(function(r){return champ("social."+r,{facebook:"Facebook",whatsapp:"WhatsApp (statut, groupes)",tiktok:"TikTok (description de la vidéo)"}[r],{multi:true,h:120})+'<div class="ligne" style="margin-top:6px"><button class="btn clair petit" data-copier="'+r+'">Copier</button>'+(r!=="tiktok"?'<button class="btn clair petit" data-partager="'+r+'">Partager</button>':'')+'</div>'}).join(""))+
+  (A._nouveau?'':bloc(11,"Historique",'<div id="historique"><button class="btn clair petit" id="voir-hist">Voir les versions précédentes</button></div>'))+
+  (!A._nouveau&&droit("supprimer")?'<button class="btn rouge large" id="supprimer" style="margin-top:8px">Supprimer cet article</button>':'')+
+  '</div><div class="pied">'+(peutEcrire||droit("relire")?'<button class="btn clair" id="enregistrer">Enregistrer</button>':'')+'<button class="btn clair" id="apercu">Aperçu</button>'+
+  (droit("publier")?(enLigne?'<button class="btn rouge" id="depublier">Dépublier</button>':'<button class="btn vert" id="publier">Publier</button>'):'')+'</div>';
+
+  app.removeEventListener("input",surSaisie);app.removeEventListener("change",surSaisie);
+  $("#retour").onclick=function(){if(!SALE||confirm("Des modifications ne sont pas enregistrées. Quitter quand même ?"))tableau()};
+  app.addEventListener("input",surSaisie);app.addEventListener("change",surSaisie);
+  $("#tags").oninput=function(){A.tags=this.value.split(",").map(function(t){return t.trim()}).filter(Boolean);SALE=true};
+  $$("#outils button").forEach(function(b){b.onclick=function(){outil(b.dataset.o)}});
+  $("#img-texte").onchange=function(){var f=this.files[0];this.value="";if(f)deposerImage(f).then(function(src){inserer("\n\n!["+(prompt("Décrivez l'image en quelques mots :")||"")+"]("+src+")\n\n","")})};
+  $("#choisir-img").onclick=function(){$("#fichier-img").click()};
+  $("#fichier-img").onchange=function(){var f=this.files[0];if(f)deposerImage(f).then(function(src){A.featured_image={src:src,alt:(A.featured_image||{}).alt||"",caption:(A.featured_image||{}).caption,credit:(A.featured_image||{}).credit};SALE=true;redessiner(3)})};
+  if($("#retirer-img"))$("#retirer-img").onclick=function(){A.featured_image=null;SALE=true;redessiner(3)};
+  if($("#choisir-pdf"))$("#choisir-pdf").onclick=function(){$("#fichier-pdf").click()};
+  $("#fichier-pdf").onchange=function(){var f=this.files[0];if(f)deposerPdf(f)};
+  if($("#retirer-pdf"))$("#retirer-pdf").onclick=function(){A.pdf=null;SALE=true;redessiner(7)};
+  $("#plus-faq").onclick=function(){A.faq.push({question:"",answer:""});SALE=true;repFaq()};
+  $("#plus-source").onclick=function(){A.sources.push({title:"",url:"",verified:false});SALE=true;repSources()};
+  $("#proposer").onclick=proposerSocial;
+  $$("[data-copier]").forEach(function(b){b.onclick=function(){copier(A.social[b.dataset.copier])}});
+  $$("[data-partager]").forEach(function(b){b.onclick=function(){partager(b.dataset.partager)}});
+  if($("#voir-hist"))$("#voir-hist").onclick=historique;
+  if($("#supprimer"))$("#supprimer").onclick=function(){if(confirm("Supprimer définitivement cet article ?"))api("supprimer/"+A.id,{}).then(function(){SALE=false;toast("Article supprimé.");tableau()}).catch(function(x){toast(x.message,true)})};
+  if($("#enregistrer"))$("#enregistrer").onclick=function(){enregistrer()};
+  $("#apercu").onclick=apercu;
+  if($("#publier"))$("#publier").onclick=publier;
+  if($("#depublier"))$("#depublier").onclick=function(){if(confirm("Retirer cet article du site ?"))api("depublier/"+A.id,{}).then(function(){toast("Article retiré du site.");ouvrir(A.id)}).catch(function(x){toast(x.message,true)})};
+  repFaq();repSources();compteurs();dessinerControles();
+  window.scrollTo(0,0);
+}
+var OUVERTS=null;
+function redessiner(n){var y=window.scrollY;OUVERTS=$$("details.bloc").map(function(d){return d.open});var s=SALE;app.removeEventListener("input",surSaisie);app.removeEventListener("change",surSaisie);editeur();$$("details.bloc").forEach(function(d,i){d.open=OUVERTS[i]||i===n-1});SALE=s;window.scrollTo(0,y)}
+function surSaisie(ev){var t=ev.target,k=t.dataset&&t.dataset.k;if(!k)return;
+  if(k.indexOf("faq.")===0||k.indexOf("sources.")===0){var p=k.split(".");A[p[0]][+p[1]][p[2]]=t.type==="checkbox"?t.checked:t.value;SALE=true}
+  else ecrire(k,t.value);
+  compteurs();
+}
+function compteurs(){
+  $$(".compteur[data-max]").forEach(function(c){var n=$("#"+c.dataset.pour).value.length,m=+c.dataset.max;c.textContent=n+" / "+m+" caractères";c.className="compteur"+(n>m?" trop":"")});
+  var mots=(A.content.trim().match(/\S+/g)||[]).length;$("#mots").textContent=mots+" mot"+(mots>1?"s":"")+" · environ "+Math.max(1,Math.round(mots/200))+" min de lecture";
+  var g=$("#google");if(g)g.innerHTML='<div class="u">cmshosanna.com › conseils › '+e(A.slug||"…")+'</div><div class="t">'+e((A.seo_title||A.title||"Titre de l\'article").slice(0,65))+'</div><div class="d">'+e((A.seo_description||A.excerpt||"La description apparaîtra ici.").slice(0,165))+'</div>';
+}
+function repFaq(){
+  $("#faq").innerHTML=A.faq.map(function(f,i){return '<div class="rep"><label>Question '+(i+1)+'</label><input type="text" data-k="faq.'+i+'.question" value="'+e(f.question)+'"><label>Réponse</label><textarea data-k="faq.'+i+'.answer">'+e(f.answer)+'</textarea><button class="btn rouge petit" data-oter="'+i+'" style="margin-top:8px">Retirer</button></div>'}).join("");
+  $$("#faq [data-oter]").forEach(function(b){b.onclick=function(){A.faq.splice(+b.dataset.oter,1);SALE=true;repFaq()}});
+}
+function repSources(){
+  $("#sources").innerHTML=A.sources.map(function(s,i){return '<div class="rep"><label>Source '+(i+1)+' <small>(organisme, titre, année)</small></label><input type="text" data-k="sources.'+i+'.title" value="'+e(s.title)+'"><label>Lien <small>facultatif</small></label><input type="url" data-k="sources.'+i+'.url" value="'+e(s.url||"")+'" placeholder="https://"><label class="case" style="margin-top:10px"><input type="checkbox" data-k="sources.'+i+'.verified"'+(s.verified?" checked":"")+'> J\'ai vérifié cette source</label><button class="btn rouge petit" data-oter="'+i+'" style="margin-top:8px">Retirer</button></div>'}).join("");
+  $$("#sources [data-oter]").forEach(function(b){b.onclick=function(){A.sources.splice(+b.dataset.oter,1);SALE=true;repSources()}});
+}
+function dessinerControles(){
+  var c=$("#controles");if(!c)return;
+  if(A._nouveau){c.innerHTML="";return}
+  c.innerHTML=CONTROLES.length?'<div class="manque"><b>Avant de publier, il manque :</b><ul>'+CONTROLES.map(function(m){return "<li>"+e(m)+"</li>"}).join("")+'</ul></div>'
+    :'<div class="manque ok">'+(A.status==="publie"?'✓ En ligne : <a href="/conseils/'+e(A.slug)+'" target="_blank" rel="noopener">voir l\'article</a>':'✓ Tout est prêt : cet article peut être publié.')+'</div>';
+}
+/* Barre d'outils Markdown */
+function inserer(avant,apres,defaut){var t=$("#texte"),a=t.selectionStart,b=t.selectionEnd,sel=t.value.slice(a,b)||defaut||"";t.value=t.value.slice(0,a)+avant+sel+apres+t.value.slice(b);t.focus();t.selectionStart=a+avant.length;t.selectionEnd=a+avant.length+sel.length;A.content=t.value;SALE=true;compteurs()}
+function debutLigne(prefixe,defaut){var t=$("#texte"),a=t.selectionStart;var nl=a===0||t.value.charAt(a-1)==="\n";inserer((nl?"":"\n")+prefixe,"",defaut)}
+function outil(o){
+  if(o==="h2")debutLigne("\n## ","Titre de la partie");
+  else if(o==="h3")debutLigne("\n### ","Sous-titre");
+  else if(o==="b")inserer("**","**","texte important");
+  else if(o==="i")inserer("*","*","texte");
+  else if(o==="ul")debutLigne("- ","élément");
+  else if(o==="ol")debutLigne("1. ","élément");
+  else if(o==="q")debutLigne("> ","À retenir");
+  else if(o==="a"){var u=prompt("Adresse du lien (https://…) :");if(u)inserer("[","]("+u.trim()+")","texte du lien")}
+  else if(o==="img")$("#img-texte").click();
+}
+/* Fichiers */
+function compresser(fichier){return new Promise(function(ok,non){
+  var l=new FileReader();l.onerror=function(){non(new Error("Lecture de l'image impossible."))};
+  l.onload=function(){var i=new Image();i.onerror=function(){non(new Error("Ce fichier n'est pas une image lisible."))};
+    i.onload=function(){var max=1600,r=Math.min(1,max/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=Math.round(i.width*r);c.height=Math.round(i.height*r);
+      var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(i,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.82).split(",")[1])};
+    i.src=l.result};
+  l.readAsDataURL(fichier)})}
+function deposerImage(f){toast("Envoi de l'image…");return compresser(f).then(function(b64){return api("media",{nom:f.name,type:"image/jpeg",base64:b64})}).then(function(d){toast("Image ajoutée.");return d.src}).catch(function(x){toast(x.message,true);throw x})}
+function deposerPdf(f){
+  if(f.size>4*1024*1024)return toast("PDF trop lourd (4 Mo maximum).",true);
+  toast("Envoi du PDF…");var l=new FileReader();
+  l.onload=function(){api("media",{nom:f.name,type:"application/pdf",base64:String(l.result).split(",")[1]}).then(function(d){A.pdf={src:d.src,title:f.name.replace(/\.pdf$/i,"").replace(/[-_]+/g," "),size:d.taille};SALE=true;toast("PDF ajouté.");redessiner(7)}).catch(function(x){toast(x.message,true)})};
+  l.readAsDataURL(f);
+}
+/* Réseaux sociaux */
+function lien(){return "https://cmshosanna.com/conseils/"+A.slug}
+function proposerSocial(){
+  if(!A.title)return toast("Écrivez d'abord le titre et le résumé.",true);
+  if((A.social.facebook||A.social.whatsapp||A.social.tiktok)&&!confirm("Remplacer les textes déjà écrits ?"))return;
+  var mots=(A.tags||[]).slice(0,4).map(function(t){return "#"+t.replace(/[^\p{L}\p{N}]+/gu,"")}).join(" ");
+  A.social.facebook=A.title+"\n\n"+A.excerpt+"\n\n👉 Lire l'article complet : "+lien()+"\n\n📍 CMS HOSANNA, Attiégou, Lomé\n📲 WhatsApp : +228 90 03 83 13\n\n#CMSHosanna #Lomé #Santé "+mots;
+  A.social.whatsapp="*"+A.title+"*\n\n"+A.excerpt+"\n\nLire la suite : "+lien()+"\n\n_CMS HOSANNA, Attiégou, Lomé_";
+  A.social.tiktok=A.title+" 💙 "+A.excerpt.split(/(?<=[.!?])\s/)[0]+" Article complet sur cmshosanna.com\n\n#CMSHosanna #Lomé #Togo #Santé "+mots;
+  SALE=true;["facebook","whatsapp","tiktok"].forEach(function(r){$("#c-social-"+r).value=A.social[r]});toast("Textes proposés. Relisez-les avant de partager.");
+}
+function copier(t){if(!t)return toast("Rien à copier.",true);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){toast("Copié.")}).catch(function(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();document.execCommand("copy");a.remove();toast("Copié.")})}
+function partager(r){
+  var t=A.social[r]||A.title;
+  if(r==="whatsapp")window.open("https://wa.me/?text="+encodeURIComponent(t),"_blank","noopener");
+  else{copier(A.social.facebook);window.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(lien()),"_blank","noopener")}
+}
+/* Enregistrer, aperçu, publier */
+function propre(){var c=JSON.parse(JSON.stringify(A));delete c._nouveau;if(!c.featured_image)c.featured_image=null;if(!c.pdf)c.pdf=null;return c}
+function enregistrer(silence){
+  if(!A.title.trim()){toast("Donnez au moins un titre.",true);return Promise.reject()}
+  return api("contenu",propre()).then(function(d){var slugAvant=A.slug;A=d.contenu;CONTROLES=d.controles;SALE=false;dessinerControles();if($("#c-slug")&&slugAvant!==A.slug)$("#c-slug").value=A.slug;compteurs();if(!silence)toast("Enregistré à "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})+".");return d})
+  .catch(function(x){toast(x.message,true);throw x});
+}
+function apercu(){
+  var w=window.open("about:blank","_blank");
+  api("apercu",propre()).then(function(d){if(w)w.location=d.url;else toast('<a href="'+d.url+'" target="_blank">Ouvrir l\'aperçu</a>',false,true)}).catch(function(x){if(w)w.close();toast(x.message,true)});
+}
+function publier(){
+  enregistrer(true).then(function(){
+    if(CONTROLES.length){toast("Il manque encore des éléments (voir en haut de page).",true);window.scrollTo({top:0,behavior:"smooth"});return}
+    if(!confirm("Publier cet article sur cmshosanna.com ?"))return;
+    return api("publier/"+A.id,{}).then(function(d){
+      feuille('<h2>✓ Article en ligne</h2><p>Il est visible sur le site et apparaît sur la page Blog.</p><p style="margin:12px 0;word-break:break-all"><a href="'+e(d.url)+'" target="_blank" rel="noopener">'+e(d.url)+'</a></p><div class="ligne"><button class="btn clair" id="p-copier">Copier le lien</button><a class="btn vert" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(A.social.whatsapp||A.title+"\n"+d.url)+'">Partager sur WhatsApp</a></div><button class="btn large" id="p-ok" style="margin-top:12px">Terminer</button>');
+      $("#p-copier").onclick=function(){copier(d.url)};$("#p-ok").onclick=function(){fermer();ouvrir(A.id)};
+    });
+  }).catch(function(x){if(x&&x.message)toast(x.message,true)});
+}
+function historique(){
+  var z=$("#historique");z.innerHTML='<p class="aide">Chargement…</p>';
+  api("versions/"+A.id).then(function(d){
+    z.innerHTML=d.versions.length?d.versions.map(function(v,i){return '<div class="rep"><b>'+quand(v.date)+'</b><p class="aide">'+e(v.auteur)+' · '+e(NOMS[v.statut]||v.statut)+'<br>'+e(v.titre)+'</p>'+(droit("ecrire")?'<button class="btn clair petit" data-v="'+i+'" style="margin-top:8px">Restaurer cette version</button>':'')+'</div>'}).join(""):'<p class="aide">Pas encore de version précédente.</p>';
+    $$("#historique [data-v]").forEach(function(b){b.onclick=function(){if(confirm("Revenir à cette version ? La version actuelle restera dans l'historique."))api("restaurer/"+A.id,{cle:d.versions[+b.dataset.v].cle}).then(function(){toast("Version restaurée.");ouvrir(A.id)}).catch(function(x){toast(x.message,true)})}});
+  }).catch(function(x){z.innerHTML='<p class="aide">'+e(x.message)+'</p>'});
+}
+
+/* ---------- Démarrage ---------- */
+CLE=memoire("redaction-cle")||"";
+if(CLE)connecter(true);else ecranConnexion();
+})();
+</script>
+</body>
+</html>

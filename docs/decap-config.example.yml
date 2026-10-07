@@ -1,0 +1,81 @@
+# Exemple : les mêmes contenus lus par Decap CMS (migration future).
+# Placer les fichiers exportés dans content/articles/ puis copier ceci dans admin/config.yml.
+backend:
+  name: git-gateway
+  branch: main
+media_folder: media
+public_folder: /media
+locale: fr
+collections:
+  - name: articles
+    label: Articles
+    folder: content/articles
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { name: id, label: Identifiant, widget: string }
+      - { name: type, widget: hidden, default: article }
+      - { name: title, label: Titre, widget: string }
+      - { name: slug, label: Adresse, widget: string }
+      - { name: excerpt, label: Résumé, widget: text }
+      - { name: category, label: Catégorie, widget: string }
+      - { name: tags, label: Mots-clés, widget: list }
+      - name: featured_image
+        label: Image principale
+        widget: object
+        required: false
+        fields:
+          - { name: src, widget: image }
+          - { name: alt, widget: string }
+          - { name: caption, widget: string, required: false }
+          - { name: credit, widget: string, required: false }
+      - name: pdf
+        label: PDF
+        widget: object
+        required: false
+        fields:
+          - { name: src, widget: file }
+          - { name: title, widget: string }
+          - { name: description, widget: string, required: false }
+          - { name: size, widget: number, required: false }
+      - { name: author, label: Auteur, widget: string }
+      - name: medical_reviewer
+        label: Relecture médicale
+        widget: object
+        fields:
+          - { name: name, widget: string }
+          - { name: profession, widget: string }
+          - { name: date, widget: string, required: false }
+      - { name: medical_review_status, widget: select, options: [non_relu, en_relecture, valide] }
+      - { name: status, label: État, widget: select, options: [brouillon_ia, brouillon, a_relire, valide, pret, publie, depublie] }
+      - { name: created_at, widget: datetime }
+      - { name: updated_at, widget: datetime }
+      - { name: published_at, widget: datetime, required: false }
+      - { name: seo_title, widget: string }
+      - { name: seo_description, widget: text }
+      - name: faq
+        widget: list
+        fields:
+          - { name: question, widget: string }
+          - { name: answer, widget: text }
+      - name: sources
+        widget: list
+        fields:
+          - { name: title, widget: string }
+          - { name: url, widget: string, required: false }
+          - { name: verified, widget: boolean, default: false }
+      - name: cta
+        widget: object
+        fields:
+          - { name: text, widget: string }
+          - { name: whatsapp_message, widget: text }
+      - name: social
+        widget: object
+        fields:
+          - { name: facebook, widget: text, required: false }
+          - { name: tiktok, widget: text, required: false }
+          - { name: whatsapp, widget: text, required: false }
+      - { name: contract_version, widget: hidden, default: 1 }
+      - { name: body, label: Texte, widget: markdown }
