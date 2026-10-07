@@ -45,6 +45,8 @@ header.site{background:#fff; border-bottom:1px solid var(--bord);}
 .hero h1{color:#fff; font-size:clamp(1.75rem,5.5vw,2.6rem); margin:14px 0 10px;}
 .hero p{color:rgba(255,255,255,.92); font-size:1.05rem; max-width:36em;}
 .puces{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+.hero-btns{display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;}
+.hero .btn-blanc{background:transparent; color:#fff; border:2px solid #fff;}
 .puces span{background:#fff; color:var(--bleu); font-weight:700; font-size:.85rem; border-radius:999px; padding:6px 12px;}
 
 .etapes{background:#fff; border-radius:var(--radius); margin-top:-22px; position:relative; padding:18px 20px; box-shadow:0 10px 28px rgba(0,51,153,.1);}
@@ -157,6 +159,7 @@ footer a{color:#fff;}
     <h1>Teste ton risque de cancer du sein</h1>
     <p>Quelques questions simples, un résultat immédiat et des conseils adaptés à votre situation. Le résultat sera revu avec vous en consultation.</p>
     <div class="puces"><span>2 minutes</span><span>Gratuit</span><span>Anonyme : rien n'est enregistré</span></div>
+    <div class="hero-btns"><a href="#f" class="btn btn-jaune">Commencer le test</a><a href="/octobre-rose#reserver" class="btn btn-blanc" id="rdv-direct">Prendre rendez-vous directement</a></div>
   </div>
 </section>
 
@@ -206,8 +209,9 @@ footer a{color:#fff;}
         <legend><span class="num">3</span>Ce qu'on a déjà trouvé chez vous</legend>
         <div class="opts">
           <label class="opt"><input type="checkbox" id="p_cancer"><span>J'ai déjà été soignée pour un cancer du sein</span></label>
-          <label class="opt"><input type="checkbox" id="p_atyp"><span>On m'a déjà prélevé un petit morceau du sein et le résultat a montré une lésion à surveiller <small>(lésion « atypique »)</small></span></label>
-          <label class="opt"><input type="checkbox" id="p_gene"><span>Un médecin m'a dit qu'un cancer ou une anomalie qui se transmet a été trouvé chez moi ou dans ma famille <small>(mutation génétique, par exemple BRCA)</small></span></label>
+          <label class="opt signe"><input type="checkbox" data-s="un nodule déjà trouvé dans le sein et jamais vérifié"><span>On m'a déjà trouvé un nodule (une boule) dans le sein, et il n'a jamais été vérifié</span></label>
+          <label class="opt"><input type="checkbox" id="p_atyp"><span>On m'a fait un prélèvement sur un nodule, et le résultat a montré une lésion à surveiller <small>(lésion atypique)</small></span></label>
+          <label class="opt"><input type="checkbox" id="p_gene"><span>Un médecin m'a dit, après une prise de sang spéciale, que le cancer du sein se transmet dans ma famille <small>(mutation génétique)</small></span></label>
           <label class="opt"><input type="checkbox" id="p_rx"><span>J'ai été soignée par des rayons sur la poitrine avant l'âge de 30 ans <small>(radiothérapie)</small></span></label>
         </div>
       </fieldset></div>
@@ -325,6 +329,8 @@ footer a{color:#fff;}
   var COTES = [["m","Côté de ma mère (mère, grand-mère, tante maternelle…)"],["p","Côté de mon père (père, grand-mère, tante paternelle…)"],["b","Ma sœur, mon frère, ma fille ou mon fils"]];
   var FIN_CAMPAGNE = '2026-10-30';
   var dernier = null;
+  function enCampagne(){ return new Date().toISOString().slice(0,10) <= FIN_CAMPAGNE; }
+  if (!enCampagne()) $('rdv-direct').href = '/contact';
 
   function opts(list){ return list.map(function(c){ return '<option value="'+c[0]+'">'+c[1]+'</option>'; }).join(''); }
   $('add').onclick = function(){
@@ -368,10 +374,10 @@ footer a{color:#fff;}
         pourquoi = "Aucun facteur de risque important n'apparaît dans vos réponses. C'est le niveau de la plupart des femmes, et il n'est pas nul : le bilan des seins reste utile.";
     if (coche('p_gene') || coche('p_rx')) {
       lvl = 'tres'; titre = 'Risque très élevé';
-      pourquoi = coche('p_gene') ? "Une anomalie qui se transmet dans la famille (mutation génétique) augmente fortement le risque." : "Des rayons sur la poitrine avant 30 ans augmentent fortement le risque.";
+      pourquoi = coche('p_gene') ? "Un cancer du sein qui se transmet dans la famille (mutation génétique) augmente fortement le risque." : "Des rayons sur la poitrine avant 30 ans augmentent fortement le risque.";
     } else if (coche('p_cancer') || coche('p_atyp')) {
       lvl = 'eleve'; titre = 'Risque élevé';
-      pourquoi = coche('p_cancer') ? "Un cancer du sein déjà soigné demande une surveillance plus rapprochée." : "Une lésion à surveiller dans le sein demande une surveillance plus rapprochée.";
+      pourquoi = coche('p_cancer') ? "Un cancer du sein déjà soigné demande une surveillance plus rapprochée." : "Une lésion atypique trouvée sur un prélèvement du sein demande une surveillance plus rapprochée.";
     } else if (eis >= 3) {
       lvl = 'eleve'; titre = 'Risque familial à préciser';
       pourquoi = "Les cancers dans votre famille justifient un avis médical pour préciser votre niveau de risque.";
@@ -419,7 +425,7 @@ footer a{color:#fff;}
     $('r-facbox').hidden = !r.fac.length;
     $('r-fac').textContent = r.fac.length ? r.fac.join(' ; ') + '. Ces éléments augmentent un peu le risque mais ne changent pas le classement à eux seuls.' : '';
 
-    var campagne = new Date().toISOString().slice(0,10) <= FIN_CAMPAGNE;
+    var campagne = enCampagne();
     $('r-reserver').href = campagne ? '/octobre-rose#reserver' : '/contact';
     $('r-reserver').textContent = campagne ? 'Réserver mon examen des seins (Octobre rose)' : 'Prendre rendez-vous pour mon examen des seins';
 
