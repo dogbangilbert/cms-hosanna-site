@@ -102,10 +102,21 @@ async function reserver(req: Request, context: Context) {
   return json({ complet: true, erreur: "Désolé, ce jour vient d'être complet. Choisissez un autre jour." }, 409);
 }
 
-async function liste(req: Request) {
-  const cle = Netlify.env.get("OCTOBRE_ROSE_CLE");
+// Clé de l'équipe : seule son empreinte SHA-256 figure ici (le dépôt est public).
+// Pour changer de clé : variable d'environnement OCTOBRE_ROSE_CLE, ou nouvelle empreinte.
+const EMPREINTE_CLE = "ec523fbe8a3672f2833353868e42b653da3838b078e931a289933ea628a4d882";
+async function accesEquipe(req: Request) {
   const fournie = req.headers.get("x-cle-equipe") || "";
-  if (!cle || fournie !== cle) return json({ erreur: "Accès refusé." }, 401);
+  if (!fournie) return false;
+  const env = Netlify.env.get("OCTOBRE_ROSE_CLE");
+  if (env) return fournie === env;
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(fournie));
+  const hex = [...new Uint8Array(d)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  return hex === EMPREINTE_CLE;
+}
+
+async function liste(req: Request) {
+  if (!(await accesEquipe(req))) return json({ erreur: "Accès refusé." }, 401);
   const s = store();
   const { blobs } = await s.list({ prefix: "places/" });
   const reservations = await Promise.all(blobs.map((x) => s.get(x.key, { type: "json" })));
@@ -114,8 +125,7 @@ async function liste(req: Request) {
 }
 
 async function annuler(req: Request) {
-  const cle = Netlify.env.get("OCTOBRE_ROSE_CLE");
-  if (!cle || (req.headers.get("x-cle-equipe") || "") !== cle) return json({ erreur: "Accès refusé." }, 401);
+  if (!(await accesEquipe(req))) return json({ erreur: "Accès refusé." }, 401);
   const { ref } = await req.json().catch(() => ({ ref: "" }));
   const m = /^OR-(\d{2})-([1-5])$/.exec(String(ref));
   if (!m) return json({ erreur: "Référence invalide." }, 400);
