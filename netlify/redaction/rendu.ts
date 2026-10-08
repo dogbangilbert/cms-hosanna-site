@@ -10,6 +10,9 @@ const echap = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":
 // Markdown → HTML, sans laisser passer de HTML brut (texte issu d'une IA ou d'un copier-coller)
 const md = new Marked({ gfm: true, breaks: false });
 md.use({ renderer: { html: (t: any) => echap(typeof t === "string" ? t : t.text) } });
+// Seuls les liens http(s), internes au site, ancres, téléphone et courriel sont admis (jamais javascript:, data:…)
+export const lienSur = (u?: string) => { const v = String(u || "").trim(); return /^(https?:\/\/|\/(?!\/)|#|tel:|mailto:)/i.test(v) ? v : ""; };
+md.use({ walkTokens: (t: any) => { if ((t.type === "link" || t.type === "image") && !lienSur(t.href)) t.href = "#"; } });
 export const markdownVersHtml = (t: string) => md.parse(t || "") as string;
 
 const absolu = (src?: string) => (!src ? "" : src.startsWith("http") ? src : SITE + src);
@@ -140,13 +143,13 @@ ${c.featured_image ? `<figure class="art-image"><img src="${echap(c.featured_ima
   <div class="container art-wrap">
     <article class="art-corps">${markdownVersHtml(c.content)}</article>
 
-    ${c.pdf ? `<a class="art-pdf" href="${echap(c.pdf.src)}" target="_blank" rel="noopener" download><span>📄</span><div><b>${echap(c.pdf.title)}</b><small>${echap(c.pdf.description || "Télécharger le document (PDF)")}${c.pdf.size ? ` · ${Math.max(1, Math.round(c.pdf.size / 1024))} Ko` : ""}</small></div></a>` : ""}
+    ${c.pdf && lienSur(c.pdf.src) ? `<a class="art-pdf" href="${echap(c.pdf.src)}" target="_blank" rel="noopener" download><span>📄</span><div><b>${echap(c.pdf.title)}</b><small>${echap(c.pdf.description || "Télécharger le document (PDF)")}${c.pdf.size ? ` · ${Math.max(1, Math.round(c.pdf.size / 1024))} Ko` : ""}</small></div></a>` : ""}
 
     ${c.faq.length ? `<div class="art-bloc art-faq"><h2>Questions fréquentes</h2>${c.faq.map((f) => `<details><summary>${echap(f.question)}</summary><p>${echap(f.answer)}</p></details>`).join("")}</div>` : ""}
 
     ${relu ? `<div class="art-relu"><span style="font-size:1.6rem">🩺</span><div>Relu par <b>${echap(c.medical_reviewer!.name)}</b>${c.medical_reviewer!.profession ? `, ${echap(c.medical_reviewer!.profession)}` : ""}${c.medical_reviewer!.date ? `, le ${date(c.medical_reviewer!.date)}` : ""}.</div></div>` : ""}
 
-    ${c.sources.filter((s) => s.verified).length ? `<div class="art-bloc art-sources"><h2>Sources</h2><ol>${c.sources.filter((s) => s.verified).map((s) => `<li>${s.url ? `<a href="${echap(s.url)}" target="_blank" rel="noopener nofollow">${echap(s.title)}</a>` : echap(s.title)}</li>`).join("")}</ol></div>` : ""}
+    ${c.sources.filter((s) => s.verified).length ? `<div class="art-bloc art-sources"><h2>Sources</h2><ol>${c.sources.filter((s) => s.verified).map((s) => `<li>${lienSur(s.url) ? `<a href="${echap(s.url)}" target="_blank" rel="noopener nofollow">${echap(s.title)}</a>` : echap(s.title)}</li>`).join("")}</ol></div>` : ""}
 
     <div class="art-partage"><b style="color:#003399; margin-right:4px;">Partager :</b>
       <a class="wa" href="${partageWa}" target="_blank" rel="noopener">WhatsApp</a>

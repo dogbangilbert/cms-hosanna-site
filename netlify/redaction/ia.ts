@@ -16,7 +16,7 @@ export interface Brouillon {
   seo_title: string; seo_description: string; slug: string;
   cta: { text: string; whatsapp_message: string };
   sources: { title: string; url?: string; verified: false }[];
-  image_suggestions: string[];
+  image_suggestions: string[]; image_alt: string;
   social: { facebook: string; tiktok: string; whatsapp: string };
 }
 
@@ -61,6 +61,7 @@ Format JSON attendu :
  "cta": {"text": "phrase d'appel à l'action", "whatsapp_message": "message prérempli pour WhatsApp"},
  "sources": [{"title": "référence à vérifier", "url": "adresse si connue avec certitude"}],
  "image_suggestions": ["idée d'image 1", "idée d'image 2"],
+ "image_alt": "description courte de l'image idéale, pour les personnes malvoyantes",
  "social": {"facebook": "publication Facebook détaillée mais pas trop longue", "tiktok": "script vidéo TikTok de 45 secondes", "whatsapp": "message court pour statut ou diffusion WhatsApp"}
 }
 Mets 4 à 6 questions dans la FAQ.`;
@@ -69,11 +70,22 @@ Mets 4 à 6 questions dans la FAQ.`;
 
 function extraireJson(t: string): any {
   const debut = t.indexOf("{"), fin = t.lastIndexOf("}");
-  if (debut < 0 || fin < debut) throw new Error("Réponse IA sans JSON");
-  return JSON.parse(t.slice(debut, fin + 1));
+  if (debut < 0 || fin < debut) throw new Error("Réponse IA illisible (pas de JSON). Réessayez.");
+  try { return JSON.parse(t.slice(debut, fin + 1)); }
+  catch { throw new Error("Réponse IA illisible (JSON incomplet ou coupé). Réessayez, éventuellement avec une longueur plus courte."); }
 }
 
+// Délai maximal d'un appel au fournisseur : au-delà, on abandonne avec un message clair
+const DELAI_MS = 150000;
+const appel = async (nom: string, url: string, init: RequestInit) => {
+  try { return await fetch(url, { ...init, signal: AbortSignal.timeout(DELAI_MS) }); }
+  catch (e: any) { throw new Error(e?.name === "TimeoutError" ? `${nom} n'a pas répondu en ${DELAI_MS / 1000} secondes. Réessayez.` : `${nom} injoignable : ${e?.message || "erreur réseau"}`); }
+};
+
 function versBrouillon(j: any): Brouillon {
+  // Une réponse sans titre ou sans vrai texte n'est pas un article : on refuse plutôt que de créer un brouillon vide
+  if (!String(j?.title || "").trim()) throw new Error("Réponse IA incomplète : titre manquant. Réessayez.");
+  if (String(j?.content || "").trim().length < 300) throw new Error("Réponse IA incomplète : texte absent ou trop court. Réessayez.");
   return {
     title: String(j.title || ""), excerpt: String(j.excerpt || ""), category: String(j.category || ""),
     tags: Array.isArray(j.tags) ? j.tags.map(String) : [], content: String(j.content || ""),
@@ -82,7 +94,7 @@ function versBrouillon(j: any): Brouillon {
     cta: { text: String(j.cta?.text || ""), whatsapp_message: String(j.cta?.whatsapp_message || "") },
     // Toute source issue de l'IA est marquée « à vérifier » (cahier §6)
     sources: Array.isArray(j.sources) ? j.sources.map((s: any) => ({ title: String(s.title || s), url: s.url ? String(s.url) : undefined, verified: false as const })) : [],
-    image_suggestions: Array.isArray(j.image_suggestions) ? j.image_suggestions.map(String) : [],
+    image_suggestions: Array.isArray(j.image_suggestions) ? j.image_suggestions.map(String) : [], image_alt: String(j.image_alt || ""),
     social: { facebook: String(j.social?.facebook || ""), tiktok: String(j.social?.tiktok || ""), whatsapp: String(j.social?.whatsapp || "") },
   };
 }
@@ -92,13 +104,14 @@ class ClaudeProvider implements AIProvider {
   constructor(private cle: string, public modele: string) {}
   async generer(c: Consigne) {
     const { systeme, utilisateur } = construireInstructions(c);
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
+    const r = await appel("Claude", "https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "x-api-key": this.cle, "anthropic-version": "2023-06-01", "content-type": "application/json" },
       body: JSON.stringify({ model: this.modele, max_tokens: 8000, system: systeme, messages: [{ role: "user", content: utilisateur }] }),
     });
     if (!r.ok) throw new Error(`Claude : ${r.status} ${(await r.text()).slice(0, 300)}`);
     const d = await r.json();
+    if (d.stop_reason === "max_tokens") throw new Error("L'article demandé est trop long : la réponse a été coupée. Choisissez une longueur plus courte.");
     return versBrouillon(extraireJson((d.content || []).map((x: any) => x.text || "").join("")));
   }
 }
@@ -108,7 +121,7 @@ class OpenAIProvider implements AIProvider {
   constructor(private cle: string, public modele: string) {}
   async generer(c: Consigne) {
     const { systeme, utilisateur } = construireInstructions(c);
-    const r = await fetch("https://api.openai.com/v1/chat/completions", {
+    const r = await appel("OpenAI", "https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: { authorization: `Bearer ${this.cle}`, "content-type": "application/json" },
       body: JSON.stringify({ model: this.modele, response_format: { type: "json_object" }, messages: [{ role: "system", content: systeme }, { role: "user", content: utilisateur }] }),
@@ -124,7 +137,7 @@ class GeminiProvider implements AIProvider {
   constructor(private cle: string, public modele: string) {}
   async generer(c: Consigne) {
     const { systeme, utilisateur } = construireInstructions(c);
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(this.modele)}:generateContent`, {
+    const r = await appel("Gemini", `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(this.modele)}:generateContent`, {
       method: "POST",
       headers: { "x-goog-api-key": this.cle, "content-type": "application/json" },
       body: JSON.stringify({ systemInstruction: { parts: [{ text: systeme }] }, contents: [{ role: "user", parts: [{ text: utilisateur }] }], generationConfig: { responseMimeType: "application/json" } }),

@@ -65,7 +65,7 @@ export interface Contenu {
   cta: { text: string; whatsapp_message: string };
   social: { facebook: string; tiktok: string; whatsapp: string };
   // Traçabilité IA (jamais une validation)
-  ai?: { provider: string; model: string; generated_at: string; brief?: string };
+  ai?: { provider: string; model: string; generated_at: string; brief?: string; image_suggestions?: string[]; image_alt?: string };
   contract_version: number;
 }
 
@@ -140,7 +140,7 @@ export function normaliser(e: any, base?: Contenu): Contenu {
     sources: (Array.isArray(e?.sources) ? e.sources : b.sources).map((s: any) => ({ title: texte(s?.title, 400), url: texte(s?.url, 500) || undefined, verified: s?.verified === true })).filter((s: Source) => s.title).slice(0, 40),
     cta: { text: texte(e?.cta?.text ?? b.cta.text, 300), whatsapp_message: texte(e?.cta?.whatsapp_message ?? b.cta.whatsapp_message, 500) },
     social: { facebook: lignes(e?.social?.facebook ?? b.social.facebook, 5000), tiktok: lignes(e?.social?.tiktok ?? b.social.tiktok, 5000), whatsapp: lignes(e?.social?.whatsapp ?? b.social.whatsapp, 3000) },
-    ai: e?.ai ? { provider: texte(e.ai.provider, 40), model: texte(e.ai.model, 80), generated_at: texte(e.ai.generated_at, 40), brief: texte(e.ai.brief, 2000) || undefined } : b.ai,
+    ai: e?.ai ? { provider: texte(e.ai.provider, 40), model: texte(e.ai.model, 80), generated_at: texte(e.ai.generated_at, 40), brief: texte(e.ai.brief, 2000) || undefined, image_suggestions: Array.isArray(e.ai.image_suggestions) && e.ai.image_suggestions.length ? e.ai.image_suggestions.map((t: any) => texte(t, 300)).filter(Boolean).slice(0, 6) : undefined, image_alt: texte(e.ai.image_alt, 300) || undefined } : b.ai,
     created_at: b.created_at,
     updated_at: new Date().toISOString(),
     published_at: b.published_at,

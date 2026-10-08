@@ -12,6 +12,13 @@ import { pageArticle } from "../redaction/rendu.ts";
 const json = (d: unknown, status = 200) => new Response(JSON.stringify(d), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 const refus = (m = "Accès refusé.") => json({ erreur: m }, 403);
 
+// Ce qui compte médicalement : titre, résumé, texte, FAQ, sources, document joint.
+// L'image, le référencement, le bouton WhatsApp et les textes pour les réseaux n'en font pas partie.
+const empreinteMedicale = (x: Contenu) => JSON.stringify([
+  x.title, x.excerpt, (x.content || "").trim(), (x.faq || []).map((f) => [f.question, f.answer]),
+  (x.sources || []).map((s) => [s.title, s.url || ""]), x.pdf?.src || "",
+]);
+
 const TYPES_IMAGE = ["image/jpeg", "image/png", "image/webp"];
 const MAX_IMAGE = 3 * 1024 * 1024, MAX_PDF = 4 * 1024 * 1024;
 
@@ -61,6 +68,21 @@ export default async (req: Request) => {
       if (!peut(u, "relire") && c.medical_review_status === "valide" && ancien?.medical_review_status !== "valide") c.medical_review_status = ancien?.medical_review_status || "non_relu";
       if (c.status === "publie" && ancien?.status !== "publie") c.status = ancien?.status || "brouillon";
       if (ancien?.status === "publie" && !peut(u, "publier")) return refus("Cet article est en ligne : seule une personne autorisée à publier peut le modifier.");
+      // Toute modification d'une partie médicale d'un article validé annule la validation (l'ancienne reste dans l'historique)
+      let validationAnnulee = false;
+      if (ancien?.medical_review_status === "valide" && empreinteMedicale(ancien) !== empreinteMedicale(c)) {
+        const aujourdhui = new Date().toISOString().slice(0, 10);
+        const reconfirmee = e.relecture_confirmee === true && peut(u, "relire") && c.medical_review_status === "valide" && !!c.medical_reviewer?.name;
+        if (reconfirmee) c.medical_reviewer = { ...c.medical_reviewer!, date: aujourdhui };
+        else if (ancien.status === "publie" && c.status === "publie") {
+          return json({ code: "reconfirmer", erreur: peut(u, "relire") ? "Cet article est en ligne et son contenu médical a changé : la relecture doit être confirmée de nouveau." : "Cet article est en ligne et son contenu médical a changé : une personne habilitée à relire doit l'enregistrer, ou dépubliez-le d'abord." }, 409);
+        } else {
+          c.medical_review_status = "non_relu";
+          if (c.medical_reviewer) c.medical_reviewer = { ...c.medical_reviewer, date: undefined };
+          if (c.status === "valide" || c.status === "pret") c.status = "a_relire";
+          validationAnnulee = true;
+        }
+      }
       // La date de relecture est posée au moment de la validation
       if (c.medical_review_status === "valide" && c.medical_reviewer && !c.medical_reviewer.date) c.medical_reviewer.date = new Date().toISOString().slice(0, 10);
       if (c.status === "publie") {
@@ -72,7 +94,7 @@ export default async (req: Request) => {
         await depot().enregistrer(c, auteur);
         if (ancien?.status === "publie") await reconstruireIndex(); // retiré du site
       }
-      return json({ ok: true, contenu: c, controles: controlesPublication(c), url: urlPublique(c) });
+      return json({ ok: true, contenu: c, controles: controlesPublication(c), url: urlPublique(c), validation_annulee: validationAnnulee });
     }
 
     if (route === "publier" && req.method === "POST") {

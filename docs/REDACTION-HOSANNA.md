@@ -54,6 +54,18 @@ Règles de publication (`controlesPublication`) : titre, résumé, texte, valida
 3. Ajouter `{ nom, role, empreinte }` dans `UTILISATEURS` de `auth.ts`, ou dans la variable Netlify `REDACTION_UTILISATEURS` (tableau JSON).
 Pour retirer un accès : supprimer la ligne.
 
+### Clé administrateur (sans toucher au code)
+
+Dans Netlify, définir `REDACTION_CLE_ADMIN` avec une clé de votre choix (12 caractères minimum, de préférence une longue phrase sans rapport avec le centre). Dès qu'elle existe, la clé d'origine inscrite dans `auth.ts` ne fonctionne plus. Pour la changer : modifier la variable puis relancer un déploiement. `REDACTION_NOM_ADMIN` (facultatif) change le nom affiché.
+
+## Règle de validation médicale
+
+Si un article validé est modifié sur le titre, le résumé, le texte, la FAQ, les sources ou le PDF, la validation retombe à « pas encore relu » et la date est effacée. L'image, le référencement, le bouton WhatsApp et les textes pour les réseaux ne déclenchent pas cette règle. Pour un article en ligne, l'enregistrement demande de reconfirmer la relecture dans le même geste ; l'ancienne validation reste lisible dans l'historique.
+
+## Sécurité des pages d'articles
+
+Même politique CSP que le reste du site. Dans le texte, seuls les liens `http(s)`, internes (`/…`), ancres, `tel:` et `mailto:` sont conservés ; tout autre lien est neutralisé. Les images doivent être déposées dans la Rédaction (une image hébergée ailleurs ne s'affiche pas).
+
 ## Activer l'IA plus tard (interrupteur)
 
 Dans Netlify > Site configuration > Environment variables :
@@ -64,7 +76,7 @@ Dans Netlify > Site configuration > Environment variables :
 
 Sans clé, le bouton « Créer avec l'IA » explique simplement que l'IA est éteinte. Pour l'éteindre de nouveau : supprimer la clé.
 Coût indicatif avec Claude Sonnet : environ 25 à 40 F CFA par article long.
-Un texte généré arrive toujours en « Brouillon IA », sources marquées non vérifiées : il ne peut pas être publié sans relecture humaine.
+Un texte généré arrive toujours en « Brouillon IA », sources marquées non vérifiées : il ne peut pas être publié sans relecture humaine. Les idées d'images et le texte ALT proposés par l'IA sont gardés dans le bloc interne `ai` (jamais affichés au public). Délai maximal d'un appel : 150 secondes.
 
 En attendant, un brouillon se dépose de l'extérieur : `REDACTION_CLE=... node tools/deposer-brouillon.mjs article.json`.
 

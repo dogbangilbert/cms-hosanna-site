@@ -225,6 +225,7 @@ function editeur(){
     '<div class="outils" id="outils"><button data-o="h2">Titre</button><button data-o="h3">Sous-titre</button><button data-o="b"><b>G</b></button><button data-o="i"><i>I</i></button><button data-o="ul">• Liste</button><button data-o="ol">1. Liste</button><button data-o="q">❝</button><button data-o="a">🔗 Lien</button><button data-o="img">🖼 Image</button></div>'+
     '<textarea id="texte" data-k="content" placeholder="Écrivez ici. Les boutons ci-dessus ajoutent les titres, listes et images.">'+e(A.content)+'</textarea><div class="compteur" id="mots"></div><input type="file" id="img-texte" accept="image/*" hidden>',true)+
   bloc(3,"Image principale",
+    (A.ai&&A.ai.image_suggestions&&A.ai.image_suggestions.length?'<p class="aide" style="margin-bottom:10px"><b>Idées proposées par l\'IA</b> (note interne, jamais affichée au public) :<br>'+A.ai.image_suggestions.map(function(t){return "• "+e(t)}).join("<br>")+'</p>':'')+
     '<div id="zone-img">'+(img.src?'<img class="apercu-img" src="'+e(img.src)+'" alt="">':'<p class="aide">Aucune image pour l\'instant.</p>')+'</div>'+
     '<div class="ligne" style="margin-top:10px"><button class="btn clair petit" id="choisir-img">'+(img.src?"Changer l'image":"Choisir une image")+'</button>'+(img.src?'<button class="btn rouge petit" id="retirer-img">Retirer</button>':'')+'</div><input type="file" id="fichier-img" accept="image/*" hidden>'+
     (img.src?champ("featured_image.alt","Description de l'image",{aide:"pour les personnes malvoyantes et pour Google"})+champ("featured_image.caption","Légende",{aide:"facultatif"})+champ("featured_image.credit","Crédit photo",{aide:"facultatif"}):''))+
@@ -259,7 +260,7 @@ function editeur(){
   $$("#outils button").forEach(function(b){b.onclick=function(){outil(b.dataset.o)}});
   $("#img-texte").onchange=function(){var f=this.files[0];this.value="";if(f)deposerImage(f).then(function(src){inserer("\n\n!["+(prompt("Décrivez l'image en quelques mots :")||"")+"]("+src+")\n\n","")})};
   $("#choisir-img").onclick=function(){$("#fichier-img").click()};
-  $("#fichier-img").onchange=function(){var f=this.files[0];if(f)deposerImage(f).then(function(src){A.featured_image={src:src,alt:(A.featured_image||{}).alt||"",caption:(A.featured_image||{}).caption,credit:(A.featured_image||{}).credit};SALE=true;redessiner(3)})};
+  $("#fichier-img").onchange=function(){var f=this.files[0];if(f)deposerImage(f).then(function(src){A.featured_image={src:src,alt:(A.featured_image||{}).alt||(A.ai&&A.ai.image_alt)||"",caption:(A.featured_image||{}).caption,credit:(A.featured_image||{}).credit};SALE=true;redessiner(3)})};
   if($("#retirer-img"))$("#retirer-img").onclick=function(){A.featured_image=null;SALE=true;redessiner(3)};
   if($("#choisir-pdf"))$("#choisir-pdf").onclick=function(){$("#fichier-pdf").click()};
   $("#fichier-pdf").onchange=function(){var f=this.files[0];if(f)deposerPdf(f)};
@@ -352,10 +353,13 @@ function partager(r){
 }
 /* Enregistrer, aperçu, publier */
 function propre(){var c=JSON.parse(JSON.stringify(A));delete c._nouveau;if(!c.featured_image)c.featured_image=null;if(!c.pdf)c.pdf=null;return c}
-function enregistrer(silence){
+function enregistrer(silence,confirme){
   if(!A.title.trim()){toast("Donnez au moins un titre.",true);return Promise.reject()}
-  return api("contenu",propre()).then(function(d){var slugAvant=A.slug;A=d.contenu;CONTROLES=d.controles;SALE=false;dessinerControles();if($("#c-slug")&&slugAvant!==A.slug)$("#c-slug").value=A.slug;compteurs();if(!silence)toast("Enregistré à "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})+".");return d})
-  .catch(function(x){toast(x.message,true);throw x});
+  var envoi=propre();if(confirme)envoi.relecture_confirmee=true;
+  return api("contenu",envoi).then(function(d){var slugAvant=A.slug;A=d.contenu;CONTROLES=d.controles;SALE=false;dessinerControles();if($("#c-slug")&&slugAvant!==A.slug)$("#c-slug").value=A.slug;compteurs();if($("#rel"))$("#rel").value=A.medical_review_status;if($("#statut"))$("#statut").value=A.status;if($("#c-medical_reviewer-date"))$("#c-medical_reviewer-date").value=(A.medical_reviewer||{}).date||"";if(d.validation_annulee)toast("Enregistré. Le contenu a changé : la validation médicale est annulée, une nouvelle relecture est nécessaire.",true);else if(!silence)toast("Enregistré à "+new Date().toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})+".");return d})
+  .catch(function(x){
+    if(x&&x.d&&x.d.code==="reconfirmer"&&droit("relire")&&!confirme&&confirm("Cet article est en ligne et son contenu médical a changé.\n\nConfirmez-vous l'avoir relu et le valider de nouveau, sous le nom indiqué dans « Relecture médicale » ?"))return enregistrer(silence,true);
+    toast(x.message,true);throw x});
 }
 function apercu(){
   var w=window.open("about:blank","_blank");
@@ -374,7 +378,7 @@ function publier(){
 function historique(){
   var z=$("#historique");z.innerHTML='<p class="aide">Chargement…</p>';
   api("versions/"+A.id).then(function(d){
-    z.innerHTML=d.versions.length?d.versions.map(function(v,i){return '<div class="rep"><b>'+quand(v.date)+'</b><p class="aide">'+e(v.auteur)+' · '+e(NOMS[v.statut]||v.statut)+'<br>'+e(v.titre)+'</p>'+(droit("ecrire")?'<button class="btn clair petit" data-v="'+i+'" style="margin-top:8px">Restaurer cette version</button>':'')+'</div>'}).join(""):'<p class="aide">Pas encore de version précédente.</p>';
+    z.innerHTML=d.versions.length?d.versions.map(function(v,i){return '<div class="rep"><b>'+quand(v.date)+'</b><p class="aide">'+e(v.auteur)+' · '+e(NOMS[v.statut]||v.statut)+(v.relecture==="valide"?'<br>✓ Validé médicalement'+(v.relecteur?' par '+e(v.relecteur):''):'')+'<br>'+e(v.titre)+'</p>'+(droit("ecrire")?'<button class="btn clair petit" data-v="'+i+'" style="margin-top:8px">Restaurer cette version</button>':'')+'</div>'}).join(""):'<p class="aide">Pas encore de version précédente.</p>';
     $$("#historique [data-v]").forEach(function(b){b.onclick=function(){if(confirm("Revenir à cette version ? La version actuelle restera dans l'historique."))api("restaurer/"+A.id,{cle:d.versions[+b.dataset.v].cle}).then(function(){toast("Version restaurée.");ouvrir(A.id)}).catch(function(x){toast(x.message,true)})}});
   }).catch(function(x){z.innerHTML='<p class="aide">'+e(x.message)+'</p>'});
 }

@@ -25,6 +25,11 @@ async function sha256(t: string) {
   return [...new Uint8Array(d)].map((x) => x.toString(16).padStart(2, "0")).join("");
 }
 
+// Clé administrateur définie dans Netlify (variable REDACTION_CLE_ADMIN, 12 caractères minimum).
+// Dès qu'elle existe, la clé d'origine inscrite ci-dessus cesse de fonctionner.
+function cleAdmin(): string { try { const k = (Netlify.env.get("REDACTION_CLE_ADMIN") || "").trim(); return k.length >= 12 ? k : ""; } catch { return ""; } }
+const NOM_ADMIN = () => { try { return Netlify.env.get("REDACTION_NOM_ADMIN") || "Gilbert Dogban"; } catch { return "Gilbert Dogban"; } };
+
 function liste(): Utilisateur[] {
   try {
     const env = Netlify.env.get("REDACTION_UTILISATEURS");
@@ -37,6 +42,11 @@ export async function identifier(req: Request): Promise<Utilisateur | null> {
   const cle = (req.headers.get("x-cle-redaction") || "").trim();
   if (cle.length < 10) return null;
   const e = await sha256(cle);
+  const admin = cleAdmin();
+  if (admin) {
+    if (e === (await sha256(admin))) return { nom: NOM_ADMIN(), role: "administrateur", empreinte: e };
+    return liste().filter((u) => !UTILISATEURS.includes(u)).find((u) => u.empreinte === e) || null;
+  }
   return liste().find((u) => u.empreinte === e) || null;
 }
 

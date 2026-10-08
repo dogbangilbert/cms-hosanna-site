@@ -11,8 +11,10 @@ import { indexPublic } from "../redaction/publication.ts";
 import { pageArticle } from "../redaction/rendu.ts";
 import { SITE, CHEMIN_PUBLIC } from "../redaction/modele.ts";
 
+// Identique à la politique du fichier _headers (qui ne s'applique pas aux pages servies par une fonction)
+const CSP = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'";
 const html = (corps: string, status = 200, cache = "public, max-age=0, must-revalidate") =>
-  new Response(corps, { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": cache, "x-content-type-options": "nosniff", "referrer-policy": "strict-origin-when-cross-origin" } });
+  new Response(corps, { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": cache, "x-content-type-options": "nosniff", "referrer-policy": "strict-origin-when-cross-origin", "content-security-policy": CSP, "x-frame-options": "DENY", "permissions-policy": "geolocation=(), camera=(), microphone=()" } });
 
 const introuvable = () => html(`<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Article introuvable — CMS HOSANNA</title></head><body style="font-family:sans-serif;text-align:center;padding:60px 20px"><h1 style="color:#003399">Article introuvable</h1><p>Cet article n'existe pas ou n'est plus en ligne.</p><p><a href="/blog.html">Voir tous les conseils santé</a></p></body></html>`, 404);
 

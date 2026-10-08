@@ -7,7 +7,7 @@
 import { getStore } from "@netlify/blobs";
 import { type Contenu, versMarkdown, depuisMarkdown } from "./modele.ts";
 
-export interface Version { cle: string; date: string; auteur: string; statut: string; titre: string }
+export interface Version { cle: string; date: string; auteur: string; statut: string; titre: string; relecture?: string; relecteur?: string }
 
 export interface ContentRepository {
   lister(): Promise<Contenu[]>;
@@ -55,7 +55,7 @@ export class BlobsRepository implements ContentRepository {
     // Historique : chaque version précédente est conservée (cahier §22)
     if (ancien) {
       const cle = `versions/${c.id}/${ancien.updated_at.replace(/[:.]/g, "-")}.md`;
-      await s.set(cle, versMarkdown(ancien), { metadata: { auteur, statut: ancien.status, titre: ancien.title, date: ancien.updated_at } });
+      await s.set(cle, versMarkdown(ancien), { metadata: { auteur, statut: ancien.status, titre: ancien.title, date: ancien.updated_at, relecture: ancien.medical_review_status, relecteur: ancien.medical_review_status === "valide" ? `${ancien.medical_reviewer?.name || ""}${ancien.medical_reviewer?.date ? " le " + ancien.medical_reviewer.date : ""}` : "" } });
       if (ancien.slug !== c.slug) await s.delete(`slugs/${ancien.slug}`);
     }
     // Un slug ne peut appartenir qu'à un seul contenu
@@ -77,7 +77,7 @@ export class BlobsRepository implements ContentRepository {
     const v = await Promise.all(blobs.map(async (b) => {
       const m = await s.getMetadata(b.key);
       const meta: any = m?.metadata || {};
-      return { cle: b.key, date: meta.date || "", auteur: meta.auteur || "", statut: meta.statut || "", titre: meta.titre || "" };
+      return { cle: b.key, date: meta.date || "", auteur: meta.auteur || "", statut: meta.statut || "", titre: meta.titre || "", relecture: meta.relecture || "", relecteur: meta.relecteur || "" };
     }));
     return v.sort((a, b) => b.date.localeCompare(a.date));
   }

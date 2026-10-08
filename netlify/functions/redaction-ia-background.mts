@@ -19,9 +19,8 @@ export default async (req: Request) => {
     const b = await ia.generer(consigne);
     const c = normaliser({
       ...b, status: "brouillon_ia", medical_review_status: "non_relu",
-      ai: { provider: ia.nom, model: ia.modele, generated_at: new Date().toISOString(), brief: JSON.stringify(consigne) },
+      ai: { provider: ia.nom, model: ia.modele, generated_at: new Date().toISOString(), brief: JSON.stringify(consigne), image_suggestions: b.image_suggestions, image_alt: b.image_alt },
     }, vierge(u!.nom));
-    if (b.image_suggestions.length) c.content += `\n\n<!-- Idées d'images : ${b.image_suggestions.join(" ; ")} -->`;
     await depot().enregistrer(c, `IA ${ia.nom} pour ${u!.nom}`);
     await finir({ etat: "termine", id: c.id, titre: c.title });
   } catch (e: any) {
