@@ -11,7 +11,7 @@ export interface Utilisateur { nom: string; role: Role; empreinte: string }
 const UTILISATEURS: Utilisateur[] = [
   { nom: "Gilbert Dogban", role: "administrateur", empreinte: "1d33f5c94599a4f73128a334d285b6b65502b93612c6956f33b02cc90de97855" },
   // Accès de Claude : dépôt de brouillons uniquement (ne valide pas, ne publie pas). Supprimer cette ligne pour le retirer.
-  { nom: "Claude (brouillons)", role: "redacteur", empreinte: "272fab13b4b7e650a983aa0908ad350345bb2cb231e5ea472cf3eac24957ef08" },
+  { nom: "Claude (brouillons)", role: "redacteur", empreinte: "0b42f89a4e024b85063d5eaca3f1b16c17a508e70f4bed2077abc94a56b38cbb" },
 ];
 
 // Ce que chaque rôle peut faire
