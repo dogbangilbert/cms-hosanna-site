@@ -7,7 +7,9 @@
 <meta name="description" content="Comment savoir qu'on est en travail, quand se rendre à la maternité, quels gestes adopter : les cours prénataux gratuits du CMS HOSANNA répondent à toutes vos questions.">
 <link rel="canonical" href="https://cmshosanna.com/blog/cours-prenataux">
 <meta name="robots" content="index, follow">
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-08-08">
+<meta property="article:modified_time" content="2026-10-07">
 <meta property="og:title" content="Cours prénataux au CMS HOSANNA — CMS HOSANNA">
 <meta property="og:description" content="Comment savoir qu'on est en travail, quand se rendre à la maternité, quels gestes adopter : les cours prénataux gratuits du CMS HOSANNA répondent à toutes vos questions.">
 <meta property="og:url" content="https://cmshosanna.com/blog/cours-prenataux">
@@ -31,38 +33,289 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MedicalClinic",
-  "name": "Centre Médico-Social HOSANNA (CMS HOSANNA)",
-  "url": "https://cmshosanna.com/",
-  "telephone": ["+22890038313", "+22896658989"],
-  "email": "cmshosanna@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Attiégou, non loin de la Gendarmerie d'Adidomé et de l'Église Baptiste la Bénédiction",
-    "addressLocality": "Lomé",
-    "addressCountry": "TG"
-  },
-  "medicalSpecialty": ["Gynecologic", "Infertility", "PrimaryCare"],
-    "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 6.1718877,
-    "longitude": 1.2716474
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-    ],
-    "opens": "00:00",
-    "closes": "23:59"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.4",
-    "reviewCount": "34"
-  },
-  "sameAs": [
-    "https://www.facebook.com/cmshosanna", "https://www.tiktok.com/@cmshosanna2", "https://www.linkedin.com/company/cms-hosanna/", "https://www.threads.com/@cmshosanna"
+  "@graph": [
+    {
+      "@type": [
+        "MedicalClinic",
+        "MedicalOrganization"
+      ],
+      "@id": "https://cmshosanna.com/#centre",
+      "name": "Centre Médico-Social HOSANNA",
+      "alternateName": [
+        "CMS HOSANNA",
+        "CMSH",
+        "Centre Médico-Social Hosanna Attiégou"
+      ],
+      "url": "https://cmshosanna.com/",
+      "logo": "https://cmshosanna.com/img/logo-3d-clair.jpg",
+      "image": [
+        "https://cmshosanna.com/img/batiment-centre.jpg",
+        "https://cmshosanna.com/img/equipe-1.jpg"
+      ],
+      "description": "Centre médico-social privé agréé par l'État togolais, situé à Attiégou (Lomé, Togo). Médecine générale, gynécologie et maternité, infertilité du couple, prise en charge du VIH, laboratoire d'analyses sur place, échographie, ECG, cardiologie, rhumatologie, santé mentale, kinésithérapie, vaccination, téléconsultation et soins à domicile.",
+      "telephone": "+22890038313",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+22890038313",
+          "contactType": "rendez-vous",
+          "availableLanguage": "fr",
+          "areaServed": "TG"
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+22896658989",
+          "contactType": "accueil",
+          "availableLanguage": "fr",
+          "areaServed": "TG"
+        },
+        {
+          "@type": "ContactPoint",
+          "url": "https://wa.me/22890038313",
+          "contactType": "WhatsApp",
+          "availableLanguage": "fr"
+        }
+      ],
+      "email": "cmshosanna@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Attiégou, non loin de la Gendarmerie d'Adidomé et de l'Église Baptiste la Bénédiction",
+        "addressLocality": "Lomé",
+        "addressRegion": "Grand Lomé",
+        "addressCountry": "TG"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 6.1718877,
+        "longitude": 1.2716474
+      },
+      "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Lomé"
+        },
+        {
+          "@type": "Country",
+          "name": "Togo"
+        }
+      ],
+      "medicalSpecialty": [
+        "PrimaryCare",
+        "Gynecologic",
+        "Obstetric",
+        "Midwifery",
+        "Cardiovascular",
+        "Rheumatologic",
+        "Psychiatric",
+        "SpeechPathology",
+        "Physiotherapy",
+        "LaboratoryScience",
+        "Radiography",
+        "Infectious",
+        "Nursing",
+        "PharmacySpecialty",
+        "CommunityHealth"
+      ],
+      "availableService": [
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation de médecine générale"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Suivi des maladies chroniques"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation gynécologique"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Suivi de grossesse et consultations prénatales et postnatales"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Accouchement"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Planification familiale"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Bilan d'infertilité du couple (femme et homme)"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Dépistage du VIH et des IST, conseil confidentiel"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Prise en charge globale des personnes vivant avec le VIH (PVVIH)"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Analyses de laboratoire et bilans de santé complets"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Échographie obstétricale, gynécologique, pelvienne, abdominale, rénale, prostatique et mammaire"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Électrocardiogramme (ECG) avec interprétation"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation de cardiologie sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation de rhumatologie sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation en santé mentale sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Orthophonie sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Kinésithérapie et rééducation fonctionnelle"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Vaccination"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Téléconsultation 7j/7"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Soins et suivi à domicile"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Dépistage du cancer du sein"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Pharmacie communautaire : médicaments essentiels génériques"
+        }
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Agrément Ministère de la Santé (Togo)",
+          "value": "257/2022/MSHP/UA/S/CAB/SG/DGAS/DESR/DREP"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "RCCM",
+          "value": "TG-LFW-01-2024-B13-01025"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "NIF",
+          "value": "1001946957"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "CNSS",
+          "value": "174027"
+        }
+      ],
+      "employee": {
+        "@id": "https://cmshosanna.com/#directeur"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "34",
+        "bestRating": "5"
+      },
+      "sameAs": [
+        "https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4",
+        "https://www.facebook.com/cmshosanna",
+        "https://www.tiktok.com/@cmshosanna2",
+        "https://www.linkedin.com/company/cms-hosanna/",
+        "https://www.threads.com/@cmshosanna"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://cmshosanna.com/#directeur",
+      "name": "Gilbert Dogban",
+      "jobTitle": "Assistant médical, clinicien, responsable médical du CMS HOSANNA",
+      "worksFor": {
+        "@id": "https://cmshosanna.com/#centre"
+      },
+      "sameAs": [
+        "https://twitter.com/gilbert_dogban"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://cmshosanna.com/#site",
+      "url": "https://cmshosanna.com/",
+      "name": "CMS HOSANNA",
+      "inLanguage": "fr",
+      "publisher": {
+        "@id": "https://cmshosanna.com/#centre"
+      }
+    },
+    {
+      "@type": [
+        "MedicalWebPage",
+        "Article"
+      ],
+      "@id": "https://cmshosanna.com/blog/cours-prenataux#article",
+      "url": "https://cmshosanna.com/blog/cours-prenataux",
+      "headline": "Cours prénataux : l'accouchement n'aura plus de secrets pour vous",
+      "description": "Comment savoir qu'on est en travail, quand se rendre à la maternité, quels gestes adopter : les cours prénataux gratuits du CMS HOSANNA répondent à toutes vos questions.",
+      "inLanguage": "fr",
+      "image": "https://cmshosanna.com/img/logo-3d-clair.jpg",
+      "datePublished": "2026-08-08",
+      "dateModified": "2026-10-07",
+      "author": {
+        "@type": "Organization",
+        "@id": "https://cmshosanna.com/#centre",
+        "name": "CMS HOSANNA"
+      },
+      "publisher": {
+        "@id": "https://cmshosanna.com/#centre"
+      },
+      "isPartOf": {
+        "@id": "https://cmshosanna.com/#site"
+      },
+      "mainEntityOfPage": "https://cmshosanna.com/blog/cours-prenataux",
+      "audience": {
+        "@type": "PeopleAudience",
+        "geographicArea": {
+          "@type": "Country",
+          "name": "Togo"
+        }
+      },
+      "articleSection": "Grossesse & maternité"
+    }
   ]
 }
 </script>
@@ -302,6 +555,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
     <span class="eyebrow">Grossesse & maternité</span>
     <h1>Cours prénataux : l'accouchement n'aura plus de secrets pour vous</h1>
     <p>Des séances gratuites, ouvertes à toutes les femmes enceintes, pour aborder la naissance avec confiance plutôt qu'avec appréhension.</p>
+    <p class="article-meta" style="font-size:.9rem; opacity:.85; margin-top:10px;">Par l'équipe médicale du CMS HOSANNA · Publié le <time datetime="2026-08-08">8 août 2026</time> · Mis à jour le <time datetime="2026-10-07">7 octobre 2026</time></p>
   </div>
 </section>
 
@@ -366,8 +620,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <h4>Légal</h4>
         <ul>
           <li><a href="../apropos.html#identite">Identité du centre</a></li>
-          <li><a href="#">Mentions légales</a></li>
-          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="../mentions-legales.html">Mentions légales</a></li>
+          <li><a href="../confidentialite.html">Politique de confidentialité</a></li>
         </ul>
       </div>
     </div>

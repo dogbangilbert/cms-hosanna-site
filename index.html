@@ -31,38 +31,269 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "MedicalClinic",
-  "name": "Centre Médico-Social HOSANNA (CMS HOSANNA)",
-  "url": "https://cmshosanna.com/",
-  "telephone": ["+22890038313", "+22896658989"],
-  "email": "cmshosanna@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Attiégou, non loin de la Gendarmerie d'Adidomé et de l'Église Baptiste la Bénédiction",
-    "addressLocality": "Lomé",
-    "addressCountry": "TG"
-  },
-  "medicalSpecialty": ["Gynecologic", "Infertility", "PrimaryCare"],
-    "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 6.1718877,
-    "longitude": 1.2716474
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-    ],
-    "opens": "00:00",
-    "closes": "23:59"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.4",
-    "reviewCount": "34"
-  },
-  "sameAs": [
-    "https://www.facebook.com/cmshosanna", "https://www.tiktok.com/@cmshosanna2", "https://www.linkedin.com/company/cms-hosanna/", "https://www.threads.com/@cmshosanna"
+  "@graph": [
+    {
+      "@type": [
+        "MedicalClinic",
+        "MedicalOrganization"
+      ],
+      "@id": "https://cmshosanna.com/#centre",
+      "name": "Centre Médico-Social HOSANNA",
+      "alternateName": [
+        "CMS HOSANNA",
+        "CMSH",
+        "Centre Médico-Social Hosanna Attiégou"
+      ],
+      "url": "https://cmshosanna.com/",
+      "logo": "https://cmshosanna.com/img/logo-3d-clair.jpg",
+      "image": [
+        "https://cmshosanna.com/img/batiment-centre.jpg",
+        "https://cmshosanna.com/img/equipe-1.jpg"
+      ],
+      "description": "Centre médico-social privé agréé par l'État togolais, situé à Attiégou (Lomé, Togo). Médecine générale, gynécologie et maternité, infertilité du couple, prise en charge du VIH, laboratoire d'analyses sur place, échographie, ECG, cardiologie, rhumatologie, santé mentale, kinésithérapie, vaccination, téléconsultation et soins à domicile.",
+      "telephone": "+22890038313",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+22890038313",
+          "contactType": "rendez-vous",
+          "availableLanguage": "fr",
+          "areaServed": "TG"
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+22896658989",
+          "contactType": "accueil",
+          "availableLanguage": "fr",
+          "areaServed": "TG"
+        },
+        {
+          "@type": "ContactPoint",
+          "url": "https://wa.me/22890038313",
+          "contactType": "WhatsApp",
+          "availableLanguage": "fr"
+        }
+      ],
+      "email": "cmshosanna@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Attiégou, non loin de la Gendarmerie d'Adidomé et de l'Église Baptiste la Bénédiction",
+        "addressLocality": "Lomé",
+        "addressRegion": "Grand Lomé",
+        "addressCountry": "TG"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 6.1718877,
+        "longitude": 1.2716474
+      },
+      "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Lomé"
+        },
+        {
+          "@type": "Country",
+          "name": "Togo"
+        }
+      ],
+      "medicalSpecialty": [
+        "PrimaryCare",
+        "Gynecologic",
+        "Obstetric",
+        "Midwifery",
+        "Cardiovascular",
+        "Rheumatologic",
+        "Psychiatric",
+        "SpeechPathology",
+        "Physiotherapy",
+        "LaboratoryScience",
+        "Radiography",
+        "Infectious",
+        "Nursing",
+        "PharmacySpecialty",
+        "CommunityHealth"
+      ],
+      "availableService": [
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation de médecine générale"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Suivi des maladies chroniques"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation gynécologique"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Suivi de grossesse et consultations prénatales et postnatales"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Accouchement"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Planification familiale"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Bilan d'infertilité du couple (femme et homme)"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Dépistage du VIH et des IST, conseil confidentiel"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Prise en charge globale des personnes vivant avec le VIH (PVVIH)"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Analyses de laboratoire et bilans de santé complets"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Échographie obstétricale, gynécologique, pelvienne, abdominale, rénale, prostatique et mammaire"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Électrocardiogramme (ECG) avec interprétation"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation de cardiologie sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation de rhumatologie sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Consultation en santé mentale sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Orthophonie sur rendez-vous"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Kinésithérapie et rééducation fonctionnelle"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Vaccination"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Téléconsultation 7j/7"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Soins et suivi à domicile"
+        },
+        {
+          "@type": "MedicalTest",
+          "name": "Dépistage du cancer du sein"
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Pharmacie communautaire : médicaments essentiels génériques"
+        }
+      ],
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Agrément Ministère de la Santé (Togo)",
+          "value": "257/2022/MSHP/UA/S/CAB/SG/DGAS/DESR/DREP"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "RCCM",
+          "value": "TG-LFW-01-2024-B13-01025"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "NIF",
+          "value": "1001946957"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "CNSS",
+          "value": "174027"
+        }
+      ],
+      "employee": {
+        "@id": "https://cmshosanna.com/#directeur"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "34",
+        "bestRating": "5"
+      },
+      "sameAs": [
+        "https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4",
+        "https://www.facebook.com/cmshosanna",
+        "https://www.tiktok.com/@cmshosanna2",
+        "https://www.linkedin.com/company/cms-hosanna/",
+        "https://www.threads.com/@cmshosanna"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://cmshosanna.com/#directeur",
+      "name": "Gilbert Dogban",
+      "jobTitle": "Assistant médical, clinicien, responsable médical du CMS HOSANNA",
+      "worksFor": {
+        "@id": "https://cmshosanna.com/#centre"
+      },
+      "sameAs": [
+        "https://twitter.com/gilbert_dogban"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://cmshosanna.com/#site",
+      "url": "https://cmshosanna.com/",
+      "name": "CMS HOSANNA",
+      "inLanguage": "fr",
+      "publisher": {
+        "@id": "https://cmshosanna.com/#centre"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://cmshosanna.com/#page",
+      "url": "https://cmshosanna.com/",
+      "name": "CMS HOSANNA — Centre Médico-Social à Lomé, Togo",
+      "description": "Centre médico-social à Lomé (Attiégou) : médecine générale, gynécologie et suivi de grossesse, infertilité, laboratoire, échographie, ECG, dépistage VIH. Plus de 26 ans d’expérience cumulée de l’équipe médicale.",
+      "inLanguage": "fr",
+      "isPartOf": {
+        "@id": "https://cmshosanna.com/#site"
+      },
+      "about": {
+        "@id": "https://cmshosanna.com/#centre"
+      }
+    }
   ]
 }
 </script>
@@ -343,7 +574,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="parcours-ic">🤰</div>
         <h3>Je suis enceinte</h3>
         <p>Suivi de grossesse, échographies, cours prénataux gratuits.</p>
-        <div class="parcours-liens"><a href="services.html" class="link">Suivi de grossesse →</a><a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20je%20suis%20enceinte%20et%20je%20souhaite%20un%20suivi%20de%20grossesse." class="parcours-wa" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp : Je suis enceinte">💬</a></div>
+        <div class="parcours-liens"><a href="grossesse.html" class="link">Suivi de grossesse →</a><a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20je%20suis%20enceinte%20et%20je%20souhaite%20un%20suivi%20de%20grossesse." class="parcours-wa" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp : Je suis enceinte">💬</a></div>
       </div>
       <div class="parcours-card reveal">
         <div class="parcours-ic">👩‍❤️‍👨</div>
@@ -361,7 +592,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="parcours-ic">🧪</div>
         <h3>Je veux faire un bilan</h3>
         <p>Laboratoire sur place, bilans de santé complets, échographie, ECG.</p>
-        <div class="parcours-liens"><a href="services.html" class="link">Laboratoire et examens →</a><a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20je%20souhaite%20faire%20un%20bilan%20de%20sant%C3%A9." class="parcours-wa" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp : Je veux faire un bilan">💬</a></div>
+        <div class="parcours-liens"><a href="laboratoire.html" class="link">Laboratoire et examens →</a><a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20je%20souhaite%20faire%20un%20bilan%20de%20sant%C3%A9." class="parcours-wa" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp : Je veux faire un bilan">💬</a></div>
       </div>
       <div class="parcours-card reveal">
         <div class="parcours-ic">🔬</div>
@@ -373,7 +604,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="parcours-ic">📱</div>
         <h3>Je ne peux pas me déplacer</h3>
         <p>Téléconsultation 7j/7 et soins à domicile.</p>
-        <div class="parcours-liens"><a href="services.html" class="link">Téléconsultation →</a><a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20je%20souhaite%20une%20t%C3%A9l%C3%A9consultation%20ou%20des%20soins%20%C3%A0%20domicile." class="parcours-wa" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp : Je ne peux pas me déplacer">💬</a></div>
+        <div class="parcours-liens"><a href="teleconsultation.html" class="link">Téléconsultation →</a><a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20je%20souhaite%20une%20t%C3%A9l%C3%A9consultation%20ou%20des%20soins%20%C3%A0%20domicile." class="parcours-wa" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp : Je ne peux pas me déplacer">💬</a></div>
       </div>
     </div>
     <p class="parcours-sein reveal">🎀 Dépistage du cancer du sein : <a href="test-sein.html">testez votre risque en 2 minutes</a> ou <a href="octobre-rose.html">réservez votre bilan des seins</a>.</p>
@@ -417,7 +648,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="icon">🤰</div>
         <h3>Gynécologie &amp; Maternité</h3>
         <p>Suivi de grossesse, planification familiale, consultations prénatales et postnatales.</p>
-        <a href="services.html" class="link">En savoir plus →</a>
+        <a href="grossesse.html" class="link">En savoir plus →</a>
       </div>
       <div class="card jaune reveal">
         <div class="icon">👨‍👩‍👧</div>
@@ -435,7 +666,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="icon">🧪</div>
         <h3>Bilans de santé &amp; laboratoire</h3>
         <p>Bilans complets et analyses biomédicales, avec un laboratoire sur place.</p>
-        <a href="services.html" class="link">En savoir plus →</a>
+        <a href="laboratoire.html" class="link">En savoir plus →</a>
       </div>
       <div class="card jaune reveal">
         <div class="icon">💉</div>
@@ -447,19 +678,19 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="icon">🖥️</div>
         <h3>Échographie</h3>
         <p>Échographies obstétricales, pelviennes, mammaires et abdominales, réalisées sur place.</p>
-        <a href="services.html" class="link">En savoir plus →</a>
+        <a href="echographie.html" class="link">En savoir plus →</a>
       </div>
       <div class="card vert reveal">
         <div class="icon">❤️</div>
         <h3>Cœur : ECG &amp; cardiologie</h3>
         <p>Électrocardiogramme sur place, consultations de cardiologie sur rendez-vous.</p>
-        <a href="services.html" class="link">En savoir plus →</a>
+        <a href="laboratoire.html" class="link">En savoir plus →</a>
       </div>
       <div class="card jaune reveal">
         <div class="icon">🏠</div>
         <h3>Médecine de famille &amp; soins à domicile</h3>
         <p>Consultations à domicile et téléconsultation, pour un suivi médical qui s'adapte à vous.</p>
-        <a href="services.html" class="link">En savoir plus →</a>
+        <a href="teleconsultation.html" class="link">En savoir plus →</a>
       </div>
     </div>
   </div>
@@ -614,8 +845,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <h4>Légal</h4>
         <ul>
           <li><a href="apropos.html#identite">Identité du centre</a></li>
-          <li><a href="#">Mentions légales</a></li>
-          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="mentions-legales.html">Mentions légales</a></li>
+          <li><a href="confidentialite.html">Politique de confidentialité</a></li>
         </ul>
       </div>
     </div>
