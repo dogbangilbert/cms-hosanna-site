@@ -13,7 +13,7 @@ def absolu(s):
     s = s.replace('href="../', 'href="/').replace('src="../', 'src="/')
     return s
 header, footer, apres = absolu(header), absolu(footer), absolu(apres)
-header = header.replace(' class="active"', '').replace('href="/blog.html"', 'href="/blog.html" class="active"')
+header = header.replace(' class="active"', '').replace('href="/blog"', 'href="/blog" class="active"')
 out = '// Fichier généré par tools/generer-gabarit.py — ne pas modifier à la main\n'
 for nom, val in [('CSS', css), ('ENTETE', header), ('PIED', footer), ('SCRIPTS', apres)]:
     out += f'export const {nom} = {json.dumps(val, ensure_ascii=False)};\n'

@@ -1,25 +1,45 @@
-User-agent: GPTBot
-Allow: /
+# robots.txt — cmshosanna.com (CMS HOSANNA, Lomé)
+# Choix du centre : être trouvé ET cité par les moteurs de recherche et les assistants IA.
+# Autoriser un robot ne garantit ni l'indexation ni une citation.
 
+# --- Moteurs de recherche classiques (couverts aussi par la règle générale) ---
+User-agent: Googlebot
+User-agent: Bingbot
+Allow: /
+Disallow: /redaction
+Disallow: /octobre-rose-equipe
+Disallow: /conseils/apercu/
+
+# --- Recherche des assistants IA (affichent des réponses avec lien vers le site) ---
+User-agent: OAI-SearchBot
 User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
+User-agent: Claude-SearchBot
+User-agent: Claude-User
 User-agent: PerplexityBot
+User-agent: Perplexity-User
 Allow: /
+Disallow: /redaction
+Disallow: /octobre-rose-equipe
+Disallow: /conseils/apercu/
 
+# --- Entraînement des modèles d'IA ---
+# Autorisé volontairement : le contenu public du centre peut nourrir les connaissances
+# générales des assistants (ChatGPT, Claude, Gemini). Remplacer « Allow: / » par
+# « Disallow: / » dans ce bloc pour refuser, sans effet sur la recherche ci-dessus.
+User-agent: GPTBot
+User-agent: ClaudeBot
 User-agent: Google-Extended
+User-agent: Applebot-Extended
 Allow: /
+Disallow: /redaction
+Disallow: /octobre-rose-equipe
+Disallow: /conseils/apercu/
 
+# --- Tous les autres robots ---
 User-agent: *
 Allow: /
-Disallow: /octobre-rose-equipe
 Disallow: /redaction
+Disallow: /octobre-rose-equipe
 Disallow: /conseils/apercu/
 
 Sitemap: https://cmshosanna.com/sitemap.xml

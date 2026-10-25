@@ -16,7 +16,7 @@ const CSP = "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.
 const html = (corps: string, status = 200, cache = "public, max-age=0, must-revalidate") =>
   new Response(corps, { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": cache, "x-content-type-options": "nosniff", "referrer-policy": "strict-origin-when-cross-origin", "content-security-policy": CSP, "x-frame-options": "DENY", "permissions-policy": "geolocation=(), camera=(), microphone=()" } });
 
-const introuvable = () => html(`<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Article introuvable — CMS HOSANNA</title></head><body style="font-family:sans-serif;text-align:center;padding:60px 20px"><h1 style="color:#003399">Article introuvable</h1><p>Cet article n'existe pas ou n'est plus en ligne.</p><p><a href="/blog.html">Voir tous les conseils santé</a></p></body></html>`, 404);
+const introuvable = () => html(`<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Article introuvable — CMS HOSANNA</title></head><body style="font-family:sans-serif;text-align:center;padding:60px 20px"><h1 style="color:#003399">Article introuvable</h1><p>Cet article n'existe pas ou n'est plus en ligne.</p><p><a href="/blog">Voir tous les conseils santé</a></p></body></html>`, 404);
 
 export default async (req: Request, context: Context) => {
   const chemin = new URL(req.url).pathname;
@@ -48,7 +48,7 @@ export default async (req: Request, context: Context) => {
 
     if (chemin.startsWith(CHEMIN_PUBLIC)) {
       const slug = chemin.slice(CHEMIN_PUBLIC.length).replace(/\/$/, "").toLowerCase();
-      if (!slug) return Response.redirect(new URL("/blog.html", req.url).toString(), 302);
+      if (!slug) return Response.redirect(new URL("/blog", req.url).toString(), 302);
       const c = await depot().lireParSlug(slug);
       if (!c || c.status !== "publie") return introuvable();
       if (c.slug !== slug) return Response.redirect(new URL(CHEMIN_PUBLIC + c.slug, req.url).toString(), 301);

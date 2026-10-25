@@ -109,8 +109,9 @@ CENTRE = {
         {"@type": "PropertyValue", "propertyID": "CNSS", "value": "174027"},
     ],
     "employee": {"@id": f"{SITE}/#directeur"},
-    "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.4", "reviewCount": "34",
-                         "bestRating": "5"},
+    # Pas d'aggregateRating : Google n'affiche pas d'étoiles pour les avis qu'un établissement
+    # publie sur lui-même, et une note recopiée à la main devient vite fausse.
+    # La note reste visible sur les pages, avec un lien vers la fiche Google.
     "sameAs": [
         MAPS,
         "https://www.facebook.com/cmshosanna",
@@ -161,6 +162,14 @@ def meta(s, nom, attr="name"):
     return html.unescape(m.group(1)) if m else None
 
 
+def dates_existantes(s):
+    """Dates déjà publiées dans la page : on les garde pour qu'un simple passage
+    du script (changement technique) ne fasse pas croire à une mise à jour du texte."""
+    p = re.search(r'<meta property="article:published_time" content="([0-9-]{10})"', s)
+    m = re.search(r'<meta property="article:modified_time" content="([0-9-]{10})"', s)
+    return (p.group(1) if p else None), (m.group(1) if m else None)
+
+
 def dates_git(chemin):
     def run(*args):
         r = subprocess.run(["git", "log", *args, "--", str(chemin)], cwd=RACINE,
@@ -193,9 +202,9 @@ def injecter(s, nouveau):
 
 def reparer_pied(s, prefixe):
     s = s.replace('<a href="#">Mentions légales</a>',
-                  f'<a href="{prefixe}mentions-legales.html">Mentions légales</a>')
+                  f'<a href="/mentions-legales">Mentions légales</a>')
     s = s.replace('<a href="#">Politique de confidentialité</a>',
-                  f'<a href="{prefixe}confidentialite.html">Politique de confidentialité</a>')
+                  f'<a href="/confidentialite">Politique de confidentialité</a>')
     return s
 
 
@@ -222,7 +231,13 @@ def traiter_article(f):
     url = re.search(r'<link rel="canonical" href="([^"]+)"', s).group(1)
     h1 = re.sub(r"<[^>]+>", "", re.search(r"<h1[^>]*>(.*?)</h1>", s, re.S).group(1)).strip()
     rubrique = re.search(r'<span class="eyebrow">(.*?)</span>', s)
-    publie, modifie = dates_git(f.relative_to(RACINE))
+    # Dates : celles déjà affichées dans la page. Pour une vraie mise à jour du texte,
+    # lancer le script avec MAJ=blog/fichier.html pour reprendre la date du dernier commit.
+    import os
+    publie, modifie = dates_existantes(s)
+    if not publie or str(f.relative_to(RACINE)) in os.environ.get("MAJ", "").split(","):
+        g_publie, g_modifie = dates_git(f.relative_to(RACINE))
+        publie, modifie = publie or g_publie, g_modifie
     image = meta(s, "og:image", "property") or f"{SITE}/img/logo-3d-clair.jpg"
     article = {
         "@type": ["MedicalWebPage", "Article"],
