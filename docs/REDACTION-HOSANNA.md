@@ -31,7 +31,7 @@ Règles de publication (`controlesPublication`) : titre, résumé, texte, valida
 | Contrat | `netlify/redaction/modele.ts` | Markdown + YAML | inchangé |
 | Stockage | `stockage.ts` (`ContentRepository`, `MediaStore`) | Netlify Blobs | Git/Decap, WordPress, base de données : écrire une nouvelle classe et changer `depot()` |
 | Publication | `publication.ts` (`Canal`) | site | Facebook, TikTok : ajouter un canal |
-| IA | `ia.ts` (`AIProvider`) | éteinte | Claude, OpenAI ou Gemini par variable d'environnement |
+| IA | `ia.ts` (`AIProvider`) | éteinte | Claude, OpenAI, Gemini, Groq, Mistral, OpenRouter ou FreeLLMAPI par variable d'environnement, avec bascule automatique |
 | Accès | `auth.ts` | clés personnelles + rôles | autre système d'identité |
 | Rendu | `rendu.ts` + `gabarit.ts` | page aux couleurs du site | — |
 | API privée | `netlify/functions/redaction-api.mts` | `/api/redaction/*` | — |
@@ -70,9 +70,23 @@ Même politique CSP que le reste du site. Dans le texte, seuls les liens `http(s
 
 Dans Netlify > Site configuration > Environment variables :
 
-- `AI_PROVIDER` = `claude` (ou `openai`, `gemini`)
-- `CLAUDE_API_KEY` (ou `OPENAI_API_KEY`, `GEMINI_API_KEY`)
+- `AI_PROVIDER` = `claude` (ou `openai`, `gemini`, `groq`, `mistral`, `openrouter`, `freellmapi`)
+- `CLAUDE_API_KEY` (ou `OPENAI_API_KEY`, `GEMINI_API_KEY`, `GROQ_API_KEY`, `MISTRAL_API_KEY`, `OPENROUTER_API_KEY`)
 - `AI_MODEL` (facultatif)
+
+### Bascule automatique vers des modèles gratuits
+
+`AI_PROVIDER` accepte une liste ordonnée, par exemple `claude,gemini,groq`. Si un fournisseur échoue (quota ou crédit épuisé, panne, délai dépassé, réponse inutilisable), la Rédaction passe au suivant, sur le principe de FreeLLMAPI mais sans serveur à entretenir. Un fournisseur sans clé est simplement ignoré. Le brouillon indique dans son bloc `ai` le fournisseur qui l'a réellement rédigé.
+
+| Fournisseur | Clé gratuite | Modèle par défaut (variable pour le changer) |
+|---|---|---|
+| Gemini | aistudio.google.com | `gemini-2.5-flash` (`GEMINI_MODEL`) |
+| Groq | console.groq.com | `llama-3.3-70b-versatile` (`GROQ_MODEL`) |
+| Mistral | console.mistral.ai (offre « Experiment ») | `mistral-small-latest` (`MISTRAL_MODEL`) |
+| OpenRouter | openrouter.ai | aucun : `OPENROUTER_MODEL` obligatoire (modèle se terminant par `:free`) |
+| FreeLLMAPI auto-hébergé | — | `FREELLMAPI_URL` (ex. `https://…/v1`), `FREELLMAPI_KEY`, `FREELLMAPI_MODEL` |
+
+`AI_MODEL` ne s'applique qu'au premier fournisseur de la liste. Les offres gratuites peuvent réutiliser les textes envoyés : elles conviennent aux articles grand public, jamais à des données de patients. Leur qualité en français médical est inférieure à Claude : la relecture médicale reste obligatoire.
 
 Sans clé, le bouton « Créer avec l'IA » explique simplement que l'IA est éteinte. Pour l'éteindre de nouveau : supprimer la clé.
 Coût indicatif avec Claude Sonnet : environ 25 à 40 F CFA par article long.

@@ -1,6 +1,7 @@
 // Rédaction HOSANNA — assistance IA interchangeable (cahier §7 et §25)
 // L'éditorial ne connaît que l'interface AIProvider. Le fournisseur est choisi
-// par la variable d'environnement AI_PROVIDER (claude, openai, gemini).
+// par la variable d'environnement AI_PROVIDER (claude, openai, gemini, groq, mistral,
+// openrouter, freellmapi), seul ou en liste de secours : « claude,gemini,groq ».
 // Sans AI_PROVIDER ni clé, l'IA est simplement désactivée : tout le reste fonctionne.
 // Les clés restent côté serveur (variables Netlify), jamais dans le navigateur ni dans GitHub.
 
@@ -116,18 +117,20 @@ class ClaudeProvider implements AIProvider {
   }
 }
 
-class OpenAIProvider implements AIProvider {
-  nom = "openai";
-  constructor(private cle: string, public modele: string) {}
+// Tout service qui parle le format OpenAI : OpenAI, Groq, Mistral, OpenRouter,
+// ou un relais FreeLLMAPI auto-hébergé (adresse libre).
+class OpenAICompatibleProvider implements AIProvider {
+  constructor(public nom: string, private libelle: string, private base: string, private cle: string, public modele: string) {}
   async generer(c: Consigne) {
     const { systeme, utilisateur } = construireInstructions(c);
-    const r = await appel("OpenAI", "https://api.openai.com/v1/chat/completions", {
+    const r = await appel(this.libelle, `${this.base.replace(/\/+$/, "")}/chat/completions`, {
       method: "POST",
       headers: { authorization: `Bearer ${this.cle}`, "content-type": "application/json" },
       body: JSON.stringify({ model: this.modele, response_format: { type: "json_object" }, messages: [{ role: "system", content: systeme }, { role: "user", content: utilisateur }] }),
     });
-    if (!r.ok) throw new Error(`OpenAI : ${r.status} ${(await r.text()).slice(0, 300)}`);
+    if (!r.ok) throw new Error(`${this.libelle} : ${r.status} ${(await r.text()).slice(0, 300)}`);
     const d = await r.json();
+    if (d.choices?.[0]?.finish_reason === "length") throw new Error(`${this.libelle} : réponse coupée (article trop long pour ce modèle).`);
     return versBrouillon(extraireJson(d.choices?.[0]?.message?.content || ""));
   }
 }
@@ -148,12 +151,53 @@ class GeminiProvider implements AIProvider {
   }
 }
 
+// Bascule automatique (même principe que FreeLLMAPI) : si un fournisseur échoue
+// (quota atteint 429, panne 5xx, délai dépassé, réponse inutilisable), on passe au suivant.
+// nom et modele indiquent ensuite celui qui a réellement rédigé l'article.
+class ChaineDeSecours implements AIProvider {
+  nom: string; modele: string;
+  constructor(private maillons: AIProvider[]) {
+    this.nom = maillons.map((m) => m.nom).join(" → ");
+    this.modele = maillons.map((m) => m.modele).join(" → ");
+  }
+  async generer(c: Consigne) {
+    const echecs: string[] = [];
+    for (const m of this.maillons) {
+      try {
+        const b = await m.generer(c);
+        this.nom = m.nom; this.modele = m.modele;
+        return b;
+      } catch (e: any) { echecs.push(e?.message || `${m.nom} : échec`); }
+    }
+    throw new Error(`Aucun fournisseur IA n'a abouti. ${echecs.join(" | ")}`);
+  }
+}
+
+const env = (k: string) => Netlify.env.get(k) || "";
+
+// Un fournisseur par nom, ou null si sa clé manque. Le modèle se règle par <NOM>_MODEL.
+function creer(choix: string, modele: string): AIProvider | null {
+  switch (choix) {
+    case "claude": return env("CLAUDE_API_KEY") ? new ClaudeProvider(env("CLAUDE_API_KEY"), modele || env("CLAUDE_MODEL") || "claude-sonnet-5-5") : null;
+    case "openai": return env("OPENAI_API_KEY") ? new OpenAICompatibleProvider("openai", "OpenAI", "https://api.openai.com/v1", env("OPENAI_API_KEY"), modele || env("OPENAI_MODEL") || "gpt-4o-mini") : null;
+    case "gemini": return env("GEMINI_API_KEY") ? new GeminiProvider(env("GEMINI_API_KEY"), modele || env("GEMINI_MODEL") || "gemini-2.5-flash") : null;
+    // Offres gratuites (quotas journaliers) : à réserver aux contenus sans données de patients
+    case "groq": return env("GROQ_API_KEY") ? new OpenAICompatibleProvider("groq", "Groq", "https://api.groq.com/openai/v1", env("GROQ_API_KEY"), modele || env("GROQ_MODEL") || "llama-3.3-70b-versatile") : null;
+    case "mistral": return env("MISTRAL_API_KEY") ? new OpenAICompatibleProvider("mistral", "Mistral", "https://api.mistral.ai/v1", env("MISTRAL_API_KEY"), modele || env("MISTRAL_MODEL") || "mistral-small-latest") : null;
+    case "openrouter": return env("OPENROUTER_API_KEY") && (modele || env("OPENROUTER_MODEL")) ? new OpenAICompatibleProvider("openrouter", "OpenRouter", "https://openrouter.ai/api/v1", env("OPENROUTER_API_KEY"), modele || env("OPENROUTER_MODEL")) : null;
+    // Relais FreeLLMAPI (ou tout autre service compatible) hébergé par le centre
+    case "freellmapi": return env("FREELLMAPI_URL") ? new OpenAICompatibleProvider("freellmapi", "FreeLLMAPI", env("FREELLMAPI_URL"), env("FREELLMAPI_KEY") || "aucune", modele || env("FREELLMAPI_MODEL") || "auto") : null;
+    default: return null;
+  }
+}
+
 // Choix du fournisseur par configuration. Renvoie null si l'IA n'est pas activée.
+// AI_PROVIDER accepte une liste ordonnée : « claude,gemini,groq » essaie Claude d'abord,
+// puis bascule sur les offres gratuites quand le quota ou le crédit est épuisé.
+// AI_MODEL ne s'applique qu'au premier fournisseur de la liste.
 export function fournisseurIA(): AIProvider | null {
-  const choix = (Netlify.env.get("AI_PROVIDER") || "").toLowerCase();
-  const modele = Netlify.env.get("AI_MODEL") || "";
-  if (choix === "claude" && Netlify.env.get("CLAUDE_API_KEY")) return new ClaudeProvider(Netlify.env.get("CLAUDE_API_KEY")!, modele || "claude-sonnet-5-5");
-  if (choix === "openai" && Netlify.env.get("OPENAI_API_KEY")) return new OpenAIProvider(Netlify.env.get("OPENAI_API_KEY")!, modele || "gpt-4o-mini");
-  if (choix === "gemini" && Netlify.env.get("GEMINI_API_KEY")) return new GeminiProvider(Netlify.env.get("GEMINI_API_KEY")!, modele || "gemini-2.0-flash");
-  return null;
+  const choix = env("AI_PROVIDER").toLowerCase().split(",").map((x) => x.trim()).filter(Boolean);
+  const maillons = choix.map((n, i) => creer(n, i === 0 ? env("AI_MODEL") : "")).filter((p): p is AIProvider => p !== null);
+  if (!maillons.length) return null;
+  return maillons.length === 1 ? maillons[0] : new ChaineDeSecours(maillons);
 }
