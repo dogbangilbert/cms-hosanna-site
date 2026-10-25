@@ -1,38 +1,11 @@
-# Redirections : anciennes adresses en .html vers les adresses propres (sans extension).
-# Le « ! » force la redirection même si le fichier .html existe. Une seule étape, pas de boucle :
-# /services est servi directement par le fichier services.html.
-# Ne pas rediriger google82e52ec6811742ef.html (vérification Google Search Console).
-/index.html  /  301!
-/apropos.html  /apropos  301!
-/blog.html  /blog  301!
-/blog/circulaire-cordon-ombilical.html  /blog/circulaire-cordon-ombilical  301!
-/blog/cours-prenataux.html  /blog/cours-prenataux  301!
-/blog/curcuma-epice-qui-soigne.html  /blog/curcuma-epice-qui-soigne  301!
-/blog/endometriose-diagnostic-tardif.html  /blog/endometriose-diagnostic-tardif  301!
-/blog/fausse-couche-mots-a-eviter.html  /blog/fausse-couche-mots-a-eviter  301!
-/blog/fertilite-et-age.html  /blog/fertilite-et-age  301!
-/blog/ist-depistage-femme.html  /blog/ist-depistage-femme  301!
-/blog/prevenir-problemes-prostate.html  /blog/prevenir-problemes-prostate  301!
-/blog/quand-la-grossesse-tarde-a-venir.html  /blog/quand-la-grossesse-tarde-a-venir  301!
-/blog/signes-diabete.html  /blog/signes-diabete  301!
-/blog/spiruline-bienfaits.html  /blog/spiruline-bienfaits  301!
-/blog/sucre-sale-poisons-lents.html  /blog/sucre-sale-poisons-lents  301!
-/confidentialite.html  /confidentialite  301!
-/contact.html  /contact  301!
-/echographie.html  /echographie  301!
-/grossesse.html  /grossesse  301!
-/infertilite.html  /infertilite  301!
-/laboratoire.html  /laboratoire  301!
-/mentions-legales.html  /mentions-legales  301!
-/octobre-rose-equipe.html  /octobre-rose-equipe  301!
-/octobre-rose.html  /octobre-rose  301!
-/pvvih.html  /pvvih  301!
-/redaction.html  /redaction  301!
-/services.html  /services  301!
-/telecharger.html  /telecharger  301!
-/teleconsultation.html  /teleconsultation  301!
-/temoignages.html  /temoignages  301!
-/test-sein.html  /test-sein  301!
-
-# Quand un article du blog est republié dans la Rédaction (/conseils/…), ajouter ici :
-# /blog/nom-article  /conseils/nom-article  301!
+# Redirections Netlify du site CMS HOSANNA.
+#
+# Pas de redirection des anciennes adresses .html vers les adresses propres :
+# une règle forcée « /page.html /page 301! » risque une boucle sur Netlify, qui sert
+# /page à partir de page.html. Les adresses propres sont imposées autrement :
+# liens internes sans .html, balises canonical et sitemap.
+#
+# Quand un article du blog est republié dans la Rédaction (/conseils/…), ajouter
+# une ligne de ce type (adresses différentes, donc sans risque de boucle) :
+# /blog/nom-article       /conseils/nom-article  301!
+# /blog/nom-article.html  /conseils/nom-article  301!
