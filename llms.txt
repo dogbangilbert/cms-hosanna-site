@@ -14,6 +14,7 @@ Services : médecine générale, gynécologie et maternité (suivi de grossesse,
 - [Laboratoire et bilans de santé](https://cmshosanna.com/laboratoire): analyses, bilan complet avec compte rendu
 - [Prise en charge du VIH](https://cmshosanna.com/pvvih): dépistage confidentiel et suivi des PVVIH
 - [Téléconsultation et soins à domicile](https://cmshosanna.com/teleconsultation)
+- [Nous soutenir, devenir partenaire](https://cmshosanna.com/partenaires): dons, parrainage de campagnes de dépistage et de sensibilisation, partenariats
 - [Dépistage du cancer du sein](https://cmshosanna.com/test-sein): test de risque en ligne
 - [Le centre](https://cmshosanna.com/apropos): mission, équipe, identité légale
 - [Contact et accès](https://cmshosanna.com/contact)

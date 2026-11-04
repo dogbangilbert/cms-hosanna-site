@@ -141,6 +141,7 @@ TYPES = {
     "echographie.html": "MedicalWebPage",
     "laboratoire.html": "MedicalWebPage",
     "teleconsultation.html": "MedicalWebPage",
+    "partenaires.html": "WebPage",
     "apropos.html": "AboutPage",
     "contact.html": "ContactPage",
     "temoignages.html": "WebPage",
