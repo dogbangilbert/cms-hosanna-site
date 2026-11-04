@@ -3,7 +3,7 @@
 Préparé le 28 octobre 2026, après le message de Wikimedia du jour : le compte « CMS HOSANNA » est renommé **« Ananivi Dogban »**. Pour se connecter, on utilise ce nouveau nom avec le même mot de passe.
 
 > **État au 4 novembre 2026 :** la fiche Wikidata existe : [Q141991825](https://www.wikidata.org/wiki/Q141991825). Elle a été créée et corrigée avec Claude dans Chrome, et la liste officielle du Ministère y est citée comme source. Le lien est ajouté aux données structurées du site (`sameAs`).
-> Règles retenues pour toutes les descriptions publiques : écrire « centre médico-social privé à but non lucratif », ne jamais écrire « centre de santé communautaire », et ne pas mettre l'étiquette VIH en avant. La fiche de processus à jour est dans Google Drive : `PROCESSUS_Bing_Wikimedia_Wikidata_2026-11-04_v2.md`.
+> Règles retenues pour toutes les descriptions publiques : écrire « centre médico-social privé à but non lucratif », ne jamais écrire « centre de santé communautaire », et ne pas mettre le VIH comme catégorie ou « nature » du centre (le dépistage et la prise en charge du VIH restent toujours cités dans la liste des services : c'est une activité phare depuis plus de 20 ans). La fiche de processus à jour est dans Google Drive : `PROCESSUS_Bing_Wikimedia_Wikidata_2026-11-04_v2.md`.
 
 Toutes les données ci-dessous viennent de la fiche d'identité officielle du site (`tools/geo_schema.py`, `mentions-legales.html`). Si une information change, corriger d'abord le site, puis ce kit.
 

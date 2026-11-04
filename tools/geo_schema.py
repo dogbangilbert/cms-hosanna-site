@@ -60,7 +60,7 @@ CENTRE = {
     "logo": f"{SITE}/img/logo-3d-clair.jpg",
     "image": [f"{SITE}/img/batiment-centre.jpg", f"{SITE}/img/equipe-1.jpg"],
     "description": (
-        "Centre médico-social privé agréé par l'État togolais, situé à Attiégou (Lomé, Togo). "
+        "Centre médico-social privé à but non lucratif, agréé par l'État togolais, situé à Attiégou (Lomé, Togo). "
         "Médecine générale, gynécologie et maternité, infertilité du couple, prise en charge du VIH, "
         "laboratoire d'analyses sur place, échographie, ECG, cardiologie, rhumatologie, santé mentale, "
         "kinésithérapie, vaccination, téléconsultation et soins à domicile."
