@@ -117,6 +117,7 @@ CENTRE = {
         "https://www.tiktok.com/@cmshosanna2",
         "https://www.linkedin.com/company/cms-hosanna/",
         "https://www.threads.com/@cmshosanna",
+        "https://www.wikidata.org/wiki/Q141991825",
     ],
 }
 
