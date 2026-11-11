@@ -1,0 +1,363 @@
+<title>Minute santé Hépatite B 1</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Caveat:wght@700&display=swap">
+<style>
+:root{--bleu:#003399;--nuit:#002266;--clair:#4A90D9;--pale:#EAF3FC;--fond:#F5F8FC;--accent:#F9A825;--vert:#2E7D32;--rouge:#C62828;--blanc:#FFFFFF;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#0b1640;font-family:Montserrat,Poppins,sans-serif;color:#fff}
+.wrap{max-width:420px;margin:0 auto;padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.stage{position:relative;aspect-ratio:9/16;max-width:100%;overflow:hidden;container-type:size;border-radius:14px;background:var(--bleu)}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3.2cqw;padding:16cqw 8cqw 44cqw;text-align:center;visibility:hidden;background:var(--bg);color:var(--ink)}
+.scene.prev{visibility:visible;z-index:1}
+.scene.on{visibility:visible;z-index:2;animation:ouvre .8s cubic-bezier(.7,0,.2,1) both}
+@keyframes ouvre{from{clip-path:circle(0% at 50% 55%)}to{clip-path:circle(125% at 50% 55%)}}
+.s-bleu{--bg:linear-gradient(160deg,#003399 0%,#1B55B8 100%);--ink:#fff}.s-nuit{--bg:var(--nuit);--ink:#fff}.s-jaune{--bg:var(--fond);--ink:var(--bleu)}.s-jaune .badge{background:var(--bleu);color:#fff}.s-tableau{--bg:#FAFBFF;--ink:var(--nuit)}
+.scene>*{position:relative}
+.titre{font-weight:900;font-size:8.4cqw;line-height:1.1;margin:0;text-wrap:balance}
+.titre-m{font-weight:900;font-size:7cqw;line-height:1.12;margin:0;text-wrap:balance}
+.sous{font-weight:700;font-size:6cqw;margin:0;line-height:1.3}
+.sous-n{font-weight:700;font-size:5.4cqw;margin:0;background:var(--bleu);color:#fff;padding:2.4cqw 4cqw;border-radius:3cqw}
+.citation{font-weight:900;font-style:italic;font-size:10cqw;line-height:1.05;margin:0;color:var(--accent)}
+.pastille{background:var(--accent);color:var(--nuit);padding:0 2cqw;border-radius:2.5cqw;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.s-jaune .pastille{background:var(--bleu);color:#fff}
+.accroche2{font-weight:900;font-size:8.6cqw;margin:0;color:var(--nuit);background:var(--accent);padding:2.5cqw 5cqw;border-radius:3.5cqw;transform:rotate(-2deg)}
+.badge{position:absolute;top:6cqw;left:5cqw;z-index:6;background:#fff;color:var(--nuit);font-weight:900;font-size:3.4cqw;padding:1.4cqw 3cqw;border-radius:5cqw;box-shadow:0 1cqw 2cqw rgba(0,0,0,.15)}
+.s-tableau .badge{background:var(--nuit);color:#fff}
+.logo{position:absolute;right:5cqw;bottom:5cqw;width:15cqw;height:15cqw;border-radius:3.5cqw;border:.8cqw solid #fff;z-index:4;object-fit:cover;box-shadow:0 1cqw 3cqw rgba(0,0,0,.2)}
+.src{position:absolute;left:6cqw;right:24cqw;bottom:6.5cqw;font-size:2.7cqw;font-weight:600;opacity:.8;margin:0;text-align:left}
+.em{font-size:30cqw;line-height:1}.em.moyen{font-size:17cqw}.em.mini{font-size:9cqw}
+.carte{background:#fff;color:#111;border-radius:5cqw;box-shadow:0 3cqw 7cqw rgba(0,0,0,.2);padding:5.5cqw 5cqw;font-weight:600;font-size:5cqw;line-height:1.4;width:100%}
+.carte b{color:var(--nuit)}.carte .gros{display:block;font-weight:900;font-size:9cqw;line-height:1.05;color:var(--rouge);margin-bottom:1.5cqw}
+.scene.on .a{animation:monte .6s var(--d,0s) cubic-bezier(.2,.8,.2,1) both}@keyframes monte{from{opacity:0;transform:translateY(8cqw)}}
+.scene.on .pop{animation:pop .5s var(--d,0s) cubic-bezier(.3,1.6,.5,1) both}@keyframes pop{from{transform:scale(0);opacity:0}}
+.scene.on .fondu{animation:fondu .5s var(--d,0s) both}@keyframes fondu{from{opacity:0}}
+.scene.on .flotte{animation:flotte 3s ease-in-out infinite}@keyframes flotte{50%{transform:translateY(-2cqw)}}
+.scene.on .secoue{animation:secoue .6s var(--d,.3s) both}@keyframes secoue{25%{transform:rotate(-10deg)}75%{transform:rotate(10deg)}}
+
+/* ---- Paper Cutout ---- */
+.papier{filter:url(#papier) drop-shadow(0 1.2cqw 0 rgba(0,0,0,.16)) drop-shadow(0 2.4cqw 2.4cqw rgba(0,0,0,.14))}
+.deco{position:absolute;z-index:0}
+.d1{width:60cqw;height:60cqw;border-radius:50%;background:var(--clair);top:-22cqw;right:-24cqw}
+.d2{width:70cqw;height:46cqw;border-radius:50%;background:var(--bleu);bottom:-20cqw;left:-26cqw}
+.scene.on .glisse{animation:glisse .7s var(--d,0s) cubic-bezier(.3,1.5,.5,1) both}
+@keyframes glisse{from{transform:translateY(40cqw) rotate(8deg);opacity:0}}
+.scene.on .tremble{animation:tremble .5s steps(1) infinite}
+@keyframes tremble{0%{rotate:-1.2deg}50%{rotate:1deg}}
+.foule{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7cqw 0;width:90cqw;margin-top:2cqw}
+.pers{position:relative;font-size:14.5cqw;line-height:1.1;text-align:center}
+.scene.on .pers{animation:pop .45s var(--d) cubic-bezier(.3,1.6,.5,1) both}
+.scene.on .pers.gris i{animation:grise .6s var(--g) both}
+.pers i{display:block;font-style:normal}
+@keyframes grise{to{filter:grayscale(1) brightness(1.2) opacity(.4)}}
+.pers b{position:absolute;left:50%;top:-1cqw;transform:translateX(-50%);font-size:7cqw;color:var(--nuit);opacity:0}
+.scene.on .pers.gris b{animation:fondu .4s var(--g) both;opacity:1}
+.pers.moi::after{content:"TOI";position:absolute;left:50%;bottom:-3.2cqw;transform:translateX(-50%);background:var(--rouge);color:#fff;font-weight:900;font-size:2.8cqw;padding:.4cqw 1.6cqw;border-radius:2cqw}
+
+/* ---- Whiteboard ---- */
+.s-tableau{justify-content:flex-start;padding-top:14cqw;gap:2.6cqw}
+.dessin{width:84cqw;overflow:visible}
+.dessin .trait{fill:none;stroke:var(--nuit);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
+.scene.on .dessin .trait{animation:trace 3s .6s linear forwards}
+@keyframes trace{to{stroke-dashoffset:0}}
+.main{opacity:0}
+.scene.on .main{animation:mainvis 3.4s .6s both}
+@keyframes mainvis{0%,96%{opacity:1}100%{opacity:0}}
+.etiq{font-family:Caveat,cursive;font-size:13px;fill:var(--clair)}
+.foie-rempli{fill:#C0392B;fill-opacity:.18}
+.dessin .fondu,.dessin .pop{transform-box:fill-box;transform-origin:center}
+.liste{display:flex;flex-direction:column;gap:2cqw;width:100%}
+.ligne{display:flex;gap:2.5cqw;align-items:center;font-family:Caveat,cursive;font-size:9cqw;line-height:1.05;text-align:left;color:var(--nuit)}
+.ligne .em.mini{flex:none;font-size:11cqw}
+.puce-ok{font-weight:800;font-size:5.2cqw;background:#FFF1D2;color:var(--nuit);padding:1.4cqw 3.6cqw;border-radius:5cqw}
+.s-bleu .ligne,.s-nuit .ligne{font-family:Montserrat,sans-serif;font-weight:800;font-size:5.6cqw;background:rgba(0,20,90,.55);color:#fff;padding:4.2cqw 4cqw;border-radius:3.5cqw}
+
+
+.photo-c{position:relative;width:90cqw;aspect-ratio:16/9;border-radius:4cqw;overflow:hidden;box-shadow:0 3cqw 7cqw rgba(0,0,0,.3);background:#0d2a9a;flex:none}
+.photo-c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scene.on .photo-c img{animation:zoomlent 14s linear both}@keyframes zoomlent{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+.photo-c.carre{width:56cqw;aspect-ratio:1;transform:rotate(-2deg);border:1.6cqw solid #fff;border-radius:3cqw}
+.photo-c.bandeau{aspect-ratio:16/5.6}
+.sur-photo{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.puces{display:flex;flex-direction:column;gap:2cqw;align-items:center}.puces .puce-ok{white-space:nowrap;font-size:4.4cqw}
+.liste.serre{gap:1.8cqw}.liste.serre .ligne{padding:2.4cqw 4cqw}
+.bl{display:flex;justify-content:space-between;font-weight:800;font-size:4.4cqw;color:var(--nuit);margin-bottom:1cqw}
+.bar{height:6cqw;background:#eef1fb;border-radius:3cqw;overflow:hidden;margin-bottom:3cqw}.bar i{display:block;height:100%;border-radius:3cqw;width:0}
+.scene.on .bx{animation:bxa 1.4s var(--d,0s) ease-out forwards}@keyframes bxa{to{width:var(--w)}}
+
+/* ---- virus ---- */
+.scene-virus{position:relative;width:92cqw}
+.scene-virus .foie{fill:rgba(255,255,255,.2);stroke:#fff;stroke-width:2.2}
+.virus{transform-box:fill-box;transform-origin:center}
+.scene.on .virus{animation:entre 2.6s var(--d) cubic-bezier(.3,.8,.4,1) both}
+@keyframes entre{from{transform:translate(-70px,-30px) scale(.4);opacity:0}30%{opacity:1}}
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;width:100%}
+.case{position:relative;background:rgba(255,255,255,.96);color:var(--nuit);border-radius:4cqw;padding:3cqw 2.5cqw;display:flex;flex-direction:column;align-items:center;gap:1cqw;font-weight:800;font-size:4.2cqw}
+.case .em{font-size:18cqw}.case{font-size:5cqw;padding:4cqw 2.5cqw}
+.barre-x{position:absolute;left:12%;right:12%;top:50%;height:1.6cqw;background:var(--rouge);border-radius:1cqw;transform:rotate(-24deg) scaleX(0);transform-origin:left}
+.scene.on .barre-x{animation:barre .35s var(--d) ease-out forwards}@keyframes barre{to{transform:rotate(-24deg) scaleX(1)}}
+
+/* ---- timeline vie ---- */
+.vie{display:flex;align-items:center;justify-content:center;gap:2cqw;width:100%}
+.etape{background:#fff;border-radius:5cqw;padding:5cqw 2cqw;width:37cqw;font-weight:800;font-size:4.6cqw;color:var(--nuit);box-shadow:0 2cqw 4cqw rgba(0,0,0,.15)}
+.etape .em{font-size:22cqw;display:block;margin-bottom:2cqw}
+.fl{font-weight:900;font-size:9cqw;color:var(--rouge)}
+.paslafaute{font-weight:900;font-size:5.8cqw;color:var(--vert);background:#fff;border:1cqw solid var(--vert);border-radius:3cqw;padding:1.6cqw 4cqw;transform:rotate(-3deg)}
+.scene.on .paslafaute{animation:tampon .4s var(--d) cubic-bezier(.3,1.6,.5,1) both}@keyframes tampon{from{transform:scale(2.4) rotate(-3deg);opacity:0}to{transform:scale(1) rotate(-3deg);opacity:1}}
+
+/* ---- prise de sang ---- */
+.tube{position:relative;height:56cqw;width:70cqw}
+.tube .seringue{position:absolute;left:8cqw;top:2cqw;font-size:36cqw;transform:rotate(-30deg)}
+.tube .goutte{position:absolute;left:48cqw;top:6cqw;font-size:18cqw;opacity:0}
+.scene.on .goutte{animation:tombe 1.6s var(--d) ease-in forwards}
+@keyframes tombe{0%{opacity:0;transform:translateY(-6cqw)}15%{opacity:1}100%{opacity:1;transform:translateY(22cqw)}}
+.scene.on .seringue{animation:pique 1.2s var(--d2) ease-in-out both}
+@keyframes pique{40%{transform:rotate(-30deg) translate(3cqw,3cqw)}}
+
+/* ---- Final Particles ---- */
+.s-final{justify-content:flex-start;padding-top:20cqw}
+.poussiere{position:absolute!important;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.scene.on .poussiere{animation:efface .5s 2.7s both}
+@keyframes efface{to{opacity:0}}
+.cadre-logo{position:relative;width:46cqw;height:46cqw;flex:none}
+.cadre-logo img{position:absolute;inset:3cqw;width:40cqw;height:40cqw;border-radius:5cqw;object-fit:cover}
+.trace{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.trace rect{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-dasharray:400;stroke-dashoffset:400}
+.scene.on .trace rect{animation:tr2 2s 2.6s ease-out forwards}@keyframes tr2{to{stroke-dashoffset:0}}
+.boutons{display:flex;gap:3cqw;position:relative}
+.btn{font-weight:900;font-size:4.6cqw;padding:2.4cqw 4.4cqw;border-radius:3cqw;white-space:nowrap}
+.btn-r{background:#FF0033;color:#fff}.btn-b{background:#fff;color:var(--nuit)}
+.scene.on .clic{animation:clic .3s var(--c,2.85s) both}@keyframes clic{50%{transform:scale(.88)}}
+.doigt{position:absolute;left:26cqw;top:6cqw;font-size:9cqw;opacity:0}
+.scene.on .doigt{animation:doigt 1.2s var(--dd,2s) both}
+@keyframes doigt{0%{opacity:0;transform:translate(10cqw,12cqw)}60%{opacity:1;transform:none}75%{transform:scale(.85)}100%{opacity:1;transform:none}}
+.adresse{font-weight:800;font-size:4.4cqw;margin:0}
+.mention{position:absolute!important;left:7cqw;right:7cqw;bottom:5cqw;font-size:2.8cqw;font-weight:600;opacity:.85;margin:0;line-height:1.35}
+
+/* ---- Barre, sous-titres, commandes ---- */
+.barre{display:none!important}
+.barre-old{position:absolute;z-index:8;left:4cqw;right:4cqw;top:3cqw;display:flex;gap:1.4cqw}.barre span{flex:1;height:1cqw;border-radius:9px;background:rgba(0,51,153,.25);overflow:hidden}.barre span i{display:block;height:100%;width:0;background:var(--nuit)}
+.stage.clair .barre span{background:rgba(255,255,255,.4)}.stage.clair .barre span i{background:#fff}
+.st{position:absolute;z-index:7;left:6cqw;right:6cqw;bottom:30cqw;text-align:center;font-weight:900;font-size:6.2cqw;line-height:1.25;opacity:0;transition:opacity .15s;text-wrap:balance}
+.st.vu{opacity:1}
+.st span{margin:0 .9cqw;display:inline-block;color:#fff;text-shadow:0 .5cqw 0 #001a66,0 0 2cqw rgba(0,0,0,.6),.4cqw .4cqw 0 #001a66,-.4cqw .4cqw 0 #001a66,.4cqw -.4cqw 0 #001a66,-.4cqw -.4cqw 0 #001a66}
+.st span.futur{color:rgba(255,255,255,.55)}.st span.actif{color:#FFC24A;transform:scale(1.12)}
+.cmd{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}.cmd button{font:700 14px Montserrat,sans-serif;background:#EAE529;color:#003399;border:0;border-radius:10px;padding:9px 12px;cursor:pointer}
+.cmd button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.note{font-size:13px;line-height:1.5;color:#B9C4E4;margin:14px 2px 0}
+@media (prefers-reduced-motion:reduce){.scene *{animation-duration:.01s!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <filter id="papier"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter>
+</svg>
+
+<div class="wrap">
+<div class="stage" id="stage">
+
+ <!-- 1. Accroche : Paper Cutout -->
+ <section class="scene s-jaune" data-t="__T1__" data-couv="{{1:toi}}" data-w="__W1__" data-sub="__S1__">
+  <div class="deco d1 papier glisse tremble" style="--d:.2s"></div>
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre a" style="--d:.4s;font-size:7.6cqw">Hépatite B :<br><span class="pastille" style="white-space:nowrap">9 porteurs sur 10</span><br>l'ignorent</p>
+  <div class="foule papier" id="foule"></div>
+  <p class="accroche2 pop papier" style="--d:{{1:Et}}s">Et toi ?</p>
+  <p class="src fondu" style="--d:1.2s;color:var(--bleu)">Source : estimations de l'OMS</p>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 2. Citation contredite -->
+ <section class="scene s-nuit" data-t="__T2__" data-w="__W2__" data-sub="__S2__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <div class="em flotte pop" style="--d:.3s">🙂</div>
+  <p class="citation a" style="--d:{{2:Je}}s">« Je me sens bien. »</p>
+  <p class="citation a" style="--d:{{2:rien}}s;font-size:8cqw;color:#fff">« Je n'ai rien. »</p>
+  <div class="carte a" style="--d:{{2:Eh}}s"><span class="gros">Pas de signe…</span><b>…ne veut pas dire pas de virus.</b></div>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 3. Le foie : Whiteboard -->
+ <section class="scene s-tableau" data-t="__T3__" data-w="__W3__" data-sub="__S3__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre-m a" style="--d:.2s">Ton foie, ce travailleur discret</p>
+  <svg class="dessin" viewBox="0 0 200 130" aria-label="Schéma du foie">
+   <path class="foie-rempli fondu" style="--d:3.4s" d="M18 50C18 28 60 20 105 24C150 28 186 44 184 70C182 92 150 100 118 94C98 90 84 106 62 104C38 102 16 84 18 50Z"/>
+   <path class="trait" pathLength="100" id="foie" d="M18 50C18 28 60 20 105 24C150 28 186 44 184 70C182 92 150 100 118 94C98 90 84 106 62 104C38 102 16 84 18 50Z"/>
+   <path class="trait" pathLength="100" style="animation-delay:3s;animation-duration:.8s" d="M105 24C108 50 110 72 118 94"/>
+   <ellipse class="trait" pathLength="100" cx="132" cy="106" rx="7" ry="11" style="animation-delay:3.4s;animation-duration:.6s"/>
+   <g class="main" id="main"><text font-size="24" x="-3" y="2">✍🏾</text></g>
+   <text class="etiq fondu" style="--d:3.6s" x="146" y="112">vésicule</text>
+   <text class="etiq fondu" style="--d:3.8s" x="52" y="62">le foie</text>
+  </svg>
+  <div class="liste">
+   <div class="ligne a" style="--d:{{3:nettoie}}s"><span class="em mini">🧽</span><span>nettoie ton sang</span></div>
+   <div class="ligne a" style="--d:{{3:transforme}}s"><span class="em mini">🍲</span><span>transforme ce que tu manges</span></div>
+  </div>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 4. Le virus sans bruit (photo du foie) -->
+ <section class="scene s-bleu" data-t="__T4__" data-w="__W4__" data-sub="__S4__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre-m a" style="--d:.2s">Le virus s'installe <span class="pastille">sans bruit</span></p>
+  <div class="photo-c a" style="--d:.4s"><img src="__IMG_foie__" alt="Schéma 3D du foie">
+   <svg class="sur-photo" viewBox="0 0 160 90" aria-label="Un virus entre dans le foie">
+    <g class="virus" style="--d:.9s" transform="translate(72 42)">
+     <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M0-14V-20M0 14V20M-14 0H-20M14 0H20M-10-10L-14-14M10-10L14-14M-10 10L-14 14M10 10L14 14"/></g>
+     <circle r="10.5" fill="#EF4058" stroke="#fff" stroke-width="2"/><circle cx="-3.5" cy="-3" r="2" fill="#fff"/><circle cx="3.5" cy="3.5" r="1.7" fill="#fff"/>
+    </g>
+   </svg>
+  </div>
+  <div class="cases">
+   <div class="case a" style="--d:{{4:douleur}}s"><span class="em">😣</span>Douleur<i class="barre-x" style="--d:calc({{4:douleur}}s + .5s)"></i></div>
+   <div class="case a" style="--d:{{4:fièvre}}s"><span class="em">🤒</span>Fièvre<i class="barre-x" style="--d:calc({{4:fièvre}}s + .5s)"></i></div>
+  </div>
+  <span class="puce-ok pop" style="--d:{{4:années}}s">⏳ pendant des années</span>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 5. Enfance -->
+ <section class="scene s-jaune" data-t="__T5__" data-w="__W5__" data-sub="__S5__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre-m a" style="--d:.2s">Souvent reçu <span class="pastille">tout petit</span></p>
+  <div class="vie">
+   <div class="etape pop" style="--d:{{5:naissance}}s"><span class="em">👶🏾</span>À la naissance</div>
+   <span class="fl fondu" style="--d:{{5:l'enfance}}s">+</span>
+   <div class="etape pop" style="--d:{{5:l'enfance}}s"><span class="em">🧒🏾</span>Dans l'enfance</div>
+  </div>
+  <p class="paslafaute" style="--d:{{5:vaccination}}s">💉 Le vaccin protège de plus en plus d'enfants</p>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 6. Plus tard : jeunesse et âge adulte -->
+ <section class="scene s-nuit" data-t="__T6__" data-w="__W6__" data-sub="__S6__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre-m a" style="--d:.2s">Mais on peut l'attraper <span class="pastille">plus tard</span></p>
+  <div class="photo-c carre pop" style="--d:{{6:l'adolescence}}s"><img src="__IMG_couple__" alt="Un couple de jeunes adultes" style="object-position:50% 30%"></div>
+  <div class="puces">
+   <span class="puce-ok pop" style="--d:{{6:l'adolescence}}s">🧑🏾 Jeunesse · âge adulte</span>
+   <span class="puce-ok pop" style="--d:{{6:rapports}}s">❤️ Rapports sans préservatif</span>
+   <span class="puce-ok pop" style="--d:{{6:sang}}s">🩸 Contact avec du sang</span>
+  </div>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 7. Contagiosité -->
+ <section class="scene s-jaune" data-t="__T7__" data-w="__W7__" data-sub="__S7__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre a" style="--d:.2s;font-size:7.4cqw">Hépatite B :<br><span class="pastille" style="white-space:nowrap">50 à 100 fois plus</span><br>contagieux que le VIH</p>
+  <div class="carte a" style="--d:{{7:cinquante}}s">
+   <div class="bl"><span>VIH</span></div>
+   <div class="bar"><i class="bx" style="--w:4%;--d:{{7:cinquante}}s;background:var(--clair)"></i></div>
+   <div class="bl"><span>Hépatite B</span></div>
+   <div class="bar"><i class="bx" style="--w:100%;--d:{{7:VIH}}s;background:var(--rouge)"></i></div>
+  </div>
+  <p class="paslafaute" style="--d:{{7:honte}}s">✓ Pas de honte : ça se prévient</p>
+  <p class="src fondu" style="--d:{{7:cinquante}}s">Source : OMS</p>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 8. Ce que ça change (photo du flacon) -->
+ <section class="scene s-bleu" data-t="__T8__" data-w="__W8__" data-sub="__S8__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre-m a" style="--d:.2s">Le savoir, c'est <span class="pastille">pouvoir</span> :</p>
+  <div class="photo-c bandeau a" style="--d:.3s"><img src="__IMG_flacon__" alt="Flacon de vaccin contre l'hépatite B" style="object-position:50% 45%"></div>
+  <div class="liste serre">
+   <div class="ligne a" style="--d:{{8:suivre}}s"><span class="em mini">🩺</span>Suivre son foie</div>
+   <div class="ligne a" style="--d:{{8:protéger}}s"><span class="em mini">👨‍👩‍👧</span>Protéger sa famille</div>
+   <div class="ligne a" style="--d:{{8:vacciner}}s"><span class="em mini">💉</span>Se vacciner si besoin</div>
+  </div>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 9. Prise de sang (photo) -->
+ <section class="scene s-jaune" data-t="__T9__" data-w="__W9__" data-sub="__S9__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <p class="titre a" style="--d:.2s">Comment savoir ?</p>
+  <div class="photo-c pop" style="--d:{{9:simple}}s"><img src="__IMG_prelevement__" alt="Prise de sang"></div>
+  <p class="sous-n a" style="--d:{{9:simple}}s">Une simple prise de sang</p>
+  <p class="sous a" style="--d:{{9:grande}}s">Un petit pincement,<br><b>une grande information</b></p>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 10. Attention : positif, on accompagne -->
+ <section class="scene s-nuit" data-t="__T10__" data-w="__W10__" data-sub="__S10__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <div class="em pop secoue" style="--d:.3s;font-size:17cqw">⚠️</div>
+  <p class="titre a" style="--d:.3s">Attention</p>
+  <div class="carte a" style="--d:{{10:positif}}s"><span class="gros">Positif ≠ condamnation</span><b>Ici, on t'accompagne :</b></div>
+  <div class="liste">
+   <div class="ligne a" style="--d:{{10:bilan}}s"><span class="em mini">🩺</span>Bilan du foie</div>
+   <div class="ligne a" style="--d:{{10:suivi}}s"><span class="em mini">📅</span>Suivi régulier</div>
+   <div class="ligne a" style="--d:{{10:famille}}s"><span class="em mini">👨‍👩‍👧</span>Famille protégée</div>
+  </div>
+  <img class="logo" src="__LOGO__" alt="CMS HOSANNA">
+ </section>
+
+ <!-- 11. Final : Particles -->
+ <section class="scene s-bleu s-final" data-t="__T11__" data-w="__W11__" data-sub="__S11__">
+  <span class="badge">⏱ MINUTE SANTÉ</span>
+  <div class="cadre-logo">
+   <img class="fondu" style="--d:2.4s" id="logoFinal" src="__LOGO__" alt="CMS HOSANNA">
+   <svg class="trace" viewBox="0 0 100 100" preserveAspectRatio="none"><rect x="1" y="1" width="98" height="98" rx="12"/></svg>
+  </div>
+  <p class="titre-m a" style="--d:1s">C'était ta Minute santé !</p>
+  <div class="boutons a" style="--d:{{11:Abonne-toi}}s;margin-top:1cqw"><span class="btn btn-r clic" style="--c:calc({{11:Abonne-toi}}s + .9s)">🔔 Abonne-toi</span><span class="btn btn-b">↗ Partage</span><span class="doigt" style="--dd:{{11:Abonne-toi}}s">👆🏾</span></div>
+  <p class="sous a" style="--d:{{11:partager}}s">💙 Partage : ça fera du bien à quelqu'un</p>
+  <p class="adresse a" style="--d:{{11:merci}}s">CMS HOSANNA · Lomé</p>
+  <p class="mention fondu" style="--d:{{11:merci}}s">Information générale. Ne remplace pas une consultation. En cas de symptômes, consultez un professionnel de santé.</p>
+  <canvas class="poussiere" id="poussiere"></canvas>
+ </section>
+
+ <div class="barre" id="barre"></div>
+ <div class="st" id="st"></div>
+</div>
+<div class="cmd"><button id="prec">Précédent</button><button id="jouer">Pause</button><button id="suiv">Suivant</button><button id="debut">Revoir</button></div>
+<p class="note">Aperçu muet : la voix off, la musique et les bruitages s'ajoutent au rendu MP4. Les sous-titres suivent la voix mot à mot.</p>
+</div>
+
+<script>
+// foule de 10 personnes : 9 se grisent à « ne le savent pas », une reste en couleur (toi)
+const foule=document.getElementById('foule');
+for(let k=0;k<10;k++){const d=document.createElement('div');d.className='pers'+(k===9?' moi':' gris');
+ d.style.setProperty('--d',(.5+k*.12)+'s');d.style.setProperty('--g','__GRISE__s');
+ d.innerHTML='<b>?</b><i>🧍🏾</i>';foule.appendChild(d)}
+
+const scenes=[...document.querySelectorAll('.scene')],stage=document.getElementById('stage'),st=document.getElementById('st');
+const barre=document.getElementById('barre');barre.innerHTML=scenes.map(()=>'<span><i></i></span>').join('');
+const fills=[...barre.querySelectorAll('i')];
+const paquets=scenes.map(s=>{const w=JSON.parse(s.dataset.w),P=[];let cur=[];
+ w.forEach(x=>{cur.push(x);const txt=cur.map(y=>y[2]).join(' ');if(cur.length>=4||txt.length>=22||/[.!?:,]$/.test(x[2])){P.push(cur);cur=[]}});
+ if(cur.length)P.push(cur);return P.map(p=>({a:p[0][0],b:p[p.length-1][0]+p[p.length-1][1],w:p}))});
+window.majSous=(i,t)=>{const p=paquets[i].find(p=>t>=p.a&&t<p.b+.25);
+ if(!p){st.classList.remove('vu');return}st.classList.add('vu');
+ const n=p.w.filter(x=>t>=x[0]).length-1;
+ st.innerHTML=p.w.map((x,k)=>`<span class="${k<n?'dit':k===n?'actif':'futur'}">${x[2]}</span>`).join(' ')};
+
+const LAST=scenes.length-1;
+const cv=document.getElementById('poussiere'),logoF=document.getElementById('logoFinal');let pts=null;
+function prepare(){const sc=scenes[LAST],r=sc.getBoundingClientRect(),l=logoF.getBoundingClientRect(),k=2;
+ cv.width=r.width*k;cv.height=r.height*k;const o=document.createElement('canvas');o.width=cv.width;o.height=cv.height;const oc=o.getContext('2d');
+ const x0=(l.left-r.left)*k,y0=(l.top-r.top)*k,L=l.width*k;oc.drawImage(logoF,x0,y0,L,L);
+ const d=oc.getImageData(0,0,o.width,o.height).data;let s=7;const rnd=()=>(s=s*16807%2147483647)/2147483647;pts=[];
+ for(let n=0;pts.length<2200&&n<400000;n++){const x=x0+rnd()*L|0,y=y0+rnd()*L|0,q=(y*o.width+x)*4;pts.push([x,y,rnd()*cv.width,rnd()*cv.height,`rgb(${d[q]},${d[q+1]},${d[q+2]})`])}}
+window.TICKS=[];const foieP=document.getElementById('foie'),mainG=document.getElementById('main'),LU=foieP.getTotalLength();
+window.TICKS[2]=t=>{const p=Math.min(1,Math.max(0,(t-.6)/3)),q=foieP.getPointAtLength(p*LU);mainG.setAttribute('transform',`translate(${q.x} ${q.y})`)};
+window.TICKS[LAST]=t=>{if(!pts)prepare();const c=cv.getContext('2d'),p=Math.min(1,Math.max(0,(t-.4)/2)),e=1-Math.pow(1-p,3),z=cv.width/180;
+ c.clearRect(0,0,cv.width,cv.height);for(const[x,y,a,b,col]of pts){c.fillStyle=col;c.fillRect(a+(x-a)*e,b+(y-b)*e,z,z)}};
+
+let i=0,t=0,joue=true,last=null;
+function va(n){i=Math.max(0,Math.min(scenes.length-1,n));t=0;
+ scenes.forEach((s,k)=>{s.classList.remove('on','prev');if(k===i-1)s.classList.add('prev')});
+ const s=scenes[i];void s.offsetWidth;s.classList.add('on');
+ stage.classList.toggle('clair',s.classList.contains('s-bleu')||s.classList.contains('s-nuit'));
+ if(i===LAST)pts=null}
+function boucle(now){if(window.RENDU){requestAnimationFrame(boucle);return}if(last===null)last=now;const dt=(now-last)/1000;last=now;
+ if(joue){t+=dt;const d=+scenes[i].dataset.t;if(t>=d){if(i<scenes.length-1)va(i+1);else{t=d;joue=false;document.getElementById('jouer').textContent='Lecture'}}}
+ const d=+scenes[i].dataset.t;fills.forEach((f,k)=>f.style.width=k<i?'100%':k===i?Math.min(100,t/d*100)+'%':'0');
+ window.majSous(i,t);const tk=window.TICKS[i];tk&&tk(t);requestAnimationFrame(boucle)}
+document.getElementById('prec').onclick=()=>va(i-1);
+document.getElementById('suiv').onclick=()=>va(i+1);
+document.getElementById('debut').onclick=()=>{joue=true;document.getElementById('jouer').textContent='Pause';va(0)};
+document.getElementById('jouer').onclick=e=>{joue=!joue;e.target.textContent=joue?'Pause':'Lecture';
+ scenes[i].getAnimations({subtree:true}).forEach(a=>joue?a.play():a.pause())};
+document.fonts.ready.then(()=>{va(0);requestAnimationFrame(boucle)});
+</script>
