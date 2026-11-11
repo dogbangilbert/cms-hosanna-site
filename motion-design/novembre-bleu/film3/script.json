@@ -1,0 +1,73 @@
+[
+ [
+  {
+   "v": "L",
+   "tag": "[energetic, friendly]",
+   "txt": "Petit test, cinq secondes, soyez honnête. Question un : avez-vous plus de quarante-cinq ans ?"
+  }
+ ],
+ [
+  {
+   "v": "E",
+   "tag": "[curious]",
+   "txt": "Question deux : vous vous levez la nuit pour uriner, ou votre jet est plus faible qu'avant ?"
+  }
+ ],
+ [
+  {
+   "v": "L",
+   "tag": "[curious]",
+   "txt": "Question trois : avez-vous déjà fait un PSA ?"
+  }
+ ],
+ [
+  {
+   "v": "E",
+   "tag": "[warm, firm]",
+   "txt": "Un ou deux oui, et jamais de PSA ? Ce test est pour vous. Et attention : souvent, ce cancer ne donne aucun symptôme."
+  }
+ ],
+ [
+  {
+   "v": "L",
+   "tag": "[doubtful]",
+   "txt": "Vrai ou faux : c'est le cancer qui emporte le plus d'hommes en Afrique de l'Ouest ?"
+  },
+  {
+   "v": "E",
+   "tag": "[firm]",
+   "txt": "Vrai ! C'est le premier cancer mortel de l'homme dans la région, selon le Centre international de recherche sur le cancer."
+  }
+ ],
+ [
+  {
+   "v": "L",
+   "tag": "[curious]",
+   "txt": "Vrai ou faux : découvert tôt, on s'en sort bien ?"
+  },
+  {
+   "v": "E",
+   "tag": "[serious, warm]",
+   "txt": "Vrai ! Plus de quatre-vingt-dix-neuf hommes sur cent sont en vie cinq ans après, contre trente-sept s'il s'est propagé. Chiffres américains."
+  }
+ ],
+ [
+  {
+   "v": "L",
+   "tag": "[warm, upbeat]",
+   "txt": "Du seize au trente novembre, faites votre bilan au centre : consultation, PSA et échographie. Écrivez-nous sur WhatsApp."
+  }
+ ],
+ [
+  {
+   "v": "E",
+   "tag": "[cheerful]",
+   "txt": "C'était ta Minute santé !"
+  },
+  {
+   "v": "L",
+   "tag": "[warm, smiling]",
+   "txt": "Partage ce test à un homme que tu aimes."
+  }
+ ]
+]

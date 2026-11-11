@@ -1,0 +1,73 @@
+[
+ [
+  {
+   "v": "E",
+   "tag": "[tender]",
+   "txt": "Papa, tu es fort. Tu as tout porté pour nous. Mais il y a une chose que tu ne peux pas porter seul."
+  }
+ ],
+ [
+  {
+   "v": "E",
+   "tag": "[calm, gentle]",
+   "txt": "Après quarante-cinq ans, la prostate peut grossir en silence. Pas de fièvre, parfois aucune douleur. Juste se lever la nuit, ou un jet plus faible."
+  }
+ ],
+ [
+  {
+   "v": "E",
+   "tag": "[serious, soft]",
+   "txt": "En Afrique de l'Ouest, c'est le cancer qui emporte le plus d'hommes. Et trois sur quatre sont diagnostiqués aux stades trois ou quatre : trop tard."
+  }
+ ],
+ [
+  {
+   "v": "L",
+   "tag": "[gruff, proud]",
+   "txt": "Moi, je ne suis jamais malade, ma fille. L'hôpital, ce n'est pas pour moi."
+  },
+  {
+   "v": "E",
+   "tag": "[tender, pleading]",
+   "txt": "Papa… cinq minutes, une prise de sang. Fais-le pour nous."
+  }
+ ],
+ [
+  {
+   "v": "E",
+   "tag": "[warm, emotional]",
+   "txt": "Je veux que tu sois là pour mon mariage. Pour porter tes petits-enfants. Pour qu'on rie encore ensemble."
+  }
+ ],
+ [
+  {
+   "v": "L",
+   "tag": "[softly, moved]",
+   "txt": "D'accord, ma fille. Je le ferai. Pour vous."
+  },
+  {
+   "v": "E",
+   "tag": "[happy, tearful]",
+   "txt": "Merci, papa."
+  }
+ ],
+ [
+  {
+   "v": "E",
+   "tag": "[warm, upbeat]",
+   "txt": "Aux papas, aux maris, aux frères : du seize au trente novembre, le centre vous accueille. Consultation, PSA, échographie. Écrivez-nous sur WhatsApp."
+  }
+ ],
+ [
+  {
+   "v": "L",
+   "tag": "[warm, smiling]",
+   "txt": "Partage cette vidéo à un homme que tu aimes. C'est peut-être la plus belle preuve d'amour."
+  },
+  {
+   "v": "E",
+   "tag": "[cheerful]",
+   "txt": "C'était ta Minute santé !"
+  }
+ ]
+]
