@@ -1,0 +1,22 @@
+{
+ "mobileOverflow": [],
+ "consoleErrors": {
+  "blog.html": [
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "octobre-rose.html": [
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ]
+ },
+ "brokenLinks": {
+  "download/cms-hosanna.apk": {
+   "status": "ERR",
+   "from": [
+    "telecharger.html"
+   ]
+  }
+ },
+ "brokenImages": {},
+ "contrast": {},
+ "a11y": {}
+}
