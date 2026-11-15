@@ -14,3 +14,7 @@
 /produit/*            /services   301
 /categorie-produit/*  /services   301
 /category/*           /blog       301
+
+# Article spiruline : version de référence dans la Rédaction
+/blog/spiruline-bienfaits       /conseils/spiruline-bienfaits   301!
+/blog/spiruline-bienfaits.html  /conseils/spiruline-bienfaits   301!
