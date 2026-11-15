@@ -26,3 +26,4 @@ Services : médecine générale, gynécologie et maternité (suivi de grossesse,
 
 - [Mentions légales](https://cmshosanna.com/mentions-legales)
 - [Politique de confidentialité](https://cmshosanna.com/confidentialite)
+- [Conditions générales d'utilisation](https://cmshosanna.com/conditions-generales)

@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#003399">
 <title>Rédaction HOSANNA</title>
+<meta name="description" content="Espace réservé à l\'équipe du CMS HOSANNA. Accès sur identifiant personnel.">
 <link rel="icon" href="/img/logo-3d-clair.jpg">
 <style>
 :root{--bleu:#003399;--bleu2:#4A90D9;--vert:#2E7D32;--jaune:#F9A825;--rouge:#C62828;--fond:#F5F8FC;--texte:#1F2733;--gris:#667085;--trait:#E3E8F0;--r:14px}
@@ -122,7 +123,7 @@ window.addEventListener("beforeunload",function(ev){if(SALE){ev.preventDefault()
 
 /* ---------- Connexion ---------- */
 function ecranConnexion(msg){
-  app.innerHTML='<div class="page"><div class="connexion"><img src="/img/logo-3d-clair.jpg" alt=""><h2>Rédaction HOSANNA</h2><p class="aide">Espace réservé à l\'équipe du CMS HOSANNA.</p>'+
+  app.innerHTML='<div class="page"><div class="connexion"><img loading="lazy" decoding="async" src="/img/logo-3d-clair.jpg" alt=""><h2>Rédaction HOSANNA</h2><p class="aide">Espace réservé à l\'équipe du CMS HOSANNA.</p>'+
   '<form id="f" class="carte" style="margin-top:20px;text-align:left"><label for="cle" style="margin-top:0">Votre clé personnelle</label><input id="cle" type="password" autocomplete="current-password" autocapitalize="off" required>'+
   '<label class="case"><input type="checkbox" id="souvenir" checked> Se souvenir de moi sur cet appareil</label>'+
   (msg?'<p style="color:var(--rouge);margin-top:10px">'+e(msg)+'</p>':'')+
@@ -226,7 +227,7 @@ function editeur(){
     '<textarea id="texte" data-k="content" placeholder="Écrivez ici. Les boutons ci-dessus ajoutent les titres, listes et images.">'+e(A.content)+'</textarea><div class="compteur" id="mots"></div><input type="file" id="img-texte" accept="image/*" hidden>',true)+
   bloc(3,"Image principale",
     (A.ai&&A.ai.image_suggestions&&A.ai.image_suggestions.length?'<p class="aide" style="margin-bottom:10px"><b>Idées proposées par l\'IA</b> (note interne, jamais affichée au public) :<br>'+A.ai.image_suggestions.map(function(t){return "• "+e(t)}).join("<br>")+'</p>':'')+
-    '<div id="zone-img">'+(img.src?'<img class="apercu-img" src="'+e(img.src)+'" alt="">':'<p class="aide">Aucune image pour l\'instant.</p>')+'</div>'+
+    '<div id="zone-img">'+(img.src?'<img loading="lazy" decoding="async" class="apercu-img" src="'+e(img.src)+'" alt="">':'<p class="aide">Aucune image pour l\'instant.</p>')+'</div>'+
     '<div class="ligne" style="margin-top:10px"><button class="btn clair petit" id="choisir-img">'+(img.src?"Changer l'image":"Choisir une image")+'</button>'+(img.src?'<button class="btn rouge petit" id="retirer-img">Retirer</button>':'')+'</div><input type="file" id="fichier-img" accept="image/*" hidden>'+
     (img.src?champ("featured_image.alt","Description de l'image",{aide:"pour les personnes malvoyantes et pour Google"})+champ("featured_image.caption","Légende",{aide:"facultatif"})+champ("featured_image.credit","Crédit photo",{aide:"facultatif"}):''))+
   bloc(4,"Relecture médicale",

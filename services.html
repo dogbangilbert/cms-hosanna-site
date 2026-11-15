@@ -12,10 +12,12 @@
 <meta property="og:description" content="Médecine générale, gynécologie, cardiologie, rhumatologie, santé mentale, laboratoire, échographie, ECG, vaccination au CMS HOSANNA, Lomé.">
 <meta property="og:url" content="https://cmshosanna.com/services">
 <meta property="og:site_name" content="CMS HOSANNA">
-<meta property="og:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
-<meta name="twitter:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
+<meta property="og:image" content="https://cmshosanna.com/img/apercu-reseaux.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://cmshosanna.com/img/apercu-reseaux.jpg">
 <meta property="og:locale" content="fr_FR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Nos services médicaux à Lomé — CMS HOSANNA">
 <meta name="twitter:description" content="Médecine générale, gynécologie, cardiologie, rhumatologie, santé mentale, laboratoire, échographie, ECG, vaccination au CMS HOSANNA, Lomé.">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
@@ -415,7 +417,7 @@ section{padding:80px 0;}
 .blog-cat{font-size:0.72rem; font-weight:700; text-transform:uppercase; color:var(--vert); letter-spacing:0.05em;}
 .blog-body h3{font-size:1rem; margin:10px 0 12px;}
 .blog-body p{font-size:0.89rem; color:#6b7280; margin-bottom:14px;}
-.blog-note{text-align:center; margin-top:30px; font-size:0.85rem; color:#8a93a3; font-style:italic;}
+.blog-note{text-align:center; margin-top:30px; font-size:0.85rem; color:#5c6577; font-style:italic;}
 
 /* LEGAL / IDENTITY BLOCK */
 .legal-box{background:var(--gris-fond); border:1px solid #e4e9f0; border-radius:var(--radius); padding:28px;}
@@ -433,7 +435,7 @@ section{padding:80px 0;}
 .info-icon{width:44px; height:44px; border-radius:12px; background:#fff; border:1px solid #dde5f0; display:flex; align-items:center; justify-content:center; color:var(--bleu-fonce); flex-shrink:0;}
 .info-row h4{font-size:0.95rem; margin-bottom:3px;}
 .info-row a, .info-row span{font-size:0.9rem; color:#5b6474;}
-.whatsapp-cta{margin-top:22px; display:inline-flex; align-items:center; gap:10px; background:#25D366; color:#fff; padding:14px 24px; border-radius:999px; font-weight:700;}
+.whatsapp-cta{margin-top:22px; display:inline-flex; align-items:center; gap:10px; background:#1e7d40; color:#fff; padding:14px 24px; border-radius:999px; font-weight:700;}
 .maps-cta{margin-top:12px; display:inline-flex; align-items:center; gap:10px; background:#fff; border:2px solid var(--bleu-fonce); color:var(--bleu-fonce); padding:12px 22px; border-radius:999px; font-weight:700;}
 .form-card{background:#fff; border-radius:20px; padding:36px; box-shadow:var(--ombre);}
 .form-card h3{margin-bottom:6px;}
@@ -616,7 +618,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
   <div class="container">
     <div class="footer-grid">
       <div>
-        <img src="img/logo-3d-fonce-web.jpg" alt="Logo CMS HOSANNA" style="width:64px; height:64px; border-radius:14px; object-fit:cover; margin-bottom:14px;">
+        <img loading="lazy" decoding="async" src="img/logo-3d-fonce-web.jpg" alt="Logo CMS HOSANNA" style="width:64px; height:64px; border-radius:14px; object-fit:cover; margin-bottom:14px;">
         <h4>CMS HOSANNA</h4>
         <p style="font-style:italic; color:var(--jaune); font-weight:600; margin-bottom:10px;">Soigner avec compétence, accompagner avec compassion.</p>
         <p>Centre Médico-Social HOSANNA — Lomé, Togo. Proches de vous à chaque étape : médecine générale, gynécologie, infertilité, PVVIH, bilans de santé.</p>
@@ -653,6 +655,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           <li><a href="/apropos#identite">Identité du centre</a></li>
           <li><a href="/mentions-legales">Mentions légales</a></li>
           <li><a href="/confidentialite">Politique de confidentialité</a></li>
+          <li><a href="/conditions-generales">Conditions générales</a></li>
+          <li><a href="#" data-cookies>Gérer les cookies</a></li>
         </ul>
       </div>
     </div>
@@ -703,9 +707,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
-<!-- Cloudflare Web Analytics -->
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "49ef6eb473ba42779b00cfac15d8ef0d"}'></script>
-<!-- End Cloudflare Web Analytics -->
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -714,5 +715,6 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 <script src="/assets/vie.js" defer></script>
+<script src="/assets/consentement.js" defer></script>
 </body>
 </html>

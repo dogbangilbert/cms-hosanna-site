@@ -63,7 +63,7 @@ header{background:#fff; border-bottom:1px solid var(--bord);}
 
 .hero{background:linear-gradient(160deg,var(--bleu) 0%,#0B2A7A 60%,#3A1450 130%); color:#fff; padding:40px 0 56px;}
 .hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:36px; align-items:center;}
-.ruban{display:inline-flex; align-items:center; gap:8px; background:var(--rose); color:#fff; font-family:'Poppins'; font-weight:700; font-size:.85rem; letter-spacing:.04em; padding:6px 14px; border-radius:999px; text-transform:uppercase;}
+.ruban{display:inline-flex; align-items:center; gap:8px; background:#b5135c; color:#fff; font-family:'Poppins'; font-weight:700; font-size:.85rem; letter-spacing:.04em; padding:6px 14px; border-radius:999px; text-transform:uppercase;}
 .hero h1{color:#fff; font-size:clamp(1.8rem,5vw,2.7rem); margin:16px 0 12px;}
 .hero p.lead{color:rgba(255,255,255,.88); font-size:1.08rem; max-width:34em;}
 .faits{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 26px;}
@@ -168,7 +168,7 @@ footer a{color:#fff;}
 
 <header>
   <div class="wrap top">
-    <a href="/" class="logo"><img src="img/logo-3d-clair.jpg" alt="Logo CMS HOSANNA">CMS HOSANNA</a>
+    <a href="/" class="logo"><img loading="lazy" decoding="async" src="img/logo-3d-clair.jpg" alt="Logo CMS HOSANNA">CMS HOSANNA</a>
     <a class="tel" href="tel:+22890038313">📞 <span>90 03 83 13</span></a>
   </div>
 </header>
@@ -186,7 +186,7 @@ footer a{color:#fff;}
       </div>
       <a href="#reserver" class="btn btn-jaune">Réserver ma place</a>
     </div>
-    <div class="hero-photo"><img src="img/octobre-rose-consultation.jpg" alt="Une patiente souriante en consultation avec une sage-femme portant un ruban rose" width="720" height="864"></div>
+    <div class="hero-photo"><img loading="lazy" decoding="async" src="img/octobre-rose-consultation.jpg" alt="Une patiente souriante en consultation avec une sage-femme portant un ruban rose" width="720" height="864"></div>
   </div>
 </section>
 
@@ -338,7 +338,7 @@ footer a{color:#fff;}
 
 <footer>
   <div class="wrap">
-    <p>Centre Médico-Social HOSANNA · Attiégou, Lomé, Togo · <a href="/">cmshosanna.com</a></p>
+    <p>Centre Médico-Social HOSANNA · Attiégou, Lomé, Togo · <a href="/">cmshosanna.com</a> · <a href="/conditions-generales">Conditions générales</a> · <a href="/confidentialite">Confidentialité</a> · <a href="#" data-cookies>Gérer les cookies</a></p>
     <p style="margin-top:6px">Information générale. Ne remplace pas une consultation.</p>
   </div>
 </footer>
@@ -458,6 +458,6 @@ footer a{color:#fff;}
   }
 })();
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "49ef6eb473ba42779b00cfac15d8ef0d"}'></script>
+<script src="/assets/consentement.js" defer></script>
 </body>
 </html>
