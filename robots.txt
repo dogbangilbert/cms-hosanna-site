@@ -43,4 +43,3 @@ Disallow: /octobre-rose-equipe
 Disallow: /conseils/apercu/
 
 Sitemap: https://cmshosanna.com/sitemap.xml
-Sitemap: https://cmshosanna.com/sitemap-conseils.xml

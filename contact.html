@@ -12,8 +12,8 @@
 <meta property="og:description" content="Prenez rendez-vous au CMS HOSANNA à Lomé : téléphone, WhatsApp, formulaire de rendez-vous, itinéraire Google Maps.">
 <meta property="og:url" content="https://cmshosanna.com/contact">
 <meta property="og:site_name" content="CMS HOSANNA">
-<meta property="og:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
-<meta name="twitter:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
+<meta property="og:image" content="https://cmshosanna.com/img/og-cms-hosanna.jpg">
+<meta name="twitter:image" content="https://cmshosanna.com/img/og-cms-hosanna.jpg">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Contact, adresse et rendez-vous — CMS HOSANNA, Attiégou, Lomé">
@@ -415,7 +415,7 @@ section{padding:80px 0;}
 .blog-cat{font-size:0.72rem; font-weight:700; text-transform:uppercase; color:var(--vert); letter-spacing:0.05em;}
 .blog-body h3{font-size:1rem; margin:10px 0 12px;}
 .blog-body p{font-size:0.89rem; color:#6b7280; margin-bottom:14px;}
-.blog-note{text-align:center; margin-top:30px; font-size:0.85rem; color:#8a93a3; font-style:italic;}
+.blog-note{text-align:center; margin-top:30px; font-size:0.85rem; color:#5b6474; font-style:italic;}
 
 /* LEGAL / IDENTITY BLOCK */
 .legal-box{background:var(--gris-fond); border:1px solid #e4e9f0; border-radius:var(--radius); padding:28px;}
@@ -571,6 +571,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       <h3>Formulaire de rendez-vous</h3>
       <p>Remplissez ce formulaire, il ouvrira WhatsApp avec votre message pré-rempli.</p>
       <form id="rdvForm">
+            <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Ne pas remplir <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <div class="form-row">
           <label for="nom">Nom complet</label>
           <input type="text" id="nom" required placeholder="Votre nom">
@@ -578,7 +579,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="form-two">
           <div class="form-row">
             <label for="tel">Téléphone</label>
-            <input type="tel" id="tel" required placeholder="+228 ...">
+            <input type="tel" id="tel" required placeholder="+228 ..." autocomplete="tel" pattern="^\+?[0-9 ]{8,20}$" title="Numéro de téléphone : 8 à 20 chiffres, espaces acceptés">
           </div>
           <div class="form-row">
             <label for="service">Service souhaité</label>
@@ -648,6 +649,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           <li><a href="/apropos#identite">Identité du centre</a></li>
           <li><a href="/mentions-legales">Mentions légales</a></li>
           <li><a href="/confidentialite">Politique de confidentialité</a></li>
+          <li><a href="/cgu">Conditions générales</a></li>
         </ul>
       </div>
     </div>
@@ -684,6 +686,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if(rdvForm){
     rdvForm.addEventListener('submit', function(e){
       e.preventDefault();
+      if(this.elements.website && this.elements.website.value){ return; }
       const nom = document.getElementById('nom').value;
       const tel = document.getElementById('tel').value;
       const service = document.getElementById('service').value;
@@ -709,5 +712,6 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 <script src="/assets/vie.js" defer></script>
+<script src="/assets/consent.js" defer></script>
 </body>
 </html>
