@@ -69,3 +69,19 @@ Si vous validez ces points, je les applique dans le corps de l'article et je pub
 - Pas de contenu médical publié sans validation.
 - Adresse Google et catégorie principale inchangées.
 - Les horaires du centre sont 24h/24, 7j/7.
+
+---
+
+## Mise à jour du 15 novembre 2026 (fin de session)
+
+**Fiche Google** : « Service en ligne » passé à 24h/24, 7j/7 (en attente de validation Google, en général moins de 10 minutes). Les jours encore affichés 09:00–17:00 sont des restes du premier enregistrement : à vérifier jour par jour une fois la validation faite.
+
+**Search Console, relevé par Gilbert** :
+- 29 pages indexées, 7 non indexées. Aucune validation de correction lancée.
+- Les 3 redirections http et www sont normales.
+- Les 2 erreurs 404 (`/produit/souffle-de-liberte/`, `/produit/cocon-de-serenite/`) et les 2 flux `/feed/` sont traités dans `_redirects`, en attente de déploiement.
+- Avertissements « Événements » du 8 octobre (champs `performer` et `validFrom`) : sans objet, le balisage Event a été retiré de la page (commit `c96ac83`). Ils disparaîtront à la prochaine exploration.
+- Aucune page bloquée par robots.txt.
+- 37 clics sur environ deux mois. Pas de données Core Web Vitals, faute de trafic.
+
+**Spiruline** : la page en ligne n'a pas la version du 15 novembre (pas de section « Quand l'éviter »). La mise en ligne attend : (1) l'adresse exacte de l'article publié dans la Rédaction, (2) votre accord pour fusionner et déployer la branche.
