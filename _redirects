@@ -9,3 +9,12 @@
 # une ligne de ce type (adresses différentes, donc sans risque de boucle) :
 # /blog/nom-article       /conseils/nom-article  301!
 # /blog/nom-article.html  /conseils/nom-article  301!
+
+# Anciennes adresses WordPress (produits, catégories, flux RSS), encore explorées par Google
+/produit/*            /services   301
+/categorie-produit/*  /services   301
+/category/*           /blog       301
+
+# Article spiruline : version de référence dans la Rédaction
+/blog/spiruline-bienfaits       /conseils/spiruline-bienfaits   301!
+/blog/spiruline-bienfaits.html  /conseils/spiruline-bienfaits   301!
