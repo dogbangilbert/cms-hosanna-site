@@ -220,7 +220,7 @@ function editeur(){
     champ("title","Titre",{ph:"Ex. : Fibromes utérins : les signes à connaître"})+
     champ("excerpt","Résumé",{multi:true,aide:"2 ou 3 phrases, affichées sous le titre et sur la page Blog",max:300})+
     '<div class="ligne"><div><label for="cat">Catégorie</label><select id="cat" data-k="category">'+cats+'</select></div><div><label for="statut">État</label><select id="statut" data-k="status">'+statuts+'</select></div></div>'+
-    '<label for="tags">Mots-clés <small>séparés par des virgules</small></label><input type="text" id="tags" value="'+e((A.tags||[]).join(", "))+'">',true)+
+    '<label for="tags">Mots-clés <small>séparés par des virgules</small></label><input type="text" id="tags" value="'+e((A.tags||[]).join(", "))+'">'+'<label class="case"><input type="checkbox" id="ai-origine"'+(A.ai?' checked':'')+'> Rédigé avec l\'IA (Claude) <small>affiche ✨ dans la liste ; ne valide rien</small></label>',true)+
   bloc(2,"Le texte",
     '<div class="outils" id="outils"><button data-o="h2">Titre</button><button data-o="h3">Sous-titre</button><button data-o="b"><b>G</b></button><button data-o="i"><i>I</i></button><button data-o="ul">• Liste</button><button data-o="ol">1. Liste</button><button data-o="q">❝</button><button data-o="a">🔗 Lien</button><button data-o="img">🖼 Image</button></div>'+
     '<textarea id="texte" data-k="content" placeholder="Écrivez ici. Les boutons ci-dessus ajoutent les titres, listes et images.">'+e(A.content)+'</textarea><div class="compteur" id="mots"></div><input type="file" id="img-texte" accept="image/*" hidden>',true)+
@@ -257,6 +257,7 @@ function editeur(){
   $("#retour").onclick=function(){if(!SALE||confirm("Des modifications ne sont pas enregistrées. Quitter quand même ?"))tableau()};
   app.addEventListener("input",surSaisie);app.addEventListener("change",surSaisie);
   $("#tags").oninput=function(){A.tags=this.value.split(",").map(function(t){return t.trim()}).filter(Boolean);SALE=true};
+  $("#ai-origine").onchange=function(){A.ai=this.checked?(A.ai||{provider:"claude",model:"conversation claude.ai",generated_at:new Date().toISOString()}):null;SALE=true};
   $$("#outils button").forEach(function(b){b.onclick=function(){outil(b.dataset.o)}});
   $("#img-texte").onchange=function(){var f=this.files[0];this.value="";if(f)deposerImage(f).then(function(src){inserer("\n\n!["+(prompt("Décrivez l'image en quelques mots :")||"")+"]("+src+")\n\n","")})};
   $("#choisir-img").onclick=function(){$("#fichier-img").click()};
