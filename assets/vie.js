@@ -23,18 +23,29 @@
   window.addEventListener('resize', placerMenu); window.addEventListener('scroll', placerMenu, {passive:true});
   setTimeout(placerMenu, 50);
 
-  // Bandeau Octobre rose (jusqu'au 30 octobre 2026), avec places restantes en direct
-  if (aujourdhui <= '2026-10-30' && header && !/octobre-rose|test-sein/.test(location.pathname)) {
-    var b = document.createElement('a'); b.className = 'vie-bandeau'; b.href = '/octobre-rose';
-    function texte(long, court){ return '<span class="vie-long">' + long + '</span><span class="vie-court">' + court + '</span> <span class="vie-fleche">→</span>'; }
-    b.innerHTML = texte('🎀 Octobre rose : bilan des seins + échographie, <b>10 000 F CFA</b>, du 15 au 30 octobre. Réserver', '🎀 Octobre rose · <b>10 000 F</b> · Réserver');
-    header.insertBefore(b, header.firstChild);
-    fetch('/api/octobre-rose/places', {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
-      if (!d) return;
-      var reste = d.jours.reduce(function(s, j){ return s + (j.passe ? 0 : j.restantes); }, 0);
-      b.innerHTML = reste > 0
-        ? texte('🎀 Octobre rose : bilan des seins + échographie, <b>10 000 F CFA</b>. Plus que <b>' + reste + ' places</b> du 15 au 30 octobre. Réserver', '🎀 Octobre rose · <b>10 000 F</b> · plus que <b>' + reste + ' places</b>')
-        : texte('🎀 Octobre rose : toutes les places sont prises. Écrivez-nous pour la liste d\'attente', '🎀 Octobre rose : complet, liste d\'attente');
+  // Bandeau « Campagne du mois » : réglages dans /assets/campagne.json (texte, prix, dates, lien).
+  // Il s'affiche du jour « debut » au jour « fin » inclus, puis disparaît tout seul.
+  if (header && !/octobre-rose|test-sein/.test(location.pathname)) {
+    fetch('/assets/campagne.json', {cache:'no-cache'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(c){
+      if (!c || c.actif === false || !c.debut || !c.fin || aujourdhui < c.debut || aujourdhui > c.fin) return;
+      var mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+      var f = c.fin.split('-'), jusqua = 'jusqu\'au ' + (+f[2]) + ' ' + mois[+f[1] - 1];
+      var b = document.createElement('a'); b.className = 'vie-bandeau'; b.href = c.lien || '/contact';
+      if (c.couleurs && c.couleurs.length === 2) b.style.backgroundImage = 'linear-gradient(90deg,' + c.couleurs[0] + ',' + c.couleurs[1] + ',' + c.couleurs[0] + ')';
+      function morceau(classe, parties){
+        var s = document.createElement('span'); s.className = classe;
+        parties.forEach(function(p){
+          var el = document.createElement(p[0]); el.textContent = p[1]; s.appendChild(el);
+        });
+        return s;
+      }
+      var prix = c.prix_barre ? [['s', c.prix_barre], ['span', ' ']] : [];
+      b.appendChild(morceau('vie-long', [['span', (c.emoji ? c.emoji + ' ' : '') + c.nom + ' : ' + c.offre + ', ']].concat(prix, [['b', c.prix], ['span', ', ' + jusqua + '. ' + (c.action || 'Prendre rendez-vous')]])));
+      b.appendChild(morceau('vie-court', [['span', (c.emoji ? c.emoji + ' ' : '') + c.nom + ' · ' + (c.offre_courte || c.offre) + ' · '], ['b', c.prix]]));
+      var fleche = document.createElement('span'); fleche.className = 'vie-fleche'; fleche.textContent = '→';
+      b.appendChild(document.createTextNode(' ')); b.appendChild(fleche);
+      b.setAttribute('aria-label', c.nom + ' : ' + c.offre + ', ' + c.prix + (c.prix_barre ? ' au lieu de ' + c.prix_barre : '') + ', ' + jusqua + '. ' + (c.action || 'Prendre rendez-vous'));
+      header.insertBefore(b, header.firstChild);
       placerMenu();
     }).catch(function(){});
   }

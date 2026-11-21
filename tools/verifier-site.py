@@ -62,5 +62,17 @@ controle(os.path.exists('cgu.html'), 'page cgu.html présente')
 sans_cgu = [p for p in pages if 'href="/cgu"' not in open(p, encoding='utf-8').read() and os.path.basename(p) not in ('octobre-rose.html', 'test-sein.html', 'cgu.html')]
 controle(not sans_cgu, f'lien /cgu dans le pied de page {sans_cgu or ""}')
 
+# 6. Campagne du mois : fichier de réglages valide
+try:
+    import datetime
+    camp = json.load(open('assets/campagne.json', encoding='utf-8'))
+    manquants = [k for k in ('actif', 'nom', 'offre', 'prix', 'debut', 'fin', 'lien') if k not in camp]
+    controle(not manquants, f'campagne.json : champs obligatoires {manquants or ""}')
+    d, f = (datetime.date.fromisoformat(camp[k]) for k in ('debut', 'fin'))
+    controle(d <= f, 'campagne.json : date de début avant la date de fin')
+    controle(str(camp['lien']).startswith('/'), 'campagne.json : lien interne au site')
+except (ValueError, KeyError, OSError) as e:
+    controle(False, f'campagne.json illisible ({e})')
+
 print(f'\n{len(echecs)} échec(s)')
 sys.exit(1 if echecs else 0)

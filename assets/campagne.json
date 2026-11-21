@@ -1,0 +1,15 @@
+{
+  "_aide": "Campagne du mois. Le bandeau s'affiche en haut de toutes les pages du site du jour 'debut' au jour 'fin' inclus (dates au format AAAA-MM-JJ), puis disparaît tout seul. Pour le masquer plus tôt : \"actif\": false. Mode d'emploi : docs/campagnes/campagne-du-mois.md",
+  "actif": true,
+  "nom": "Novembre Bleu",
+  "emoji": "💙",
+  "offre": "bilan prostate : consultation, PSA, échographie prostatique, conseils et orientation",
+  "offre_courte": "bilan prostate",
+  "prix": "19 500 F CFA",
+  "prix_barre": "30 000 F CFA",
+  "debut": "2026-11-16",
+  "fin": "2026-11-30",
+  "lien": "/contact",
+  "action": "Prendre rendez-vous",
+  "couleurs": ["#0B3D91", "#1565C0"]
+}
