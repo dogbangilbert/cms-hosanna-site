@@ -4,6 +4,8 @@
 Mention affichée : « Information générale. Ne remplace pas une consultation. »
 Aucune donnée n'est enregistrée ni envoyée : le calcul se fait dans le navigateur.
 
+> **Indexation à activer après relecture finale de Gilbert** (demande du 21/11/2026) : la page est en ligne et accessible par le pied de page et /outils, mais en `noindex`, hors sitemap et hors llms.txt. Pour l'activer : `<meta name="robots" content="index, follow">` sur /imc, /date-accouchement et /outils, puis les ajouter au sitemap et à llms.txt.
+
 ## 1. Saisies
 
 - Premier jour des dernières règles (DDR) : pas de date future, pas plus de 44 semaines en arrière.

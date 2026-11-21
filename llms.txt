@@ -17,7 +17,6 @@ Services : médecine générale, gynécologie et maternité (suivi de grossesse,
 - [Dépistage du cancer du sein](https://cmshosanna.com/test-sein): test de risque en ligne
 - [Le centre](https://cmshosanna.com/apropos): mission, équipe, identité légale
 - [Contact et accès](https://cmshosanna.com/contact)
-- [Outils santé](https://cmshosanna.com/outils): IMC et poids normal (adultes et enfants, OMS), date d'accouchement et échographies, test de risque du cancer du sein
 
 ## Conseils santé
 
