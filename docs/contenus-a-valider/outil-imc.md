@@ -1,6 +1,6 @@
 # Outil « IMC et poids santé » : fiche à valider
 
-**Statut : en attente de validation médicale par Gilbert DOGBAN.** Décision du 21/11/2026 : classes et poids normal de l'OMS. Page `imc.html` (adresse `/imc`), non indexée, absente du menu.
+**Statut : VALIDÉ par Gilbert DOGBAN le 21/11/2026** (relecture de la fiche, « ça peut passer »). Mis en ligne avec le reste de la branche, après son accord de déploiement. Décision du 21/11/2026 : classes et poids normal de l'OMS. Page `imc.html` (adresse `/imc`), non indexée, absente du menu.
 Mention affichée : « Information générale. Ne remplace pas une consultation. »
 Aucune donnée n'est enregistrée ni envoyée : le calcul se fait dans le navigateur du visiteur.
 

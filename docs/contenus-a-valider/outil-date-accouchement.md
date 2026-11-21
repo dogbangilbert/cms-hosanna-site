@@ -1,6 +1,6 @@
 # Outil « Date d'accouchement et âge de la grossesse » : fiche à valider
 
-**Statut : en attente de validation médicale par Gilbert DOGBAN.** Page `date-accouchement.html` (adresse `/date-accouchement`), non indexée, absente du menu.
+**Statut : VALIDÉ par Gilbert DOGBAN le 21/11/2026** (relecture de la fiche, « ça peut passer »). Mis en ligne avec le reste de la branche, après son accord de déploiement. Page `date-accouchement.html` (adresse `/date-accouchement`), non indexée, absente du menu.
 Mention affichée : « Information générale. Ne remplace pas une consultation. »
 Aucune donnée n'est enregistrée ni envoyée : le calcul se fait dans le navigateur.
 
