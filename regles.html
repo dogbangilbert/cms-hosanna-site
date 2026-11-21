@@ -281,6 +281,25 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 .urgence{background:#FEE2E2;border:2px solid #B91C1C;color:#7F1D1D;border-radius:12px;padding:12px 14px;margin-bottom:14px}
 .ideal span+b+span{font-size:.8rem;opacity:.95}
 #r-table td:first-child,#i-table td:first-child{white-space:normal;width:40%}
+.outil [hidden],.resultat [hidden]{display:none!important}
+.progression{margin-bottom:16px}
+.progression-texte{font-weight:700;color:#003399;margin-bottom:6px;font-size:.95rem}
+.barre{height:8px;background:#E2EAF5;border-radius:999px;overflow:hidden}
+.barre span{display:block;height:100%;width:0;background:linear-gradient(90deg,#003399,#2E7D32);transition:width .3s ease}
+.titre-etape{font-size:1.2rem;margin-bottom:12px;outline:none}
+.nav-etapes{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-top:8px}
+.nav-etapes .e-suiv,.nav-etapes .e-fin{margin-left:auto}
+.aide{font-size:.9rem;color:#4b5563;background:#F5F8FD;border-left:4px solid #4A90D9;padding:8px 12px;border-radius:6px;margin-bottom:12px}
+.alerte-haut{background:#FFF;border:1.5px solid #B91C1C;color:#7F1D1D;border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.92rem}
+.alerte-haut a{text-decoration:underline;font-weight:700}
+.c-urgent{background:#B91C1C;color:#fff}
+.niveau-ligne{margin:4px 0 14px}.niveau-ligne .classe{margin-left:0;font-size:1rem;padding:6px 14px}
+.fiche{margin-top:18px;border:2px dashed #4A90D9;border-radius:12px;padding:14px;background:#fff}
+.fiche h4{font-size:.98rem;margin:12px 0 6px;color:#003399}
+.recap{width:100%;border-collapse:collapse;font-size:.92rem}
+.recap th,.recap td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid #E2EAF5}
+.recap th{width:42%;color:#3A4250;font-weight:700}
+@media print{.alerte-haut,.nav-etapes{display:none!important}.c-urgent{-webkit-print-color-adjust:exact;print-color-adjust:exact}.fiche{border:1.5px solid #003399}}
 .lien-texte{color:#003399;text-decoration:underline;font-weight:600}
 @media print{.urgence{-webkit-print-color-adjust:exact;print-color-adjust:exact}.actions-outil{display:none!important}}
 </style>
@@ -319,27 +338,66 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
   <div class="container">
     <span class="eyebrow">Outil santé gratuit</span>
     <h1>Mes règles sont-elles normales ?</h1>
-    <p>Répondez à quelques questions sur vos cycles, l'abondance de vos règles et vos douleurs : l'outil vous situe par rapport aux définitions médicales reconnues et vous dit quand consulter.</p>
+    <p>Quelques questions courtes sur vos cycles, l'abondance de vos règles et vos douleurs. L'outil vous situe par rapport aux repères médicaux reconnus, vous dit s'il faut consulter et dans quel délai, et prépare une fiche à montrer au médecin.</p>
   </div>
 </section>
 
 <section class="about">
   <div class="container outil">
     <p class="brouillon" role="note">Version en attente de validation médicale. Ne pas diffuser.</p>
+    <p class="alerte-haut"><b>Saignement très abondant, malaise ou forte douleur ?</b> N'attendez pas : appelez le CMS HOSANNA, ouvert 24h/24, au <a href="tel:+22890038313">90 03 83 13</a>.</p>
     <form id="f-regles" novalidate>
-      <div class="ligne">
-        <div><label for="r-age">Votre âge <small>(ans)</small></label><input type="number" id="r-age" inputmode="numeric" min="9" max="60" required></div>
-      </div>
-      <fieldset>
-        <legend>Vos règles en ce moment</legend>
-        <div class="choix">
-          <label><input type="radio" name="r-statut" value="viennent" checked> Mes règles viennent</label>
-          <label><input type="radio" name="r-statut" value="arretees"> Mes règles se sont arrêtées</label>
-          <label><input type="radio" name="r-statut" value="jamais"> Je n'ai jamais eu mes règles</label>
-        </div>
-      </fieldset>
+      <div class="progression"><p class="progression-texte" aria-live="polite"></p><div class="barre" aria-hidden="true"><span></span></div></div>
 
-      <div id="bloc-arret" hidden>
+      <div class="etape" data-titre="Vous">
+        <h2 class="titre-etape" tabindex="-1">Vous</h2>
+        <div class="ligne">
+          <div><label for="r-age">Votre âge <small>(ans)</small></label><input type="number" id="r-age" inputmode="numeric" min="9" max="60" required></div>
+        </div>
+        <fieldset>
+          <legend>Vos règles en ce moment</legend>
+          <div class="choix">
+            <label><input type="radio" name="r-statut" value="viennent" checked> Mes règles viennent</label>
+            <label><input type="radio" name="r-statut" value="arretees"> Mes règles se sont arrêtées</label>
+            <label><input type="radio" name="r-statut" value="jamais"> Je n'ai jamais eu mes règles</label>
+          </div>
+        </fieldset>
+        <div class="si-regles">
+          <div class="ligne">
+            <div><label for="r-premieres">À quel âge avez-vous eu vos premières règles ? <small>(facultatif)</small></label><input type="number" id="r-premieres" inputmode="numeric" min="8" max="18"></div>
+          </div>
+          <div class="ligne">
+            <div><label for="r-contra">Contraception actuelle</label>
+              <select id="r-contra">
+                <option value="aucune">Aucune, ou préservatif seulement</option>
+                <option value="pilule">Pilule</option>
+                <option value="injection">Injection (tous les 1 ou 3 mois)</option>
+                <option value="implant">Implant (dans le bras)</option>
+                <option value="sterilet-h">Stérilet hormonal</option>
+                <option value="cuivre">Stérilet au cuivre</option>
+              </select>
+            </div>
+          </div>
+          <fieldset>
+            <legend>Allaitez-vous en ce moment ?</legend>
+            <div class="choix">
+              <label><input type="radio" name="r-allait" value="non" checked> Non</label>
+              <label><input type="radio" name="r-allait" value="oui"> Oui</label>
+            </div>
+          </fieldset>
+        </div>
+        <fieldset>
+          <legend>Une grossesse est-elle possible ? <small>(rapports sans contraception efficace depuis les dernières règles)</small></legend>
+          <div class="choix">
+            <label><input type="radio" name="r-grossesse" value="non" checked> Non</label>
+            <label><input type="radio" name="r-grossesse" value="oui"> Oui</label>
+            <label><input type="radio" name="r-grossesse" value="nsp"> Je ne sais pas</label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="etape" data-titre="Arrêt des règles" data-si="arretees">
+        <h2 class="titre-etape" tabindex="-1">Arrêt des règles</h2>
         <div class="ligne">
           <div><label for="r-mois">Depuis combien de mois n'avez-vous plus vos règles ?</label><input type="number" id="r-mois" inputmode="numeric" min="1" max="240"></div>
         </div>
@@ -353,8 +411,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <div class="cases"><label><input type="checkbox" id="r-reprise"> Des saignements sont réapparus depuis l'arrêt</label></div>
       </div>
 
-      <div id="bloc-cycles">
-        <h2 class="titre-bloc">Vos cycles</h2>
+      <div class="etape" data-titre="Vos cycles" data-si="viennent">
+        <h2 class="titre-etape" tabindex="-1">Vos cycles</h2>
         <div class="ligne">
           <div><label for="r-cycle">Durée habituelle du cycle <small>(jours, du 1er jour des règles au 1er jour des règles suivantes)</small></label><input type="number" id="r-cycle" inputmode="numeric" min="10" max="120"></div>
           <div><label for="r-duree">Durée des règles <small>(jours de saignement)</small></label><input type="number" id="r-duree" inputmode="numeric" min="1" max="30"></div>
@@ -369,8 +427,11 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
             </select>
           </div>
         </div>
+      </div>
 
-        <h2 class="titre-bloc">Abondance des règles</h2>
+      <div class="etape" data-titre="Abondance et saignements" data-si="viennent">
+        <h2 class="titre-etape" tabindex="-1">Abondance et saignements</h2>
+        <p class="aide">Serviettes, garnitures ou pagnes n'absorbent pas tous la même quantité : leur nombre est un indice, pas une mesure exacte. Les signes ci-dessous comptent autant.</p>
         <div class="ligne">
           <div><label for="r-garn">Au jour le plus abondant, combien de serviettes, garnitures ou pagnes changez-vous en 24 heures ?</label><input type="number" id="r-garn" inputmode="numeric" min="0" max="40"></div>
         </div>
@@ -382,15 +443,15 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           <label><input type="checkbox" id="r-tache"> Le sang traverse et tache le linge, le pagne, le matelas ou les draps</label>
           <label><input type="checkbox" id="r-peu"> Mes règles sont très peu abondantes (quelques taches seulement)</label>
         </fieldset>
-
-        <h2 class="titre-bloc">Saignements en dehors des règles</h2>
         <fieldset class="cases">
-          <legend class="sr">Saignements en dehors des règles</legend>
+          <legend>Saignements en dehors des règles</legend>
           <label><input type="checkbox" id="r-entre"> Je saigne entre les règles</label>
           <label><input type="checkbox" id="r-apres"> Je saigne après les rapports sexuels</label>
         </fieldset>
+      </div>
 
-        <h2 class="titre-bloc">Douleurs pendant les règles</h2>
+      <div class="etape" data-titre="Douleurs" data-si="viennent">
+        <h2 class="titre-etape" tabindex="-1">Douleurs pendant les règles</h2>
         <div class="ligne">
           <div><label for="r-douleur">Intensité de la douleur</label>
             <select id="r-douleur">
@@ -402,6 +463,15 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           </div>
           <div><label for="r-jdouleur">Nombre de jours de douleur par cycle</label><input type="number" id="r-jdouleur" inputmode="numeric" min="0" max="20"></div>
         </div>
+        <div class="ligne">
+          <div><label for="r-debut">Depuis quand avez-vous mal pendant les règles ?</label>
+            <select id="r-debut">
+              <option value="nsp">Je ne sais pas, ou pas de douleur</option>
+              <option value="toujours">Depuis mes premières règles (ou presque)</option>
+              <option value="tard">C'est apparu plus tard, après des années de règles peu douloureuses</option>
+            </select>
+          </div>
+        </div>
         <fieldset class="cases">
           <legend>Cochez ce qui vous arrive</legend>
           <label><input type="checkbox" id="r-absence"> À cause de la douleur, je manque l'école ou le travail, ou je ne peux pas faire mes activités</label>
@@ -409,51 +479,66 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           <label><input type="checkbox" id="r-aggrave"> La douleur devient plus forte d'année en année</label>
           <label><input type="checkbox" id="r-rapports"> J'ai mal pendant les rapports sexuels</label>
           <label><input type="checkbox" id="r-selles"> J'ai mal en allant à la selle ou en urinant pendant les règles</label>
+          <label><input type="checkbox" id="r-hors"> J'ai aussi mal au bas-ventre en dehors des règles</label>
         </fieldset>
       </div>
 
-      <h2 class="titre-bloc">Pour votre sécurité</h2>
-      <fieldset>
-        <legend>Une grossesse est-elle possible ? <small>(rapports sans contraception depuis les dernières règles)</small></legend>
-        <div class="choix">
-          <label><input type="radio" name="r-grossesse" value="non" checked> Non</label>
-          <label><input type="radio" name="r-grossesse" value="oui"> Oui</label>
-          <label><input type="radio" name="r-grossesse" value="nsp"> Je ne sais pas</label>
-        </div>
-      </fieldset>
-      <fieldset class="cases">
-        <legend>En ce moment, avez-vous :</legend>
-        <label><input type="checkbox" id="r-malaise"> Malaise, vertiges, évanouissement ou essoufflement</label>
-        <label><input type="checkbox" id="r-heure"> Un saignement qui remplit une garniture chaque heure, depuis 2 heures ou plus</label>
-        <label><input type="checkbox" id="r-brutale"> Une douleur du bas-ventre très forte et brutale</label>
-        <label><input type="checkbox" id="r-fievre"> De la fièvre ou des pertes qui sentent mauvais</label>
-      </fieldset>
+      <div class="etape" data-titre="Signes d'alerte">
+        <h2 class="titre-etape" tabindex="-1">Signes d'alerte</h2>
+        <fieldset class="cases">
+          <legend>En ce moment, avez-vous :</legend>
+          <label><input type="checkbox" id="r-malaise"> Malaise, vertiges, évanouissement ou essoufflement</label>
+          <label><input type="checkbox" id="r-heure"> Un saignement qui remplit une garniture chaque heure, depuis 2 heures ou plus</label>
+          <label><input type="checkbox" id="r-brutale"> Une douleur du bas-ventre très forte et brutale</label>
+          <label><input type="checkbox" id="r-fievre"> De la fièvre ou des pertes qui sentent mauvais</label>
+        </fieldset>
+        <p class="aide">Si rien de tout cela ne vous arrive, ne cochez rien.</p>
+      </div>
 
       <p class="erreur" id="r-erreur" role="alert" hidden></p>
-      <button type="submit" class="btn btn-primary">Voir mon résultat</button>
+      <div class="nav-etapes">
+        <button type="button" class="btn btn-outline e-prec">← Précédent</button>
+        <button type="button" class="btn btn-primary e-suiv">Suivant →</button>
+        <button type="submit" class="btn btn-primary e-fin">Voir mon résultat</button>
+      </div>
       <p class="mention">Le calcul se fait dans votre téléphone ou votre ordinateur. Aucune donnée n'est enregistrée ni envoyée.</p>
     </form>
 
     <div class="resultat" id="r-resultat" hidden aria-live="polite">
       <p class="date-impr" id="r-date"></p>
-      <h2>Votre résultat</h2>
+      <h2 tabindex="-1" id="r-titre">Votre résultat</h2>
       <div class="urgence" id="r-urgence" hidden></div>
+      <p class="niveau-ligne"><span class="classe" id="r-niveau"></span></p>
       <div class="ideal">
         <div><span id="r-c1t"></span><b id="r-c1"></b><span id="r-c1n"></span></div>
         <div><span id="r-c2t"></span><b id="r-c2"></b><span id="r-c2n"></span></div>
       </div>
-      <p><b>Orientation :</b> <span class="classe" id="r-niveau"></span></p>
+      <h3 class="titre-echo">Ce que montrent vos réponses</h3>
       <ul id="r-constats"></ul>
-      <h3 class="titre-echo">Les définitions médicales</h3>
+      <h3 class="titre-echo">Les repères médicaux</h3>
       <table class="classes" aria-label="Définitions des troubles des règles">
         <thead><tr><th scope="col">Terme</th><th scope="col">Définition</th></tr></thead>
         <tbody id="r-table"></tbody>
       </table>
-      <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> Ces repères concernent les femmes qui ne sont pas enceintes. Seul un examen permet de trouver la cause d'un trouble des règles. Consultez en urgence en cas de saignement très abondant, de malaise, ou de saignement ou de douleur alors qu'une grossesse est possible.</p>
+      <div class="fiche">
+        <h3 class="titre-echo">Ma fiche pour la consultation</h3>
+        <p class="aide">Montrez cette fiche au médecin (imprimée, en PDF ou en photo).</p>
+        <table class="recap" aria-label="Mes réponses"><tbody id="r-recap"></tbody></table>
+        <h4>Questions à poser au médecin</h4>
+        <ul id="r-questions"></ul>
+        <h4>À apporter</h4>
+        <ul>
+          <li>Les dates de début de vos règles des 3 à 6 derniers mois (notez-les sur un calendrier ou dans votre téléphone).</li>
+          <li>Vos médicaments et votre contraception.</li>
+          <li>Vos derniers résultats d'analyses ou d'échographie, si vous en avez.</li>
+        </ul>
+      </div>
+      <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> Cet outil oriente, il ne pose pas de diagnostic : seul un examen permet de trouver la cause d'un trouble des règles. Consultez en urgence en cas de saignement très abondant, de malaise, ou de saignement ou de forte douleur alors qu'une grossesse est possible.</p>
       <p class="impr-rdv"><b>Consultation de gynécologie au CMS HOSANNA</b> (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com</p>
       <div class="actions-outil">
         <a href="https://wa.me/22890038313" class="btn btn-primary" id="r-rdv" target="_blank" rel="noopener">Prendre rendez-vous</a>
         <button type="button" class="btn btn-outline" id="r-imprimer">Imprimer ou enregistrer en PDF</button>
+        <button type="button" class="btn btn-outline" id="r-modifier">Modifier mes réponses</button>
       </div>
     </div>
   </div>
@@ -561,33 +646,62 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+<script src="/assets/outil-etapes.js"></script>
 <script>
 (function(){
   // « Mes règles sont-elles normales ? » : tout est calculé ici, rien n'est enregistré ni envoyé.
   // Références (à valider par Gilbert DOGBAN, détail dans docs/contenus-a-valider/outil-regles.md) :
   // FIGO 2018 (Munro et al., Int J Gynecol Obstet 2018;143:393-408) : fréquence 24-38 j, durée <= 8 j, régularité (écart <= 7-9 j), saignement intermenstruel ;
-  // Higham 1990 et CNGOF 2008/2022 : ménorragie > 80 mL ; Warner 2004 et NHS : signes pratiques d'abondance ;
-  // ASRM 2024 : aménorrhée ; SOGC 2017, ACOG 760 (2018), ESHRE 2022 : dysménorrhée et endométriose.
+  // ACOG 651 (2015) : adolescentes, cycles de 21 à 45 j les premières années ; Higham 1990, CNGOF 2008/2022 : ménorragie > 80 mL ;
+  // Warner 2004, NHS : signes pratiques d'abondance ; ASRM 2024 : aménorrhée ; FSRH 2015 : saignements sous contraception hormonale ;
+  // OMS 1996 : ménopause (12 mois) ; OMS, manuel de planification familiale : allaitement (MAMA) ; SOGC 2017, ACOG 760, ESHRE 2022 : dysménorrhée, endométriose.
   var f = document.getElementById('f-regles'), err = document.getElementById('r-erreur'), res = document.getElementById('r-resultat');
   var SEUIL_GARN = 7; // garnitures par 24 h au jour le plus abondant (à valider)
+  var HORMONAL = { pilule: 'la pilule', injection: 'l\'injection', implant: 'l\'implant', 'sterilet-h': 'le stérilet hormonal' };
   function $(id){ return document.getElementById(id); }
   function coche(id){ return $(id).checked; }
   function radio(n){ var r = f.querySelector('input[name="' + n + '"]:checked'); return r ? r.value : ''; }
   function entier(id){ var v = $(id).value.trim(); return v === '' ? null : (/^\d+$/.test(v) ? parseInt(v, 10) : NaN); }
   function statut(){ return radio('r-statut'); }
-  function maj(){ var s = statut(); $('bloc-arret').hidden = s !== 'arretees'; $('bloc-cycles').hidden = s !== 'viennent'; }
-  f.querySelectorAll('input[name="r-statut"]').forEach(function(r){ r.addEventListener('change', maj); });
-  maj();
-  function refuser(id, texte){ err.textContent = texte; err.hidden = false; if (id) $(id).focus(); }
+  function hors(v, a, b){ return v === null || isNaN(v) || v < a || v > b; }
+
+  var pas = OutilEtapes(f, {
+    actif: function(e){ var si = e.getAttribute('data-si'); return !si || si === statut(); },
+    valider: valider,
+    erreur: function(e){ err.textContent = e.msg; err.hidden = false; $(e.id).focus(); },
+    effacer: function(){ err.hidden = true; },
+    fin: calculer
+  });
+  function majStatut(){ f.querySelector('.si-regles').hidden = statut() === 'jamais'; pas.rafraichir(); }
+  f.querySelectorAll('input[name="r-statut"]').forEach(function(r){ r.addEventListener('change', majStatut); });
+  majStatut();
+
+  function valider(){
+    var age = entier('r-age'), s = statut(), pr = entier('r-premieres');
+    if (hors(age, 9, 60)) return { id: 'r-age', msg: 'Indiquez votre âge : un nombre entre 9 et 60 ans.' };
+    if (s !== 'jamais' && pr !== null && (hors(pr, 8, 18) || pr > age)) return { id: 'r-premieres', msg: 'L\'âge des premières règles doit être un nombre entre 8 et 18 ans, et ne pas dépasser votre âge. Vous pouvez aussi laisser la case vide.' };
+    if (s === 'arretees' && hors(entier('r-mois'), 1, 240)) return { id: 'r-mois', msg: 'Indiquez depuis combien de mois vos règles sont arrêtées : un nombre entre 1 et 240.' };
+    if (s === 'viennent') {
+      if (hors(entier('r-cycle'), 10, 120)) return { id: 'r-cycle', msg: 'Indiquez la durée habituelle de votre cycle : un nombre entre 10 et 120 jours. Comptez du premier jour des règles au premier jour des règles suivantes.' };
+      if (hors(entier('r-duree'), 1, 30)) return { id: 'r-duree', msg: 'Indiquez la durée de vos règles : un nombre entre 1 et 30 jours.' };
+      var garn = entier('r-garn'), jd = entier('r-jdouleur');
+      if (garn !== null && hors(garn, 0, 40)) return { id: 'r-garn', msg: 'Le nombre de garnitures doit être un nombre entre 0 et 40.' };
+      if (coche('r-peu') && ((garn !== null && garn >= SEUIL_GARN) || coche('r-plein') || coche('r-tache'))) return { id: 'r-peu', msg: 'Vous avez indiqué à la fois des règles très peu abondantes et des signes de règles abondantes : vérifiez vos réponses.' };
+      if (jd !== null && hors(jd, 0, 20)) return { id: 'r-jdouleur', msg: 'Le nombre de jours de douleur doit être un nombre entre 0 et 20.' };
+    }
+    return null;
+  }
 
   var DEF = {
-    normal: ['Cycle normal', 'Cycle de 24 à 38 jours, régulier, règles de 8 jours au plus, d\'abondance normale, sans saignement entre les règles.'],
-    poly: ['Polyménorrhée (cycles trop fréquents)', 'Cycles de moins de 24 jours : les règles reviennent trop souvent.'],
-    oligo: ['Oligoménorrhée (cycles espacés)', 'Cycles de plus de 38 jours : les règles sont trop espacées.'],
-    irreg: ['Cycles irréguliers', 'Écart de plus de 7 à 9 jours entre le cycle le plus court et le plus long sur l\'année (moins de 26 ans et plus de 41 ans : jusqu\'à 9 jours restent normaux).'],
+    normal: ['Cycle normal', 'Cycle de 24 à 38 jours (21 à 45 jours dans les 3 premières années après les premières règles), régulier, règles de 8 jours au plus, d\'abondance normale, sans saignement entre les règles.'],
+    poly: ['Polyménorrhée (cycles trop fréquents)', 'Cycles de moins de 24 jours (moins de 21 jours les premières années) : les règles reviennent trop souvent.'],
+    oligo: ['Oligoménorrhée (cycles espacés)', 'Cycles de plus de 38 jours (plus de 45 jours les premières années) : les règles sont trop espacées.'],
+    irreg: ['Cycles irréguliers', 'Écart de plus de 7 à 9 jours entre le cycle le plus court et le plus long sur l\'année (jusqu\'à 9 jours restent normaux avant 26 ans et après 41 ans).'],
     amen1: ['Aménorrhée primaire', 'Pas de règles à 15 ans (ou 3 ans après le début du développement des seins).'],
-    amen2: ['Aménorrhée secondaire', 'Arrêt des règles depuis plus de 3 mois si les cycles étaient réguliers, depuis plus de 6 mois s\'ils étaient irréguliers.'],
-    meno: ['Ménopause', 'Arrêt définitif des règles, retenu après 12 mois sans règles, en général vers 45 à 55 ans.'],
+    amen2: ['Aménorrhée secondaire', 'Arrêt des règles depuis plus de 3 mois si les cycles étaient réguliers, depuis plus de 6 mois s\'ils étaient irréguliers (en dehors de la grossesse, de l\'allaitement et de la contraception hormonale).'],
+    allait: ['Absence de règles de l\'allaitement', 'Pendant l\'allaitement, les règles peuvent être absentes ou irrégulières pendant plusieurs mois : c\'est normal.'],
+    contra: ['Saignements modifiés par la contraception', 'Sous pilule, injection, implant ou stérilet hormonal, les règles peuvent devenir rares, absentes, irrégulières ou remplacées par de petits saignements : effet fréquent et sans danger de la méthode.'],
+    meno: ['Ménopause', 'Arrêt définitif des règles, retenu après 12 mois sans règles, en général entre 45 et 55 ans.'],
     prol: ['Règles prolongées', 'Règles qui durent plus de 8 jours.'],
     hyper: ['Hyperménorrhée (ménorragie)', 'Règles trop abondantes : plus de 80 mL de sang par cycle, ou abondance qui gêne la vie quotidienne (fatigue, débordements, absences).'],
     hypo: ['Hypoménorrhée', 'Règles très peu abondantes.'],
@@ -596,94 +710,118 @@ if ("serviceWorker" in navigator) {
     dysm: ['Dysménorrhée', 'Règles douloureuses : douleurs du bas-ventre qui commencent juste avant ou pendant les règles.'],
     dysmi: ['Dysménorrhée invalidante', 'Douleur des règles qui empêche les activités ou fait manquer l\'école ou le travail.']
   };
-  var ORDRE = ['normal', 'poly', 'oligo', 'irreg', 'amen1', 'amen2', 'meno', 'prol', 'hyper', 'hypo', 'metro', 'coit', 'dysm', 'dysmi'];
+  var ORDRE = ['normal', 'poly', 'oligo', 'irreg', 'amen1', 'amen2', 'allait', 'contra', 'meno', 'prol', 'hyper', 'hypo', 'metro', 'coit', 'dysm', 'dysmi'];
+  // Niveaux : 1 vert, 2 orange (dans le mois), 3 orange (dans les 2 semaines), 4 rouge (maintenant)
+  var NIVEAUX = {
+    1: ['c-normal', 'Vert · repères habituels', 'Pas de consultation urgente nécessaire. Consultez si quelque chose change ou vous inquiète.'],
+    2: ['c-surpoids', 'Orange · consultez dans le mois', 'Une consultation est conseillée dans le mois qui vient.'],
+    3: ['c-surpoids', 'Orange · consultez dans les 2 semaines', 'Une consultation est conseillée dans les 2 semaines.'],
+    4: ['c-urgent', 'Rouge · urgence : consultez maintenant', 'Consultez sans attendre.']
+  };
 
-  f.addEventListener('submit', function(e){
-    e.preventDefault(); err.hidden = true;
+  function calculer(){
     var age = entier('r-age'), s = statut(), g = radio('r-grossesse'), gPossible = g !== 'non';
-    if (age === null || isNaN(age) || age < 9 || age > 60) return refuser('r-age', 'Indiquez votre âge : un nombre entre 9 et 60 ans.');
-    var vous = {}, constats = [], niveau = 1, urg = [];
-    function ajoute(cle, texte, n){ vous[cle] = true; constats.push(texte); if (n > niveau) niveau = n; }
-    var c1t, c1, c1n, c2t, c2, c2n, resume = [];
+    var pr = entier('r-premieres'), contra = $('r-contra').value, allait = radio('r-allait') === 'oui' && s !== 'jamais';
+    var hormonal = s !== 'jamais' && HORMONAL[contra];
+    var ado = s !== 'jamais' && pr !== null && age - pr < 3;
+    var vous = {}, constats = [], niveau = 1, urg = [], resume = [], questions = [];
+    function ajoute(cle, texte, n){ if (cle) vous[cle] = true; constats.push(texte); if (n > niveau) niveau = n; }
+    function q(t){ if (questions.indexOf(t) === -1) questions.push(t); }
+    var c1t, c1, c1n, c2t, c2, c2n;
 
     if (s === 'jamais') {
       c1t = 'Votre âge'; c1 = age + ' ans'; c1n = 'pas encore de règles';
       c2t = 'Seuil de consultation'; c2 = '15 ans'; c2n = 'ou 13 ans sans début de poitrine';
-      if (age >= 15) { ajoute('amen1', 'Aménorrhée primaire : pas de règles à ' + age + ' ans. Consultez : un examen et quelques analyses permettent d\'en trouver la cause, souvent traitable.', 2); resume.push('aménorrhée primaire'); }
-      else constats.push('À ' + age + ' ans, ne pas encore avoir ses règles peut être normal. Consultez si elles ne sont pas venues à 15 ans, ou dès 13 ans si la poitrine n\'a pas commencé à se développer.');
+      if (age >= 15) { ajoute('amen1', 'Aménorrhée primaire : pas de règles à ' + age + ' ans (repère : 15 ans). Une consultation permet d\'en trouver la cause, souvent traitable : examen, échographie et quelques analyses.', 2); resume.push('aménorrhée primaire'); q('Quels examens pour comprendre pourquoi les règles ne sont pas venues ?'); }
+      else ajoute(null, 'À ' + age + ' ans, ne pas encore avoir ses règles peut être normal. Consultez si elles ne sont pas venues à 15 ans, ou dès 13 ans si la poitrine n\'a pas commencé à se développer.', 1);
     } else if (s === 'arretees') {
-      var mois = entier('r-mois'), avant = radio('r-avant');
-      if (mois === null || isNaN(mois) || mois < 1 || mois > 240) return refuser('r-mois', 'Indiquez depuis combien de mois vos règles sont arrêtées : un nombre entre 1 et 240.');
-      var seuil = avant === 'oui' ? 3 : 6;
+      var mois = entier('r-mois'), avant = radio('r-avant'), seuil = avant === 'oui' ? 3 : 6;
       c1t = 'Sans règles depuis'; c1 = mois + ' mois'; c1n = '';
       c2t = 'Seuil d\'aménorrhée'; c2 = 'plus de ' + seuil + ' mois'; c2n = avant === 'oui' ? 'cycles réguliers avant' : 'cycles irréguliers avant';
-      if (gPossible) constats.push('Une grossesse est la cause la plus fréquente d\'un arrêt des règles : faites d\'abord un test de grossesse.');
-      if (age >= 45 && mois >= 12) {
+      if (gPossible) { ajoute(null, 'Une grossesse est la cause la plus fréquente d\'un arrêt des règles : faites d\'abord un test de grossesse (en pharmacie ou au centre).', 1); q('Faut-il faire un test de grossesse ou une prise de sang ?'); }
+      if (allait) {
+        ajoute('allait', 'Vous allaitez : l\'absence de règles est normale pendant l\'allaitement. Attention, l\'allaitement ne protège d\'une grossesse que si le bébé a moins de 6 mois, est nourri uniquement au sein, jour et nuit, et si les règles ne sont pas revenues. Sinon, parlez de contraception avec un professionnel.', 1);
+        q('Quelle contraception est possible pendant l\'allaitement ?');
+      } else if (hormonal) {
+        ajoute('contra', 'Sous ' + hormonal + ', l\'absence de règles est fréquente et sans danger : la méthode met l\'utérus au repos.' + (contra === 'pilule' ? ' Sous pilule, faites un test de grossesse en cas d\'oubli de comprimés.' : '') + (age >= 45 ? ' La ménopause ne peut pas être affirmée sous contraception hormonale : parlez-en au médecin.' : ''), 1);
+        q('Cette absence de règles est-elle bien due à ma contraception ?');
+      } else if (age >= 45 && mois >= 12) {
         ajoute('meno', 'Ménopause probable : pas de règles depuis ' + mois + ' mois à ' + age + ' ans. Une consultation permet de faire le point (bouffées de chaleur, os, cœur, dépistages).', 1); resume.push('ménopause probable');
-        if (coche('r-reprise')) { ajoute('metro', 'Un saignement après la ménopause doit toujours être examiné : consultez rapidement (examen et échographie).', 2); resume.push('saignement après la ménopause'); }
+        q('Quels dépistages faire après la ménopause (col, sein, tension, glycémie) ?');
       } else if (mois > seuil) {
-        ajoute('amen2', 'Aménorrhée secondaire : pas de règles depuis ' + mois + ' mois. Consultez pour en chercher la cause (grossesse, stress, poids, hormones, thyroïde, ovaires polykystiques…).' + (age >= 45 ? ' À ' + age + ' ans, l\'approche de la ménopause est aussi possible.' : ''), 2); resume.push('aménorrhée secondaire (' + mois + ' mois)');
+        ajoute('amen2', 'Aménorrhée secondaire : pas de règles depuis ' + mois + ' mois (repère : plus de ' + seuil + ' mois). Une consultation permet d\'en chercher la cause : stress, perte ou prise de poids, trouble hormonal, thyroïde, ovaires polykystiques…' + (age >= 45 ? ' À ' + age + ' ans, l\'approche de la ménopause est aussi possible.' : ''), 2); resume.push('aménorrhée secondaire (' + mois + ' mois)');
+        q('Quels examens pour trouver la cause de l\'arrêt de mes règles ?');
       } else {
-        constats.push('Retard de règles de ' + mois + ' mois : ce n\'est pas encore une aménorrhée (seuil : plus de ' + seuil + ' mois). Consultez si les règles ne reviennent pas' + (gPossible ? ', et faites un test de grossesse' : '') + '.');
+        ajoute(null, 'Retard de règles de ' + mois + ' mois : ce n\'est pas encore une aménorrhée (repère : plus de ' + seuil + ' mois). Consultez si les règles ne reviennent pas.', 1);
       }
-      if (coche('r-reprise') && !vous.meno) constats.push('Les saignements réapparus seront à décrire au médecin.');
+      if (coche('r-reprise')) {
+        if (vous.meno) { ajoute('metro', 'Un saignement après la ménopause doit toujours être examiné, même s\'il est léger : examen et échographie.', 3); resume.push('saignement après la ménopause'); q('D\'où vient ce saignement après la ménopause ? Faut-il une échographie ?'); }
+        else ajoute(null, 'Les saignements réapparus seront à décrire au médecin (date, durée, abondance).', 1);
+      }
     } else {
       var cycle = entier('r-cycle'), duree = entier('r-duree'), garn = entier('r-garn'), jd = entier('r-jdouleur');
-      if (cycle === null || isNaN(cycle) || cycle < 10 || cycle > 120) return refuser('r-cycle', 'Indiquez la durée habituelle de votre cycle : un nombre entre 10 et 120 jours. Comptez du premier jour des règles au premier jour des règles suivantes.');
-      if (duree === null || isNaN(duree) || duree < 1 || duree > 30) return refuser('r-duree', 'Indiquez la durée de vos règles : un nombre entre 1 et 30 jours.');
-      if (garn !== null && (isNaN(garn) || garn > 40)) return refuser('r-garn', 'Le nombre de garnitures doit être un nombre entre 0 et 40.');
-      if (jd !== null && (isNaN(jd) || jd > 20)) return refuser('r-jdouleur', 'Le nombre de jours de douleur doit être un nombre entre 0 et 20.');
-      if (coche('r-peu') && ((garn !== null && garn >= SEUIL_GARN) || coche('r-plein') || coche('r-tache'))) return refuser('r-peu', 'Vous avez indiqué à la fois des règles très peu abondantes et des signes de règles abondantes : vérifiez vos réponses.');
-      c1t = 'Votre cycle'; c1 = cycle + ' jours'; c1n = 'normal : 24 à 38 jours';
-      c2t = 'Vos règles'; c2 = duree + ' jour' + (duree > 1 ? 's' : ''); c2n = 'normal : 8 jours au plus';
-      // Fréquence (FIGO 2018)
-      if (cycle < 24) { ajoute('poly', 'Polyménorrhée : votre cycle de ' + cycle + ' jours est plus court que la normale (24 jours au moins). Les règles trop rapprochées peuvent fatiguer et causer une anémie : consultez.', 2); resume.push('cycles courts (' + cycle + ' j)'); }
-      else if (cycle > 38) { ajoute('oligo', 'Oligoménorrhée : votre cycle de ' + cycle + ' jours est plus long que la normale (38 jours au plus). Des cycles espacés peuvent signaler un trouble de l\'ovulation (ovaires polykystiques, thyroïde, poids, stress) : consultez, surtout si vous souhaitez une grossesse.', 2); resume.push('cycles longs (' + cycle + ' j)'); }
-      // Régularité (FIGO 2018 : <= 7 j, ou <= 9 j de 18 à 25 ans et de 42 à 45 ans)
+      var bas = ado ? 21 : 24, haut = ado ? 45 : 38;
+      c1t = 'Votre cycle'; c1 = cycle + ' jours'; c1n = 'repère : ' + bas + ' à ' + haut + ' jours' + (ado ? ' (premières années)' : '');
+      c2t = 'Vos règles'; c2 = duree + ' jour' + (duree > 1 ? 's' : ''); c2n = 'repère : 8 jours au plus';
+      // Fréquence et régularité : sous contraception hormonale ou pendant l'allaitement, les repères FIGO ne s'appliquent pas.
+      var cyc = [];
+      if (cycle < bas) cyc.push(['poly', 'Polyménorrhée : votre cycle de ' + cycle + ' jours est plus court que le repère (' + bas + ' jours au moins' + (ado ? ' dans les premières années' : '') + '). Des règles trop rapprochées peuvent fatiguer et causer une anémie.', 'cycles courts (' + cycle + ' j)']);
+      else if (cycle > haut) cyc.push(['oligo', 'Oligoménorrhée : votre cycle de ' + cycle + ' jours est plus long que le repère (' + haut + ' jours au plus' + (ado ? ' dans les premières années' : '') + '). Des cycles espacés peuvent signaler un trouble de l\'ovulation (ovaires polykystiques, thyroïde, poids, stress), surtout important si vous souhaitez une grossesse.', 'cycles longs (' + cycle + ' j)']);
       var ecart = $('r-ecart').value, tolere = (age < 26 || age >= 42) ? 9 : 7;
-      if (ecart === '10' || (ecart === '8' && tolere === 7)) { ajoute('irreg', 'Cycles irréguliers : l\'écart entre vos cycles dépasse ' + tolere + ' jours. Consultez pour en chercher la cause' + (age < 18 ? ' (dans les premières années après les premières règles, une certaine irrégularité est fréquente)' : '') + '.', 2); resume.push('cycles irréguliers'); }
-      else if (ecart === 'nsp') constats.push('Pour juger la régularité, notez pendant quelques mois la date du premier jour de vos règles (sur un calendrier ou dans votre téléphone).');
-      // Durée
-      if (duree > 8) { ajoute('prol', 'Règles prolongées : ' + duree + ' jours de saignement, au-delà de 8 jours. Consultez.', 2); resume.push('règles prolongées (' + duree + ' j)'); }
-      // Abondance
+      if (!ado && (ecart === '10' || (ecart === '8' && tolere === 7))) cyc.push(['irreg', 'Cycles irréguliers : l\'écart entre votre cycle le plus court et le plus long dépasse ' + tolere + ' jours (repère à votre âge : ' + tolere + ' jours au plus).', 'cycles irréguliers']);
+      if (ado && ecart !== '0' && ecart !== 'nsp') ajoute(null, 'Vos règles ont commencé il y a moins de 3 ans : à cette période, des cycles un peu irréguliers sont fréquents. Consultez si les règles restent absentes plus de 3 mois, ou si elles reviennent plus souvent que toutes les 3 semaines.', 1);
+      if (ecart === 'nsp') ajoute(null, 'Pour juger la régularité, notez pendant quelques mois la date du premier jour de vos règles (sur un calendrier ou dans votre téléphone).', 1);
+      if (coche('r-entre')) cyc.push(['metro', 'Métrorragies : des saignements entre les règles doivent être examinés.', 'saignements entre les règles']);
+      if (coche('r-peu')) cyc.push(['hypo', 'Hypoménorrhée : règles très peu abondantes. Souvent sans gravité, mais parlez-en si c\'est un changement récent ou si vous souhaitez une grossesse.', 'règles peu abondantes']);
+      if ((hormonal || allait) && cyc.length) {
+        ajoute(hormonal ? 'contra' : 'allait', (hormonal ? 'Sous ' + hormonal + ', des' : 'Pendant l\'allaitement, des') + ' saignements irréguliers, plus rares, très légers ou entre les règles sont fréquents, surtout les premiers mois. Consultez s\'ils durent plus de 3 mois' + (hormonal ? ' après le début de la méthode' : '') + ', s\'ils changent brusquement, ou s\'ils s\'accompagnent de douleurs ou de saignements après les rapports.', 1);
+        if (hormonal) q('Ces saignements sont-ils dus à ma contraception ? Faut-il en changer ?');
+      } else cyc.forEach(function(c){
+        ajoute(c[0], c[1] + (c[0] === 'hypo' ? '' : ' Consultez.'), c[0] === 'metro' ? 3 : c[0] === 'hypo' ? 1 : 2); resume.push(c[2]);
+        if (c[0] === 'metro') q('D\'où viennent ces saignements entre les règles ? Faut-il une échographie ?');
+        else if (c[0] !== 'hypo') q('Faut-il un bilan hormonal ou une échographie pour comprendre mes cycles ?');
+      });
+      if (duree > 8) { ajoute('prol', 'Règles prolongées : ' + duree + ' jours de saignement, au-delà du repère de 8 jours. Consultez.', 2); resume.push('règles prolongées (' + duree + ' j)'); q('Pourquoi mes règles durent-elles si longtemps ?'); }
+      // Abondance (indices, pas une mesure)
       var signes = [];
       if (garn !== null && garn >= SEUIL_GARN) signes.push(garn + ' garnitures par jour');
       if (coche('r-plein')) signes.push('garniture pleine en 2 heures ou moins');
       if (coche('r-caillots')) signes.push('gros caillots');
       if (coche('r-nuit')) signes.push('change la nuit ou double protection');
       if (coche('r-tache')) signes.push('le sang tache le linge ou les draps');
-      if (signes.length) { ajoute('hyper', 'Hyperménorrhée (ménorragie) probable : ' + signes.join(', ') + '. Des règles trop abondantes peuvent provoquer une anémie (fatigue, essoufflement, vertiges). Consultez : examen, échographie et numération sanguine permettent d\'en trouver la cause (fibrome, polype, trouble hormonal ou de la coagulation) et de la traiter.', 2); resume.push('règles abondantes'); }
-      else if (coche('r-peu')) { ajoute('hypo', 'Hypoménorrhée : règles très peu abondantes. Souvent sans gravité (contraception hormonale, par exemple), mais parlez-en si c\'est un changement récent ou si vous souhaitez une grossesse.', 1); resume.push('règles peu abondantes'); }
-      // Saignements hors des règles
-      if (coche('r-entre')) { ajoute('metro', 'Métrorragies : des saignements entre les règles doivent être examinés. Consultez.', 2); resume.push('saignements entre les règles'); }
-      if (coche('r-apres')) { ajoute('coit', 'Saignements après les rapports : le col de l\'utérus doit être examiné (infection, polype, lésion du col). Consultez et faites le dépistage du cancer du col si ce n\'est pas fait.', 2); resume.push('saignements après les rapports'); }
+      if (signes.length) {
+        ajoute('hyper', 'Règles probablement trop abondantes (hyperménorrhée) : ' + signes.join(', ') + '. Le nombre de garnitures n\'est qu\'un indice, mais ces signes suffisent à justifier un avis. Des règles trop abondantes peuvent provoquer une anémie (fatigue, essoufflement, vertiges). L\'examen, l\'échographie et une numération sanguine permettent d\'en trouver la cause (fibrome, polype, trouble hormonal ou de la coagulation) et de la traiter.' + (contra === 'cuivre' ? ' Le stérilet au cuivre peut rendre les règles plus abondantes : signalez-le.' : ''), 3);
+        resume.push('règles abondantes'); q('Ai-je une anémie ? Faut-il une numération sanguine ?'); q('Quelle est la cause de ces règles abondantes, et quel traitement est possible ?');
+      }
+      if (coche('r-apres')) { ajoute('coit', 'Saignements après les rapports : le col de l\'utérus doit être examiné (infection, polype, lésion du col). Faites aussi le dépistage du cancer du col s\'il n\'est pas à jour.', 3); resume.push('saignements après les rapports'); q('Mon dépistage du cancer du col est-il à jour ?'); }
       // Douleur
-      var d = parseInt($('r-douleur').value, 10), invalidante = d === 3 || coche('r-absence');
-      var endo = [];
+      var d = parseInt($('r-douleur').value, 10), invalidante = d === 3 || coche('r-absence'), endo = [];
       if (coche('r-inefficace')) endo.push('antidouleurs inefficaces');
       if (coche('r-aggrave')) endo.push('douleur qui s\'aggrave avec les années');
+      if ($('r-debut').value === 'tard') endo.push('douleur apparue après des années de règles peu douloureuses');
       if (coche('r-rapports')) endo.push('douleur pendant les rapports');
       if (coche('r-selles')) endo.push('douleur à la selle ou en urinant pendant les règles');
+      if (coche('r-hors')) endo.push('douleur du bas-ventre en dehors des règles');
       if (d > 0 || invalidante || endo.length) {
         vous.dysm = true;
-        if (invalidante) { ajoute('dysmi', 'Dysménorrhée invalidante : la douleur vous empêche de vivre normalement. Ce n\'est pas « normal d\'avoir aussi mal » : consultez, il existe des traitements efficaces.', 2); resume.push('règles très douloureuses'); }
-        else { constats.push('Dysménorrhée ' + (d === 2 ? 'modérée' : 'légère') + ' : des règles un peu douloureuses sont fréquentes. Chaleur sur le ventre, activité physique et un antidouleur (par exemple l\'ibuprofène, si vous le tolérez) soulagent souvent. Consultez si la douleur augmente.'); if (d === 2) resume.push('règles douloureuses'); }
-        if (jd !== null && jd > 3) constats.push('Douleur sur ' + jd + ' jours : une douleur de règles habituelle dure 1 à 3 jours. Une douleur plus longue doit être signalée au médecin.');
-        if (endo.length) { ajoute('dysm', 'Signes qui doivent faire rechercher une endométriose ou une autre cause (' + endo.join(', ') + ') : consultez un médecin ou un gynécologue.', 2); resume.push('signes à explorer (' + endo.join(', ') + ')'); }
+        if (invalidante) { ajoute('dysmi', 'Dysménorrhée invalidante : la douleur vous empêche de vivre normalement. Avoir aussi mal n\'est pas « normal » : des traitements efficaces existent.', 2); resume.push('règles très douloureuses'); q('Quel traitement pour soulager mes douleurs de règles ?'); }
+        else ajoute(null, 'Dysménorrhée ' + (d === 2 ? 'modérée' : 'légère') + ' : des règles un peu douloureuses sont fréquentes. Chaleur sur le ventre, activité physique et un antidouleur (par exemple l\'ibuprofène, si vous le tolérez) soulagent souvent. Consultez si la douleur augmente.', 1);
+        if (jd !== null && jd > 3) ajoute(null, 'Douleur sur ' + jd + ' jours : une douleur de règles habituelle dure 1 à 3 jours. Une douleur plus longue est à signaler au médecin.', 1);
+        if (endo.length) { ajoute('dysm', 'Ces signes ne permettent pas de poser un diagnostic, mais ils justifient de rechercher une endométriose, une infection ou une autre cause : ' + endo.join(', ') + '.' + (contra === 'cuivre' ? ' Le stérilet au cuivre peut aussi rendre les règles plus douloureuses.' : ''), 2); resume.push('douleurs à explorer (' + endo.join(', ') + ')'); q('Une endométriose est-elle possible ? Quels examens la recherchent ?'); }
       }
-      if (!constats.length) { vous.normal = true; constats.push('D\'après vos réponses, vos règles correspondent aux repères d\'un cycle normal. Consultez si quelque chose change.'); }
+      if (!constats.length || (niveau === 1 && !Object.keys(vous).length)) { vous.normal = true; ajoute(null, 'D\'après vos réponses, vos règles correspondent aux repères d\'un cycle normal' + (ado ? ' pour les premières années après les premières règles' : '') + '.', 1); }
     }
 
-    // Signes d'alerte
+    // Signes d'alerte : rouge, quel que soit le reste
     if (coche('r-malaise')) urg.push('malaise, vertiges ou essoufflement');
     if (coche('r-heure')) urg.push('saignement qui remplit une garniture chaque heure');
     if (coche('r-brutale')) urg.push('douleur très forte et brutale');
     if (coche('r-fievre')) urg.push('fièvre ou pertes malodorantes');
-    var saigne = vous.hyper || vous.metro || vous.coit || vous.prol || coche('r-heure') || coche('r-reprise');
+    var saigne = vous.hyper || vous.metro || vous.coit || vous.prol || coche('r-heure') || coche('r-reprise') || coche('r-entre');
     var grossesseRisque = gPossible && (saigne || vous.dysmi || coche('r-brutale'));
     var u = $('r-urgence');
     if (urg.length || grossesseRisque) {
-      niveau = 3; u.hidden = false; u.textContent = '';
+      niveau = 4; u.hidden = false; u.textContent = '';
       var t = document.createElement('b'); t.textContent = 'Consultez en urgence, sans attendre : ';
       var txt = [];
       if (urg.length) txt.push('vous signalez ' + urg.join(', ') + '.');
@@ -691,14 +829,15 @@ if ("serviceWorker" in navigator) {
       u.appendChild(t); u.appendChild(document.createTextNode(txt.join(' ') + ' Le CMS HOSANNA est ouvert 24h/24 : 90 03 83 13.'));
       resume.unshift('signes d\'alerte' + (urg.length ? ' (' + urg.join(', ') + ')' : '') + (grossesseRisque ? ', grossesse possible' : ''));
     } else u.hidden = true;
+    if (!questions.length) q('Mes règles sont-elles normales pour mon âge ?');
 
+    // Affichage
     $('r-c1t').textContent = c1t; $('r-c1').textContent = c1; $('r-c1n').textContent = c1n;
     $('r-c2t').textContent = c2t; $('r-c2').textContent = c2; $('r-c2n').textContent = c2n;
-    var nv = $('r-niveau');
-    nv.className = 'classe ' + (niveau === 3 ? 'c-obese' : niveau === 2 ? 'c-surpoids' : 'c-normal');
-    nv.textContent = niveau === 3 ? 'urgence : consultez maintenant' : niveau === 2 ? 'consultez dans les prochaines semaines' : (vous.meno ? 'pas de trouble des règles détecté' : 'repères normaux');
-    var ul = $('r-constats'); ul.textContent = '';
-    constats.forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); });
+    var nv = $('r-niveau'); nv.className = 'classe ' + NIVEAUX[niveau][0]; nv.textContent = NIVEAUX[niveau][1];
+    function liste(id, items){ var ul = $(id); ul.textContent = ''; items.forEach(function(c){ var li = document.createElement('li'); li.textContent = c; ul.appendChild(li); }); }
+    liste('r-constats', constats.concat([NIVEAUX[niveau][2]]));
+    liste('r-questions', questions);
     var tb = $('r-table'); tb.textContent = '';
     ORDRE.forEach(function(k){
       var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td');
@@ -706,13 +845,36 @@ if ("serviceWorker" in navigator) {
       if (vous[k]) { tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); }
       tr.appendChild(a); tr.appendChild(b); tb.appendChild(tr);
     });
+    // Fiche de consultation : récapitulatif des réponses
+    function texteCoches(ids){ return ids.filter(coche).map(function(id){ return $(id).closest('label').textContent.trim(); }); }
+    function choix(n){ var r = f.querySelector('input[name="' + n + '"]:checked'); return r ? r.closest('label').textContent.trim() : ''; }
+    function opt(id){ var o = $(id); return o.options[o.selectedIndex].text; }
+    var lignes = [['Âge', age + ' ans'], ['Règles', choix('r-statut')]];
+    if (s !== 'jamais') { if (pr !== null) lignes.push(['Premières règles', 'à ' + pr + ' ans']); lignes.push(['Contraception', opt('r-contra')], ['Allaitement', allait ? 'oui' : 'non']); }
+    lignes.push(['Grossesse possible', choix('r-grossesse')]);
+    if (s === 'arretees') { lignes.push(['Sans règles depuis', c1], ['Avant l\'arrêt', choix('r-avant')]); if (coche('r-reprise')) lignes.push(['Saignements', 'réapparus depuis l\'arrêt']); }
+    if (s === 'viennent') {
+      lignes.push(['Cycle', c1], ['Durée des règles', c2], ['Régularité', opt('r-ecart')]);
+      if (garn !== null) lignes.push(['Garnitures au jour le plus abondant', garn + ' en 24 heures']);
+      var ab = texteCoches(['r-plein', 'r-caillots', 'r-nuit', 'r-tache', 'r-peu']); if (ab.length) lignes.push(['Abondance', ab.join(' ; ')]);
+      var hr = texteCoches(['r-entre', 'r-apres']); if (hr.length) lignes.push(['Saignements hors règles', hr.join(' ; ')]);
+      lignes.push(['Douleur', opt('r-douleur') + (jd ? ', ' + jd + ' jour(s) par cycle' : '')]);
+      if ($('r-debut').value !== 'nsp') lignes.push(['Début de la douleur', opt('r-debut')]);
+      var dl = texteCoches(['r-absence', 'r-inefficace', 'r-aggrave', 'r-rapports', 'r-selles', 'r-hors']); if (dl.length) lignes.push(['Signes associés', dl.join(' ; ')]);
+    }
+    var al = texteCoches(['r-malaise', 'r-heure', 'r-brutale', 'r-fievre']); lignes.push(['Signes d\'alerte', al.length ? al.join(' ; ') : 'aucun']);
+    lignes.push(['Orientation de l\'outil', NIVEAUX[niveau][1]]);
+    var rc = $('r-recap'); rc.textContent = '';
+    lignes.forEach(function(l){ var tr = document.createElement('tr'), th = document.createElement('th'), td = document.createElement('td'); th.scope = 'row'; th.textContent = l[0]; td.textContent = l[1]; tr.appendChild(th); tr.appendChild(td); rc.appendChild(tr); });
+
     var msg = 'Bonjour CMS HOSANNA, je souhaite prendre rendez-vous pour une consultation de gynécologie (troubles des règles).' + (resume.length ? ' Résultat de l\'outil « Mes règles sont-elles normales ? » : ' + resume.join(' ; ') + '.' : '');
     $('r-rdv').href = 'https://wa.me/22890038313?text=' + encodeURIComponent(msg);
     var auj = new Date().toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}).replace(/^1 /, '1er ');
-    $('r-date').textContent = 'CMS HOSANNA, Lomé · Résultat du ' + auj + ' · Âge : ' + age + ' ans' + (s === 'viennent' ? ' · Cycle : ' + c1 + ' · Règles : ' + c2 : '');
-    res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'});
-  });
+    $('r-date').textContent = 'CMS HOSANNA, Lomé · Résultat du ' + auj + ' · Âge : ' + age + ' ans';
+    f.hidden = true; res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'}); $('r-titre').focus({preventScroll: true});
+  }
   $('r-imprimer').addEventListener('click', function(){ window.print(); });
+  $('r-modifier').addEventListener('click', function(){ res.hidden = true; f.hidden = false; pas.montrer(0, true); });
 })();
 </script>
 <script src="/assets/vie.js" defer></script>
