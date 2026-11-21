@@ -22,7 +22,7 @@ Après la discussion avec Gilbert (idées issues de ChatGPT), ajouts :
 ## Vérifications
 
 - `python3 tools/verifier-site.py` : 0 échec.
-- `tools/test-outils-gyneco.js` : **97/97 contrôles réussis** :
+- `tools/test-outils-gyneco.js` : **107/107 contrôles réussis** :
   - 34 cas types (règles) et 13 (infertilité) ;
   - 9 + 5 saisies invalides ;
   - parcours par étapes : blocage, touche Entrée, « Précédent », étapes conditionnelles, « Modifier » ;
@@ -51,16 +51,18 @@ Après la discussion avec Gilbert (idées issues de ChatGPT), ajouts :
   - ASRM 2021 et 2026, ACOG/ASRM n° 781 ;
   - NICE CG156.
 
-Les références exactes, avec liens, sont dans les fiches. Les références marquées « à vérifier » ont été citées de mémoire, sans ouvrir la source pendant ce travail.
+Les références exactes, avec liens, sont dans les fiches. Les références marquées « à vérifier » ont été citées de mémoire, sans ouvrir la source pendant ce travail.## Décisions de Gilbert intégrées (21/11/2026)
 
-## Ce que Gilbert doit valider
+- Règles abondantes dès **4 garnitures par jour** ; pièce de 100 F CFA gardée ; délais gardés.
+- Adolescentes : règles prolongées au-delà de **7 jours** (repère francophone).
+- Saignements sous contraception hormonale : vert avec conditions (accord de Gilbert compris ainsi, à confirmer).
+- Infertilité : « bilan sans attendre » nuancé (antécédents importants : sans attendre ; fibrome, infection génitale chez l'homme, varicocèle : 6 mois ; fausses couches à répétition : message à part).
+- Examens au CMS HOSANNA : bilan hormonal, échographies pelvienne et testiculaire sur place ; spermogramme dans un laboratoire partenaire.
+- Mesure d'audience Cloudflare retirée des deux pages.
 
-1. Les textes affichés, mot à mot (section 5 de chaque fiche).
-2. Le seuil de 7 garnitures par 24 h, et le repère de la pièce de 100 F CFA pour les caillots.
-3. Les délais de consultation : rouge maintenant ; orange 2 semaines (règles abondantes, saignements entre les règles, après les rapports, après la ménopause) ; orange 1 mois (le reste).
-4. Le classement en vert des saignements attribués à la contraception hormonale.
-5. Les repères chez l'adolescente (21 à 45 jours ; durée des règles 8 ou 7 jours).
-6. La liste des antécédents dans l'outil infertilité, et le « bilan sans attendre » dès qu'une case est cochée.
-7. La phrase sur la cause masculine (« environ la moitié des couples »).
-8. Le retrait éventuel de la mesure d'audience Cloudflare sur ces deux pages.
-9. Après validation : retirer le bandeau, passer en `index, follow`, ajouter au sitemap, au menu « Outils » et sur la page `/infertilite`.
+## Reste à faire avant la mise en ligne
+
+1. Relecture finale des deux pages par Gilbert (sur téléphone).
+2. Points encore ouverts : terminologie de la polyménorrhée (FIGO < 24 j ou ancienne définition française < 21 j), âges limites, version en langue locale.
+3. Vérifier les références marquées « à vérifier » dans les fiches.
+4. Après accord : retirer le bandeau, passer en `index, follow`, ajouter au sitemap, au menu « Outils » et sur `/infertilite`.
