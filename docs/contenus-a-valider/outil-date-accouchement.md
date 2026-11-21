@@ -16,7 +16,8 @@ Aucune donnée n'est enregistrée ni envoyée : le calcul se fait dans le naviga
 | DDR corrigée | DDR + (durée du cycle − 28) jours | Correction usuelle de la règle de Naegele pour les cycles longs ou courts |
 | Âge de la grossesse | (aujourd'hui − DDR corrigée), en semaines d'aménorrhée (SA) + jours | Usage obstétrical |
 | Âge depuis la conception | SA − 2 | Usage obstétrical |
-| Date prévue d'accouchement | DDR corrigée + 280 jours (40 SA) | Règle de Naegele |
+| Date probable d'accouchement | DDR corrigée + 280 jours (40 SA = « 9 mois + 7 jours ») | Règle de Naegele ; MSF, *Guide obstétrique en situation précaire*, 1.2 Consultations prénatales (40 ou 41 SA) |
+| Fenêtre d'accouchement | 37 SA (DDR + 259 j) à 41 SA (DDR + 287 j) ; au-delà : « consultez sans attendre » | MSF ; 41 SA = terme retenu en France (Santé.fr) |
 | Trimestres | 1er : < 14 SA ; 2e : 14 à 27 SA ; 3e : ≥ 28 SA | Découpage usuel |
 | Alerte « terme dépassé » | à partir de 41 SA | À valider |
 
@@ -63,10 +64,19 @@ Exemple vérifié (DDR 01/05/2026) : 1re du 17 juillet au 6 août 2026, 2e du 18
 
 ## 6. Questions pour Gilbert
 
-1. Terme à **40 SA** (règle de Naegele, usage OMS et anglo-saxon), ou à **41 SA** (287 jours, usage français) ? Lequel suivez-vous au CMS HOSANNA ?
+1. ~~Terme à 40 ou 41 SA~~ : **retenu le 21/11, selon la consigne de Gilbert (« ce qu'utilisent la plupart des gens ») : date probable à 40 SA (9 mois + 7 jours), fenêtre 37 à 41 SA, consulter au-delà de 41 SA.** Aucun protocole national togolais publié n'a été trouvé ; référence MSF (utilisée en Afrique francophone). À confirmer avec le carnet de maternité togolais si possible.
 2. L'alerte « terme dépassé » à partir de 41 SA vous convient-elle ?
 3. La liste des signes d'alerte est-elle complète et bien formulée pour vos patientes ?
 5. Les trois fenêtres d'échographie (11-13, 20-25, 30-35 SA) correspondent-elles à votre pratique ?
 4. Faut-il ajouter les repères du suivi au Togo (nombre de CPN, vaccins, supplémentation en fer et acide folique, TPI) ?
 
 Après validation : retirer le bandeau « en attente de validation médicale », passer la page en `index, follow`, l'ajouter au sitemap et au menu « Outils ».
+
+## 8. Rendez-vous d'échographie par WhatsApp (demande de Gilbert, 21/11/2026)
+
+Sous chaque échographie, un bouton « 💬 Prendre rendez-vous (WhatsApp) » ouvre WhatsApp vers le 90 03 83 13 avec un message pré-rempli : « Bonjour CMS HOSANNA, je souhaite prendre rendez-vous pour la [1re/2e/3e] échographie ([période]). Ma grossesse : [X] SA, à faire entre le [date] et le [date]. »
+Pour une échographie dont la période est passée : « 💬 Pas encore faite ? Rendez-vous ». Rien n'est envoyé tant que la personne n'appuie pas sur « Envoyer » dans WhatsApp. Les boutons n'apparaissent pas à l'impression.
+
+Sources consultées :
+- MSF, 1.2 Consultations prénatales : https://medicalguidelines.msf.org/fr/viewport/ONC/francais/1-2-consultations-prenatales-51415994.html
+- Santé.fr, âge de la grossesse et date d'accouchement : https://www.sante.fr/node/1068443

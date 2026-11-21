@@ -269,6 +269,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 .titre-echo{font-size:1.05rem;margin:16px 0 6px;color:#003399}
 #dpa-echo td{vertical-align:top;padding:9px 6px}#dpa-echo td:first-child{white-space:normal;width:46%}#dpa-echo td:last-child{white-space:nowrap;font-weight:600}
 #dpa-echo tr.vous td:last-child::after{content:""}
+.echo-rdv{display:inline-block;margin-top:6px;font-weight:700;color:#0d5c2e;text-decoration:underline}
+@media print{.echo-rdv{display:none!important}}
 </style>
 <link rel="stylesheet" href="/assets/vie.css">
 </head>
@@ -456,7 +458,7 @@ if ("serviceWorker" in navigator) {
 <script>
 (function(){
   // Date d'accouchement : tout est calculé ici, rien n'est enregistré ni envoyé.
-  // Références (à valider) : règle de Naegele (DDR + 280 jours, corrigée selon la durée du cycle) ; OMS 2016, soins prénatals ; fenêtres d'échographie usuelles (11-13, 20-25, 30-35 SA).
+  // Références (à valider) : règle de Naegele (DDR + 280 jours = 9 mois + 7 jours, 40 SA, corrigée selon la durée du cycle ; limite 41 SA, MSF) ; OMS 2016, soins prénatals ; fenêtres d'échographie usuelles (11-13, 20-25, 30-35 SA).
   var JOUR = 86400000, f = document.getElementById('f-dpa'), err = document.getElementById('dpa-erreur'), res = document.getElementById('dpa-resultat');
   var auj = new Date(), AUJ = Date.UTC(auj.getFullYear(), auj.getMonth(), auj.getDate());
   function iso(t){ return new Date(t).toISOString().slice(0, 10); }
@@ -479,7 +481,7 @@ if ("serviceWorker" in navigator) {
     document.getElementById('dpa-terme').textContent = fd(terme, false);
     var tri = sa < 14 ? '1er trimestre' : sa < 28 ? '2e trimestre' : '3e trimestre';
     var msg = jours < 0 ? 'La grossesse est trop récente pour être confirmée par le calcul. Un test de grossesse ou une prise de sang peut la confirmer.'
-      : 'Vous êtes au ' + tri + ', soit environ ' + Math.max(0, sa - 2) + ' semaines depuis la conception. Date prévue d\'accouchement : ' + fd(terme, true) + '.';
+      : 'Vous êtes au ' + tri + ', soit environ ' + Math.max(0, sa - 2) + ' semaines depuis la conception. Date probable d\'accouchement : ' + fd(terme, true) + ' (40 SA, soit 9 mois et 7 jours après les dernières règles). L\'accouchement est attendu entre le ' + fd(debut + 259 * JOUR, false) + ' (37 SA) et le ' + fd(debut + 287 * JOUR, false) + ' (41 SA) : au-delà, consultez sans attendre.';
     document.getElementById('dpa-message').textContent = msg;
     var al = document.getElementById('dpa-alerte');
     al.hidden = !(sa >= 41); al.textContent = sa >= 41 ? 'Le terme prévu est dépassé ou proche de l\'être : consultez sans attendre.' : '';
@@ -509,6 +511,9 @@ if ("serviceWorker" in navigator) {
       var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td'), c = document.createElement('td');
       var nom = document.createElement('b'); nom.textContent = x[2]; a.appendChild(nom);
       var but = document.createElement('small'); but.textContent = Math.floor(x[0] / 7) + ' à ' + Math.floor(x[1] / 7) + ' SA + 6 j · ' + x[3]; but.style.display = 'block'; a.appendChild(but);
+      var wa = document.createElement('a'); wa.className = 'echo-rdv'; wa.target = '_blank'; wa.rel = 'noopener';
+      wa.href = 'https://wa.me/22890038313?text=' + encodeURIComponent('Bonjour CMS HOSANNA, je souhaite prendre rendez-vous pour la ' + x[2].replace(/ \(.*\)$/, '') + ' (' + x[2].replace(/^.*\((.*)\)$/, '$1') + '). Ma grossesse : ' + (jours < 0 ? 'moins de 2' : sa) + ' SA, à faire entre le ' + fd(debut + x[0] * JOUR, false) + ' et le ' + fd(debut + x[1] * JOUR, false) + '.');
+      wa.textContent = jours > x[1] ? '💬 Pas encore faite ? Rendez-vous' : '💬 Prendre rendez-vous (WhatsApp)'; a.appendChild(wa);
       b.textContent = fc(debut + x[0] * JOUR, false) + ' → ' + fc(debut + x[1] * JOUR, true);
       if (jours < x[0]) c.textContent = 'À venir';
       else if (jours <= x[1]) { c.textContent = 'Maintenant'; tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); }
