@@ -266,6 +266,9 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
   body{padding:0!important}.resultat{border:0;background:#fff}.date-impr{display:block;margin-bottom:8px;color:#333} .impr-rdv{display:block;margin-top:14px;padding:10px 12px;border:1.5px solid #003399;border-radius:8px}
 }
 #dpa-table td:first-child{white-space:normal;width:42%}
+.titre-echo{font-size:1.05rem;margin:16px 0 6px;color:#003399}
+#dpa-echo td{vertical-align:top;padding:9px 6px}#dpa-echo td:first-child{white-space:normal;width:46%}#dpa-echo td:last-child{white-space:nowrap;font-weight:600}
+#dpa-echo tr.vous td:last-child::after{content:""}
 </style>
 <link rel="stylesheet" href="/assets/vie.css">
 </head>
@@ -328,6 +331,12 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       </div>
       <p id="dpa-alerte" class="erreur" hidden></p>
       <p id="dpa-message"></p>
+      <h3 class="titre-echo">Vos échographies essentielles</h3>
+      <table class="classes" aria-label="Vos échographies essentielles">
+        <thead><tr><th scope="col">Échographie</th><th scope="col">Dates</th><th scope="col">État</th></tr></thead>
+        <tbody id="dpa-echo"></tbody>
+      </table>
+      <h3 class="titre-echo">Repères du suivi</h3>
       <table class="classes" aria-label="Repères de la grossesse">
         <thead><tr><th scope="col">Période</th><th scope="col">Repère</th></tr></thead>
         <tbody id="dpa-table"></tbody>
@@ -447,12 +456,13 @@ if ("serviceWorker" in navigator) {
 <script>
 (function(){
   // Date d'accouchement : tout est calculé ici, rien n'est enregistré ni envoyé.
-  // Références (à valider) : règle de Naegele (DDR + 280 jours, corrigée selon la durée du cycle) ; OMS 2016, soins prénatals.
+  // Références (à valider) : règle de Naegele (DDR + 280 jours, corrigée selon la durée du cycle) ; OMS 2016, soins prénatals ; fenêtres d'échographie usuelles (11-13, 20-25, 30-35 SA).
   var JOUR = 86400000, f = document.getElementById('f-dpa'), err = document.getElementById('dpa-erreur'), res = document.getElementById('dpa-resultat');
   var auj = new Date(), AUJ = Date.UTC(auj.getFullYear(), auj.getMonth(), auj.getDate());
   function iso(t){ return new Date(t).toISOString().slice(0, 10); }
   document.getElementById('ddr').max = iso(AUJ);
   function fd(t, long){ return new Date(t).toLocaleDateString('fr-FR', long ? {weekday:'long', day:'numeric', month:'long', year:'numeric', timeZone:'UTC'} : {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).replace(/(^|\s)1 /, '$11er '); }
+  function fc(t, an){ return new Date(t).toLocaleDateString('fr-FR', an ? {day:'numeric', month:'short', year:'numeric', timeZone:'UTC'} : {day:'numeric', month:'short', timeZone:'UTC'}).replace(/^1 /, '1er '); }
   function refuser(id, texte){ err.textContent = texte; err.hidden = false; if (id) document.getElementById(id).focus(); }
   f.addEventListener('submit', function(e){
     e.preventDefault(); err.hidden = true;
@@ -487,6 +497,23 @@ if ("serviceWorker" in navigator) {
       tr.appendChild(a); tr.appendChild(b);
       if (sa >= r[0] && sa < r[1] && !corps.querySelector('.vous')) { tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); }
       corps.appendChild(tr);
+    });
+    // Gestogramme : échographies essentielles et leurs dates (fenêtres à valider par Gilbert)
+    var ECHOS = [
+      [11 * 7, 13 * 7 + 6, '1re échographie (1er trimestre)', 'Datation de la grossesse, nombre de bébés, clarté nucale'],
+      [20 * 7, 25 * 7 + 6, '2e échographie (morphologique)', 'Examen détaillé des organes du bébé, placenta, liquide'],
+      [30 * 7, 35 * 7 + 6, '3e échographie (3e trimestre)', 'Croissance du bébé, position, placenta']
+    ];
+    var te = document.getElementById('dpa-echo'); te.textContent = '';
+    ECHOS.forEach(function(x){
+      var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td'), c = document.createElement('td');
+      var nom = document.createElement('b'); nom.textContent = x[2]; a.appendChild(nom);
+      var but = document.createElement('small'); but.textContent = Math.floor(x[0] / 7) + ' à ' + Math.floor(x[1] / 7) + ' SA + 6 j · ' + x[3]; but.style.display = 'block'; a.appendChild(but);
+      b.textContent = fc(debut + x[0] * JOUR, false) + ' → ' + fc(debut + x[1] * JOUR, true);
+      if (jours < x[0]) c.textContent = 'À venir';
+      else if (jours <= x[1]) { c.textContent = 'Maintenant'; tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); }
+      else c.textContent = 'Passée';
+      tr.appendChild(a); tr.appendChild(b); tr.appendChild(c); te.appendChild(tr);
     });
     document.getElementById('dpa-date').textContent = 'CMS HOSANNA, Lomé · Calcul du ' + fd(AUJ, false) + ' · Dernières règles : ' + fd(DDR, false) + ' · Cycle : ' + cycle + ' jours';
     res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'});

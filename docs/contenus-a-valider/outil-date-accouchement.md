@@ -30,6 +30,20 @@ Aucune donnée n'est enregistrée ni envoyée : le calcul se fait dans le naviga
 | 28 à 36 SA | 3e trimestre : consultations rapprochées, préparation à l'accouchement | OMS 2016 (8 contacts) |
 | 37 à 41 SA | Grossesse à terme : l'accouchement peut arriver à tout moment | Usage |
 
+## 3 bis. Gestogramme : échographies essentielles (demande de Gilbert, 21/11/2026)
+
+À partir des dernières règles, l'outil donne les dates de chaque échographie et leur état (« À venir », « Maintenant » surlignée, « Passée »).
+
+| Échographie | Fenêtre retenue | Objet affiché | À valider |
+|---|---|---|---|
+| 1re (1er trimestre) | 11 SA à 13 SA + 6 j | Datation de la grossesse, nombre de bébés, clarté nucale | Fenêtre usuelle de la clarté nucale |
+| 2e (morphologique) | 20 SA à 25 SA + 6 j | Examen détaillé des organes du bébé, placenta, liquide | Usage francophone (souvent 22 SA) |
+| 3e (3e trimestre) | 30 SA à 35 SA + 6 j | Croissance du bébé, position, placenta | Usage francophone (souvent 32 SA) |
+
+L'OMS (2016) recommande au moins une échographie avant 24 SA ; le schéma à trois échographies suit l'usage francophone.
+
+Exemple vérifié (DDR 01/05/2026) : 1re du 17 juillet au 6 août 2026, 2e du 18 septembre au 29 octobre 2026, 3e du 27 novembre 2026 au 7 janvier 2027.
+
 ## 4. Textes affichés (à relire mot à mot)
 
 - Résultat : « Vous êtes au [trimestre], soit environ [SA − 2] semaines depuis la conception. Date prévue d'accouchement : [date]. »
@@ -52,6 +66,7 @@ Aucune donnée n'est enregistrée ni envoyée : le calcul se fait dans le naviga
 1. Terme à **40 SA** (règle de Naegele, usage OMS et anglo-saxon), ou à **41 SA** (287 jours, usage français) ? Lequel suivez-vous au CMS HOSANNA ?
 2. L'alerte « terme dépassé » à partir de 41 SA vous convient-elle ?
 3. La liste des signes d'alerte est-elle complète et bien formulée pour vos patientes ?
+5. Les trois fenêtres d'échographie (11-13, 20-25, 30-35 SA) correspondent-elles à votre pratique ?
 4. Faut-il ajouter les repères du suivi au Togo (nombre de CPN, vaccins, supplémentation en fer et acide folique, TPI) ?
 
 Après validation : retirer le bandeau « en attente de validation médicale », passer la page en `index, follow`, l'ajouter au sitemap et au menu « Outils ».

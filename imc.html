@@ -333,8 +333,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       <p class="imc-titre">Mon IMC (indice de masse corporelle)</p>
       <p class="imc-grand"><span class="jauge" id="imc-valeur"></span></p>
       <div class="ideal">
-        <div><span>IMC idéal</span><b>21 à 24</b></div>
-        <div><span>Poids idéal</span><b id="imc-poids-ideal"></b></div>
+        <div><span>IMC normal (OMS)</span><b>18,5 à 24,9</b></div>
+        <div><span>Poids normal pour votre taille</span><b id="imc-poids-ideal"></b></div>
       </div>
       <table class="classes" aria-label="Classes de l'IMC">
         <thead><tr><th scope="col">IMC</th><th scope="col">Classe</th></tr></thead>
@@ -458,7 +458,7 @@ if ("serviceWorker" in navigator) {
 <script>
 (function(){
   // Outil IMC : tout est calculé ici, rien n'est enregistré ni envoyé.
-  // Références (à valider) : classes de l'IMC de l'OMS ; tour de taille : OMS 2008 ; IMC idéal 21 à 24 (modèle retenu par Gilbert).
+  // Références (à valider) : classes de l'IMC de l'OMS ; tour de taille : OMS 2008 ; classes et poids normal de l'OMS (choix de Gilbert).
   var f = document.getElementById('f-imc'), err = document.getElementById('imc-erreur'), res = document.getElementById('imc-resultat');
   function nb(id){ var v = document.getElementById(id).value.replace(',', '.'); return v === '' ? null : parseFloat(v); }
   function fr(x, d){ return x.toFixed(d).replace('.', ','); }
@@ -474,16 +474,16 @@ if ("serviceWorker" in navigator) {
     if (p === null || p < 30 || p > 250) return refuser('poids', 'Indiquez votre poids en kilos (entre 30 et 250).');
     if (tt !== null && (tt < 50 || tt > 200)) return refuser('taillecm', 'Le tour de taille doit être en centimètres (entre 50 et 200).');
     var m = t / 100, imc = Math.round(p * 100000 / (t * t)) / 10; // calcul en cm : arrondi exact au dixième
-    // Classes affichées (à valider) : seuils OMS, avec les degrés d'insuffisance pondérale et d'obésité
+    // Classes de l'OMS (choix de Gilbert, 21/11/2026) : maigreur, poids normal, surpoids, obésité I à III
     var CLASSES = [
-      [0, 15, '< 15,0', 'Insuffisance pondérale très sévère'],
-      [15, 16, '15,0 à 15,9', 'Insuffisance pondérale sévère'],
-      [16, 18.5, '16,0 à 18,4', 'Insuffisance pondérale'],
-      [18.5, 25, '18,5 à 24,9', 'Poids normal (sain)'],
-      [25, 30, '25,0 à 29,9', 'Surpoids'],
-      [30, 35, '30,0 à 34,9', 'Obésité modérée'],
-      [35, 40, '35,0 à 39,9', 'Obésité sévère'],
-      [40, Infinity, '≥ 40,0', 'Obésité très sévère']
+      [0, 16, '< 16,0', 'Maigreur sévère'],
+      [16, 17, '16,0 à 16,9', 'Maigreur modérée'],
+      [17, 18.5, '17,0 à 18,4', 'Maigreur légère'],
+      [18.5, 25, '18,5 à 24,9', 'Poids normal'],
+      [25, 30, '25,0 à 29,9', 'Surpoids (préobésité)'],
+      [30, 35, '30,0 à 34,9', 'Obésité de classe I (modérée)'],
+      [35, 40, '35,0 à 39,9', 'Obésité de classe II (sévère)'],
+      [40, Infinity, '≥ 40,0', 'Obésité de classe III (très sévère)']
     ];
     var corps = document.getElementById('imc-table'); corps.textContent = '';
     var classe = '';
@@ -499,11 +499,10 @@ if ("serviceWorker" in navigator) {
     else if (imc < 30) { cls = 'c-surpoids'; message = 'Une perte de poids modérée, même de quelques kilos, peut améliorer la tension artérielle, la glycémie et le cholestérol. Un professionnel de santé peut vous accompagner.'; }
     else { cls = 'c-obese'; message = 'Un bilan est conseillé : tension artérielle, glycémie et cholestérol. Prenez rendez-vous pour en parler avec un professionnel de santé.'; }
     document.getElementById('imc-valeur').textContent = fr(imc, 1);
-    document.getElementById('imc-poids-ideal').textContent = fr(21 * m * m, 0) + ' à ' + fr(24 * m * m, 0) + ' kg';
+    document.getElementById('imc-poids-ideal').textContent = fr(18.5 * m * m, 0) + ' à ' + fr(24.9 * m * m, 0) + ' kg';
     var c = document.getElementById('imc-classe'); c.textContent = 'Votre classe : ' + classe; c.className = 'classe ' + cls;
     document.getElementById('imc-message').textContent = message;
     document.getElementById('imc-details').textContent = '';
-    ligne('Poids normal pour votre taille (IMC 18,5 à 24,9) : ' + fr(18.5 * m * m, 0) + ' à ' + fr(24.9 * m * m, 0) + ' kg.');
     if (tt !== null) {
       var s1 = sexe === 'H' ? 94 : 80, s2 = sexe === 'H' ? 102 : 88;
       ligne('Tour de taille ' + fr(tt, 0) + ' cm : ' + (tt >= s2 ? 'risque nettement accru (graisse abdominale). Un bilan est conseillé.' : tt >= s1 ? 'risque accru. Surveillez votre tour de taille.' : 'pas de risque accru lié au tour de taille.') + ' (Seuils : ' + s1 + ' et ' + s2 + ' cm.)');
