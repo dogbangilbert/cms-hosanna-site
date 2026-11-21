@@ -248,6 +248,18 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 .resultat ul{margin:10px 0 0 18px}.resultat li{margin-bottom:6px}
 .actions-outil{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .mention{font-size:.85rem;color:#5c6577;margin-top:14px}
+
+.imc-titre{text-align:center;margin:0;color:#3A4250;font-weight:600}
+.imc-grand{text-align:center;margin:2px 0 14px}.imc-grand .jauge{font-size:3rem}
+.ideal{display:grid;grid-template-columns:1fr 1fr;border-radius:12px;overflow:hidden;margin-bottom:14px}
+.ideal div{background:#003399;color:#fff;text-align:center;padding:12px 8px}.ideal div+div{border-left:1px solid rgba(255,255,255,.25)}
+.ideal span{display:block;font-size:.85rem;opacity:.9}.ideal b{display:block;font-size:1.35rem;font-family:'Poppins',sans-serif}
+.classes{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:.95rem}
+.classes th{text-align:left;font-size:.8rem;color:#5c6577;padding:6px 10px;border-bottom:2px solid #D6E2F5}
+.classes td{padding:9px 10px;border-bottom:1px solid #E2EAF5}.classes td:first-child{white-space:nowrap;width:38%}
+.classes tr.vous td{background:#FEF3C7;color:#1A1200;font-weight:800;border-top:2px solid #F9A825;border-bottom:2px solid #F9A825}
+.classes tr.vous td:last-child::after{content:"  ◀ vous";color:#B45309;font-weight:800}
+@media print{.ideal div{background:#fff!important;color:#000!important;border:1px solid #003399}.classes tr.vous td{background:#FEF3C7!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 .date-impr,.impr-rdv{display:none}
 @media print{
   header,footer,nav,.wa-float,.vie-barre,.vie-bandeau,.vie-progress,.vie-haut,#cms-bandeau,.page-hero,.outil form,.actions-outil,.brouillon{display:none!important}
@@ -318,7 +330,17 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
     <div class="resultat" id="imc-resultat" hidden aria-live="polite">
       <p class="date-impr" id="imc-date"></p>
       <h2>Votre résultat</h2>
-      <p><span class="jauge" id="imc-valeur"></span> <span class="classe" id="imc-classe"></span></p>
+      <p class="imc-titre">Mon IMC (indice de masse corporelle)</p>
+      <p class="imc-grand"><span class="jauge" id="imc-valeur"></span></p>
+      <div class="ideal">
+        <div><span>IMC idéal</span><b>21 à 24</b></div>
+        <div><span>Poids idéal</span><b id="imc-poids-ideal"></b></div>
+      </div>
+      <table class="classes" aria-label="Classes de l'IMC">
+        <thead><tr><th scope="col">IMC</th><th scope="col">Classe</th></tr></thead>
+        <tbody id="imc-table"></tbody>
+      </table>
+      <p><span class="classe" id="imc-classe"></span></p>
       <p id="imc-message"></p>
       <ul id="imc-details"></ul>
       <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> L'IMC ne s'applique pas pendant la grossesse, avant 18 ans, ni chez les personnes très musclées. Chez les personnes âgées, il s'interprète avec prudence.</p>
@@ -436,7 +458,7 @@ if ("serviceWorker" in navigator) {
 <script>
 (function(){
   // Outil IMC : tout est calculé ici, rien n'est enregistré ni envoyé.
-  // Références (à valider) : classes de l'IMC de l'OMS ; tour de taille : OMS 2008 ; poids idéal : formule de Lorentz (repère indicatif).
+  // Références (à valider) : classes de l'IMC de l'OMS ; tour de taille : OMS 2008 ; IMC idéal 21 à 24 (modèle retenu par Gilbert).
   var f = document.getElementById('f-imc'), err = document.getElementById('imc-erreur'), res = document.getElementById('imc-resultat');
   function nb(id){ var v = document.getElementById(id).value.replace(',', '.'); return v === '' ? null : parseFloat(v); }
   function fr(x, d){ return x.toFixed(d).replace('.', ','); }
@@ -452,18 +474,36 @@ if ("serviceWorker" in navigator) {
     if (p === null || p < 30 || p > 250) return refuser('poids', 'Indiquez votre poids en kilos (entre 30 et 250).');
     if (tt !== null && (tt < 50 || tt > 200)) return refuser('taillecm', 'Le tour de taille doit être en centimètres (entre 50 et 200).');
     var m = t / 100, imc = Math.round(p * 100000 / (t * t)) / 10; // calcul en cm : arrondi exact au dixième
-    var classe, cls, message;
-    if (imc < 18.5) { classe = 'Insuffisance pondérale'; cls = 'c-maigre'; message = 'Votre poids est inférieur à la fourchette santé. Un poids trop bas peut cacher une carence ou une maladie : parlez-en à un médecin, surtout si vous avez perdu du poids sans le vouloir.'; }
-    else if (imc < 25) { classe = 'Corpulence normale'; cls = 'c-normal'; message = 'Votre poids est dans la fourchette santé. Gardez une alimentation variée et une activité physique régulière.'; }
-    else if (imc < 30) { classe = 'Surpoids'; cls = 'c-surpoids'; message = 'Une perte de poids modérée, même de quelques kilos, peut améliorer la tension artérielle, la glycémie et le cholestérol. Un professionnel de santé peut vous accompagner.'; }
-    else { classe = 'Obésité ' + (imc < 35 ? '(classe I)' : imc < 40 ? '(classe II)' : '(classe III)'); cls = 'c-obese'; message = 'Un bilan est conseillé : tension artérielle, glycémie et cholestérol. Prenez rendez-vous pour en parler avec un professionnel de santé.'; }
-    document.getElementById('imc-valeur').textContent = 'IMC ' + fr(imc, 1);
-    var c = document.getElementById('imc-classe'); c.textContent = classe; c.className = 'classe ' + cls;
+    // Classes affichées (à valider) : seuils OMS, avec les degrés d'insuffisance pondérale et d'obésité
+    var CLASSES = [
+      [0, 15, '< 15,0', 'Insuffisance pondérale très sévère'],
+      [15, 16, '15,0 à 15,9', 'Insuffisance pondérale sévère'],
+      [16, 18.5, '16,0 à 18,4', 'Insuffisance pondérale'],
+      [18.5, 25, '18,5 à 24,9', 'Poids normal (sain)'],
+      [25, 30, '25,0 à 29,9', 'Surpoids'],
+      [30, 35, '30,0 à 34,9', 'Obésité modérée'],
+      [35, 40, '35,0 à 39,9', 'Obésité sévère'],
+      [40, Infinity, '≥ 40,0', 'Obésité très sévère']
+    ];
+    var corps = document.getElementById('imc-table'); corps.textContent = '';
+    var classe = '';
+    CLASSES.forEach(function(k){
+      var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td');
+      a.textContent = k[2]; b.textContent = k[3]; tr.appendChild(a); tr.appendChild(b);
+      if (imc >= k[0] && imc < k[1]) { tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); classe = k[3]; }
+      corps.appendChild(tr);
+    });
+    var cls, message;
+    if (imc < 18.5) { cls = 'c-maigre'; message = 'Votre poids est inférieur au poids normal. Un poids trop bas peut cacher une carence ou une maladie : parlez-en à un médecin, surtout si vous avez perdu du poids sans le vouloir.'; }
+    else if (imc < 25) { cls = 'c-normal'; message = 'Votre poids est normal. Gardez une alimentation variée et une activité physique régulière.'; }
+    else if (imc < 30) { cls = 'c-surpoids'; message = 'Une perte de poids modérée, même de quelques kilos, peut améliorer la tension artérielle, la glycémie et le cholestérol. Un professionnel de santé peut vous accompagner.'; }
+    else { cls = 'c-obese'; message = 'Un bilan est conseillé : tension artérielle, glycémie et cholestérol. Prenez rendez-vous pour en parler avec un professionnel de santé.'; }
+    document.getElementById('imc-valeur').textContent = fr(imc, 1);
+    document.getElementById('imc-poids-ideal').textContent = fr(21 * m * m, 0) + ' à ' + fr(24 * m * m, 0) + ' kg';
+    var c = document.getElementById('imc-classe'); c.textContent = 'Votre classe : ' + classe; c.className = 'classe ' + cls;
     document.getElementById('imc-message').textContent = message;
     document.getElementById('imc-details').textContent = '';
-    ligne('Fourchette de poids santé pour votre taille : ' + fr(18.5 * m * m, 0) + ' à ' + fr(24.9 * m * m, 0) + ' kg (IMC de 18,5 à 24,9).');
-    var lorentz = sexe === 'H' ? t - 100 - (t - 150) / 4 : t - 100 - (t - 150) / 2.5;
-    ligne('Repère de poids idéal (formule de Lorentz) : environ ' + fr(lorentz, 0) + ' kg. C\'est un repère, pas un objectif strict.');
+    ligne('Poids normal pour votre taille (IMC 18,5 à 24,9) : ' + fr(18.5 * m * m, 0) + ' à ' + fr(24.9 * m * m, 0) + ' kg.');
     if (tt !== null) {
       var s1 = sexe === 'H' ? 94 : 80, s2 = sexe === 'H' ? 102 : 88;
       ligne('Tour de taille ' + fr(tt, 0) + ' cm : ' + (tt >= s2 ? 'risque nettement accru (graisse abdominale). Un bilan est conseillé.' : tt >= s1 ? 'risque accru. Surveillez votre tour de taille.' : 'pas de risque accru lié au tour de taille.') + ' (Seuils : ' + s1 + ' et ' + s2 + ' cm.)');
