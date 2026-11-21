@@ -73,7 +73,7 @@ async function regles(p, d) {
   }));
 }
 const V = 'Vert · repères habituels', O1 = 'Orange · consultez dans le mois', O2 = 'Orange · consultez dans les 2 semaines', R = 'Rouge · urgence : consultez maintenant';
-const base = { age: 25, cycle: 28, duree: 5, garn: 4 };
+const base = { age: 25, cycle: 28, duree: 5, garn: 3 };
 const CAS_R = [
   ['Cycle normal', base, r => r.vous.join() === 'Cycle normal' && r.niveau === V && !r.urgence && r.c1 === '28 jours' && r.questions > 0 && /Cycle28 jours/.test(r.recap)],
   ['Polyménorrhée (21 j)', { ...base, cycle: 21 }, r => r.vous.join() === 'Polyménorrhée (cycles trop fréquents)' && r.niveau === O1],
@@ -85,7 +85,10 @@ const CAS_R = [
   ['Adolescente, cycle 50 j : oligoménorrhée', { ...base, age: 14, premieres: 12, cycle: 50 }, r => r.vous.join() === 'Oligoménorrhée (cycles espacés)'],
   ['Adolescente, cycle 22 j : normal', { ...base, age: 15, premieres: 13, cycle: 22 }, r => r.vous.join() === 'Cycle normal'],
   ['Règles de 10 j + 8 garnitures', { ...base, duree: 10, garn: 8 }, r => r.vous.includes('Règles prolongées') && r.vous.includes('Hyperménorrhée (ménorragie)') && r.niveau === O2 && /indice/.test(r.texte)],
-  ['6 garnitures seules : normal', { ...base, garn: 6 }, r => r.vous.join() === 'Cycle normal'],
+  ['3 garnitures : normal', base, r => r.vous.join() === 'Cycle normal'],
+  ['4 garnitures : abondant (seuil de Gilbert)', { ...base, garn: 4 }, r => r.vous.join() === 'Hyperménorrhée (ménorragie)' && /4 garnitures/.test(r.texte)],
+  ['Adulte, règles de 8 j : normal', { ...base, duree: 8 }, r => r.vous.join() === 'Cycle normal'],
+  ['Adolescente, règles de 8 j : prolongées (repère 7 j)', { ...base, age: 14, premieres: 12, duree: 8 }, r => r.vous.join() === 'Règles prolongées' && /repère de 7 jours/.test(r.texte)],
   ['Caillots seuls : hyperménorrhée', { ...base, coches: ['caillots'] }, r => r.vous.join() === 'Hyperménorrhée (ménorragie)'],
   ['Hypoménorrhée : vert', { ...base, garn: 1, coches: ['peu'] }, r => r.vous.join() === 'Hypoménorrhée' && r.niveau === V],
   ['Métrorragies + après rapports : 2 semaines', { ...base, coches: ['entre', 'apres'] }, r => r.vous.includes('Métrorragies') && r.vous.includes('Saignements après les rapports') && r.niveau === O2],
@@ -153,7 +156,12 @@ const CAS_I = [
   ['41 ans, 2 mois : sans attendre', { af: 41, ah: 45, m: 2 }, r => r.c2 === 'sans attendre' && /^Orange/.test(r.niveau) && /homme diminue/.test(r.texte) && /réserve ovarienne/.test(r.questions)],
   ['29 ans, SOPK : sans attendre', { af: 29, ah: 31, m: 3, ff: ['ovaires polykystiques (SOPK)'] }, r => r.c2 === 'sans attendre' && /SOPK/.test(r.texte) && /ovulation/.test(r.questions) && /SOPK/.test(decodeURIComponent(r.wa))],
   ['Grossesse extra-utérine : question sur les trompes', { af: 29, ah: 31, m: 3, ff: ['grossesse extra-utérine'] }, r => /trompes/.test(r.questions)],
-  ['Facteur homme varicocèle', { af: 26, ah: 30, m: 4, fh: ['varicocèle ou hernie opérée'] }, r => /bilan conseillé/.test(r.niveau) && /varicocèle/.test(r.recap)],
+  ['Varicocèle, 4 mois : repère 6 mois', { af: 26, ah: 30, m: 4, fh: ['varicocèle ou hernie opérée'] }, r => r.c2 === 'dès 6 mois' && /^Vert/.test(r.niveau) && /encore 2 mois/.test(r.texte) && /varicocèle/.test(r.recap)],
+  ['Varicocèle, 7 mois : bilan', { af: 26, ah: 30, m: 7, fh: ['varicocèle ou hernie opérée'] }, r => /bilan conseillé/.test(r.niveau) && /avec cet antécédent/.test(r.texte)],
+  ['Fibrome : repère 6 mois', { af: 30, ah: 30, m: 2, ff: ['fibrome connu'] }, r => r.c2 === 'dès 6 mois'],
+  ['Infection génitale chez la femme : sans attendre', { af: 30, ah: 30, m: 2, ff: ['infection génitale ancienne'] }, r => r.c2 === 'sans attendre'],
+  ['Fausses couches : message, délai inchangé', { af: 30, ah: 30, m: 2, ff: ['2 fausses couches ou plus'] }, r => r.c2 === 'dès 12 mois' && /fausses couches ou plus : ce n'est pas une infertilité/.test(r.texte)],
+  ['Oreillons : sans attendre', { af: 26, ah: 30, m: 4, fh: ['oreillons avec testicules gonflés'] }, r => r.c2 === 'sans attendre' && /bilan conseillé/.test(r.niveau)],
   ['Rapports rares : remarque', { af: 26, ah: 30, m: 14, freq: '0' }, r => /moins d'une fois par semaine/.test(r.texte)],
   ['0 mois : arrêt de contraception', { af: 26, ah: 30, m: 0 }, r => /contraception/.test(r.texte) && r.vous.join() === 'Moins de 6 mois'],
   ['Lien vers /infertilite et WhatsApp', { af: 26, ah: 30, m: 13 }, r => r.lien && /wa\.me\/22890038313\?text=/.test(r.wa)],
@@ -211,6 +219,7 @@ const INV_I = [
     ok(/^Étape 1/.test(await etape(p)) && !(await p.isVisible(nom === 'Règles' ? '#r-resultat' : '#i-resultat')), nom + ' : « Modifier mes réponses » revient à l\'étape 1');
     ok(journal.erreurs.length === 0, nom + ' : aucune erreur JavaScript ' + journal.erreurs.join(' / '));
     ok(journal.nonGet.length === 0, nom + ' : aucune requête autre que GET ' + journal.nonGet.join(' / '));
+    ok(!journal.externes.has('static.cloudflareinsights.com'), nom + ' : pas de mesure d\'audience chargée');
     console.log('      hôtes externes demandés (bloqués pendant le test) :', [...journal.externes].join(', '));
     await ctx.close();
 

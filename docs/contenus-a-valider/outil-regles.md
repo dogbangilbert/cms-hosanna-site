@@ -1,6 +1,6 @@
 # Outil « Mes règles sont-elles normales ? » : fiche à valider
 
-**Statut : en attente de validation médicale par Gilbert DOGBAN.** Page `regles.html` (adresse `/regles`), `noindex, nofollow`, hors menu et hors sitemap, bandeau « Version en attente de validation médicale. Ne pas diffuser. »
+**Statut : en attente de validation médicale par Gilbert DOGBAN.** Décisions de Gilbert du 21/11/2026 intégrées (section 7). Page `regles.html` (adresse `/regles`), `noindex, nofollow`, hors menu et hors sitemap, bandeau « Version en attente de validation médicale. Ne pas diffuser. »
 Outil d'**orientation**, pas de diagnostic. Tout le calcul se fait dans le navigateur : aucune donnée n'est enregistrée ni envoyée. Le message WhatsApp pré-rempli n'est envoyé que si la patiente appuie sur « Prendre rendez-vous ».
 
 ## 1. Parcours (questionnaire par étapes)
@@ -40,7 +40,7 @@ Au-dessus du questionnaire, en permanence : « **Saignement très abondant, mala
 | | Cases : manque l'école ou le travail ; antidouleurs inefficaces ; s'aggrave avec les années ; douleur pendant les rapports ; douleur à la selle ou en urinant pendant les règles ; douleur du bas-ventre en dehors des règles | |
 | Signes d'alerte | Malaise, vertiges, évanouissement, essoufflement ; garniture remplie chaque heure depuis 2 h ou plus ; douleur très forte et brutale ; fièvre ou pertes malodorantes | cases |
 
-Saisies refusées (message affiché, curseur sur le champ, passage à l'étape suivante bloqué) : âge hors limites, premières règles hors limites ou après l'âge, mois d'arrêt manquant, cycle ou durée manquants ou hors limites, garnitures > 40, jours de douleur > 20, « très peu abondantes » cochée avec 7 garnitures ou plus, « pleine en 2 h » ou « tache le linge ».
+Saisies refusées (message affiché, curseur sur le champ, passage à l'étape suivante bloqué) : âge hors limites, premières règles hors limites ou après l'âge, mois d'arrêt manquant, cycle ou durée manquants ou hors limites, garnitures > 40, jours de douleur > 20, « très peu abondantes » cochée avec 4 garnitures ou plus, « pleine en 2 h » ou « tache le linge ».
 
 ## 3. Règles de décision, seuils et sources
 
@@ -62,9 +62,9 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 | Fréquence normale | 24 à 38 jours ; < 24 = polyménorrhée (« fréquent ») ; > 38 = oligoménorrhée (« peu fréquent ») | FIGO 2018 (Munro et al.) [1] |
 | Adolescentes (premières règles depuis moins de 3 ans) | normal 21 à 45 jours ; l'irrégularité n'est pas signalée (message d'explication) | ACOG, avis n° 651, 2015 [2] |
 | Régularité | écart ≤ 7 jours normal ; ≤ 9 jours normal avant 26 ans et à partir de 42 ans ; au-delà = irrégulier | FIGO 2018 [1] |
-| Durée | > 8 jours = règles prolongées | FIGO 2018 [1] |
+| Durée | > 8 jours = règles prolongées ; > 7 jours chez l'adolescente (premières règles depuis moins de 3 ans) | FIGO 2018 [1] ; ACOG 651 [2] et manuels francophones (décision de Gilbert, 21/11 : « ce qui est proche de nous ») |
 | Abondance (définition) | > 80 mL par cycle (Higham) ou abondance qui gêne la vie quotidienne | Higham 1990 [3] ; CNGOF 2008 et 2022 [4] ; NICE NG88 [5] |
-| Abondance (indices retenus) | **un seul** suffit : ≥ 7 garnitures en 24 h ; pleine en 2 h ou moins ; caillots > pièce de 100 F CFA (environ 2,5 cm) ; change la nuit ou double protection ; débordement sur linge ou draps | Warner 2004 [6] (caillots ≥ 2,5 cm, change plus souvent que toutes les 3 h, débordements) ; NHS [7]. **Le seuil de 7 garnitures est un choix à valider** (voir questions) |
+| Abondance (indices retenus) | **un seul** suffit : ≥ 4 garnitures en 24 h au jour le plus abondant (décision de Gilbert, 21/11) ; pleine en 2 h ou moins ; caillots > pièce de 100 F CFA (environ 2,5 cm) ; change la nuit ou double protection ; débordement sur linge ou draps | Warner 2004 [6] (caillots ≥ 2,5 cm, change plus souvent que toutes les 3 h, débordements) ; NHS [7]. Seuil de 4 garnitures : décision de Gilbert DOGBAN (pratique de terrain au CMS HOSANNA : 1 à 3 garnitures par jour est l'usage habituel) |
 | Aménorrhée primaire | pas de règles à 15 ans ; à 13 ans sans développement des seins (texte) | ASRM 2024 [8] |
 | Aménorrhée secondaire | > 3 mois si cycles réguliers avant, > 6 mois si irréguliers | ASRM 2024 [8] |
 | Ménopause | ≥ 45 ans et ≥ 12 mois sans règles, hors contraception hormonale et allaitement | OMS 1996 [9] |
@@ -153,7 +153,8 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 | 14 ans, premières règles à 12 ans, cycle 42 j, irrégulier | Cycle normal (repère 21-45 j), message adolescente |
 | 14 ans, premières règles à 12 ans, cycle 50 j | Oligoménorrhée |
 | Règles 10 j, 8 garnitures | Règles prolongées + hyperménorrhée, orange (2 semaines) |
-| 6 garnitures seules / caillots seuls | normal / hyperménorrhée |
+| 3 garnitures / 4 garnitures / caillots seuls | normal / hyperménorrhée / hyperménorrhée |
+| Adulte, règles de 8 j / adolescente (règles depuis 2 ans), 8 j | normal / règles prolongées (repère 7 j) |
 | Très peu abondantes | Hypoménorrhée, vert |
 | Saignements entre les règles et après les rapports | Métrorragies + saignements après les rapports, orange (2 semaines) |
 | Implant, cycle 45 j, saignements entre les règles | Saignements modifiés par la contraception, vert |
@@ -172,17 +173,14 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 | Arrêt 2 mois + grossesse possible | test de grossesse conseillé, pas d'urgence |
 | Jamais de règles à 16 ans / à 13 ans | Aménorrhée primaire / peut être normal |
 
-## 7. Questions pour Gilbert
+## 7. Décisions de Gilbert (21/11/2026) et questions restantes
 
-1. **Seuil de garnitures** : 7 changements ou plus en 24 h au jour le plus abondant comptent comme règles abondantes. Faut-il un autre chiffre, ou un seuil différent pour les pagnes et tissus ?
-2. **Pièce de 100 F CFA** pour la taille des caillots (environ 2,5 cm) : le repère est-il parlant pour vos patientes ? Diamètre de la pièce à confirmer.
-3. **Délais de consultation** : orange « dans le mois » (cycles, durée, aménorrhée, douleurs) et orange « dans les 2 semaines » (règles abondantes, saignements entre les règles, après les rapports, après la ménopause). Les acceptez-vous ?
-4. **Contraception hormonale** : les saignements irréguliers attribués à la méthode sont classés en vert avec conditions. Préférez-vous un orange « dans le mois » ?
-5. **Adolescentes** : repère 21 à 45 jours pendant les 3 premières années (ACOG). La durée des règles reste à 8 jours (FIGO) ; l'ACOG retient 7 jours chez l'adolescente. Lequel garder ?
-6. **Terminologie** : l'outil suit la FIGO (polyménorrhée < 24 j). Certains manuels français retiennent < 21 j. Garder la FIGO ?
-7. **Âge minimal** de 9 ans et **âge maximal** de 60 ans : à ajuster ?
-8. Le saignement d'une femme ménopausée sous traitement hormonal n'est pas traité à part. Faut-il l'ajouter ?
-9. **Mesure d'audience** : la page charge, comme tout le site, la mesure d'audience Cloudflare (visite de la page, sans les réponses). La retirer de cette page ?
-10. Les textes (langue, ton, longueur) conviennent-ils ? Faut-il une version en éwé ou en mina plus tard ?
+1. ~~Seuil de garnitures~~ : **4 garnitures ou plus par 24 h** au jour le plus abondant = règles abondantes (1 à 3 est l'usage habituel).
+2. ~~Pièce de 100 F CFA~~ : **gardée.**
+3. ~~Délais de consultation~~ : **gardés** (orange 2 semaines ou 1 mois, rouge maintenant).
+4. ~~Contraception hormonale~~ : **gardée en vert**, avec les conditions affichées. *Réponse de Gilbert comprise comme un accord (« Accord, je pense que c'est mieux ») : à confirmer d'un mot.*
+5. ~~Adolescentes~~ : « prendre ce qui est proche de nous » → **règles prolongées au-delà de 7 jours** pendant les 3 premières années (repère des manuels francophones, identique à l'ACOG) ; cycles de 21 à 45 jours.
+6. ~~Mesure d'audience~~ : laissée à l'appréciation de Claude → **retirée de cette page** (cohérent avec « aucune donnée n'est envoyée »).
+7. Restent ouvertes : terminologie FIGO (polyménorrhée < 24 j) ou ancienne définition française (< 21 j) ; âges limites 9 et 60 ans ; saignement sous traitement hormonal de la ménopause ; version en éwé ou en mina plus tard.
 
 Après validation : retirer le bandeau « Version en attente de validation médicale », passer la page en `index, follow`, l'ajouter au sitemap et au menu « Outils ».

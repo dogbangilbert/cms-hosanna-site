@@ -1,6 +1,6 @@
 # Outil « Infertilité du couple : où en sommes-nous ? » : fiche à valider
 
-**Statut : en attente de validation médicale par Gilbert DOGBAN.** Page `infertilite-test.html` (adresse `/infertilite-test`), `noindex, nofollow`, hors menu et hors sitemap, bandeau « Version en attente de validation médicale. Ne pas diffuser. » La page renvoie vers `/infertilite` (dans le texte et par un bouton).
+**Statut : en attente de validation médicale par Gilbert DOGBAN.** Décisions de Gilbert du 21/11/2026 intégrées (section 7). Page `infertilite-test.html` (adresse `/infertilite-test`), `noindex, nofollow`, hors menu et hors sitemap, bandeau « Version en attente de validation médicale. Ne pas diffuser. » La page renvoie vers `/infertilite` (dans le texte et par un bouton).
 Outil d'**orientation**, pas de diagnostic. Tout le calcul se fait dans le navigateur : aucune donnée n'est enregistrée ni envoyée. Le message WhatsApp pré-rempli n'est envoyé que si le couple appuie sur « Prendre rendez-vous ».
 
 ## 1. Parcours et saisies (4 étapes, barre de progression)
@@ -25,7 +25,11 @@ Saisies refusées (message, curseur sur le champ, étape suivante bloquée) : â
 | Femme < 35 ans, aucun antécédent | 12 mois | « dès 12 mois » |
 | Femme de 35 à 39 ans, aucun antécédent | 6 mois | « dès 6 mois » |
 | Femme ≥ 40 ans | sans attendre | « sans attendre » |
-| Au moins une case cochée (femme ou homme) | sans attendre | « sans attendre » |
+| Antécédent **important** coché : règles irrégulières ou très espacées, absence de règles, SOPK, règles très douloureuses ou endométriose, infection génitale chez la femme, GEU, chirurgie du ventre ou du bassin, curetage ou avortement compliqué, traitement d'un cancer (femme ou homme), oreillons avec testicules gonflés, testicule non descendu ou opéré, troubles de l'érection ou de l'éjaculation | sans attendre | « sans attendre » |
+| Antécédent **à surveiller** coché (et femme < 35 ans) : fibrome, infection génitale chez l'homme, varicocèle ou hernie opérée | 6 mois | « dès 6 mois » |
+| 2 fausses couches ou plus | délai inchangé | message : consultation conseillée pour les fausses couches à répétition, à part du bilan d'infertilité |
+
+Nuance décidée par Claude à la demande de Gilbert (21/11) : les antécédents qui touchent directement l'ovulation, les trompes ou la production de spermatozoïdes justifient un bilan sans attendre ; ceux dont l'effet sur la fertilité est inconstant raccourcissent le délai à 6 mois. Le curetage et l'avortement compliqué restent « sans attendre » à cause du risque d'atteinte des trompes après infection.
 
 | Durée des essais | Niveau |
 |---|---|
@@ -34,7 +38,7 @@ Saisies refusées (message, curseur sur le champ, étape suivante bloquée) : â
 | < repère | « Vert · délai habituel, continuez », avec le nombre de mois restant avant le repère et le rappel qu'on peut consulter plus tôt |
 
 Tableau des étapes (ligne surlignée « ◀ vous » selon la durée) : moins de 6 mois / 6 à 11 mois / 12 mois ou plus.
-Remarques ajoutées selon les réponses : rapports rares ou irréguliers ; femme de 35 à 39 ans ; homme ≥ 45 ans ; homme ayant déjà eu un enfant (le spermogramme reste utile) ; 0 mois (retour de la fertilité après une contraception, surtout l'injection).
+Remarques ajoutées selon les réponses : 2 fausses couches ou plus ; rapports rares ou irréguliers ; femme de 35 à 39 ans ; homme ≥ 45 ans ; homme ayant déjà eu un enfant (le spermogramme reste utile) ; 0 mois (retour de la fertilité après une contraception, surtout l'injection).
 Pas de niveau rouge : l'infertilité n'est pas une urgence. Les urgences gynécologiques sont traitées par l'outil `/regles`.
 
 ## 3. Seuils et sources
@@ -91,7 +95,7 @@ Note : la définition OMS (CIM-11) est **uniquement** celle des 12 mois. Le dél
 
 **Tableau** : « Moins de 6 mois : Délai habituel : la plupart des couples conçoivent dans l'année. Bilan sans attendre si la femme a 40 ans ou plus, ou si un antécédent est connu. » ; « 6 à 11 mois : Femme de 35 ans ou plus : bilan des deux partenaires conseillé. Femme de moins de 35 ans : continuer, rapports tous les 2 à 3 jours. » ; « 12 mois ou plus : Infertilité selon la définition de l'OMS : bilan des deux partenaires, quel que soit l'âge. »
 
-**« Ce que le bilan peut comprendre »** : « Le médecin choisit les examens selon votre situation : cette liste n'est pas une ordonnance. » ; « Pour les deux : consultation, antécédents, examen clinique, et souvent des analyses de sang (sérologies). » ; « Chez la femme : vérification de l'ovulation (cycles, prise de sang), échographie pelvienne, et selon le cas, examen des trompes (hystérosalpingographie). » ; « Chez l'homme : spermogramme et spermocytogramme (analyse du sperme, après 2 à 7 jours sans éjaculation). »
+**« Ce que le bilan peut comprendre »** : « Le médecin choisit les examens selon votre situation : cette liste n'est pas une ordonnance. » ; « Pour les deux : consultation, antécédents, examen clinique, et souvent des analyses de sang (sérologies). » ; « Chez la femme : vérification de l'ovulation (cycles, bilan hormonal), échographie pelvienne, et selon le cas, examen des trompes (hystérosalpingographie). » ; « Chez l'homme : spermogramme et spermocytogramme (analyse du sperme, après 2 à 7 jours sans éjaculation), et selon le cas bilan hormonal et échographie des testicules. » ; « Au CMS HOSANNA : consultation, bilan hormonal et échographies (pelvienne et testiculaire) sur place ; spermogramme dans un laboratoire partenaire. »
 
 **Fiche pour la consultation** : tableau des réponses et de l'orientation ; questions toujours posées : « Quels examens pour chacun de nous, et dans quel ordre ? », « Où et comment faire le spermogramme ? », « Que pouvons-nous faire dès maintenant pour augmenter nos chances (poids, tabac, alcool, acide folique) ? » ; selon les cases : ovulation (cycles irréguliers, absence de règles, SOPK), trompes (infection, GEU, chirurgie, curetage), endométriose, fausses couches à répétition, réserve ovarienne (femme ≥ 38 ans). « À apporter » : dates des règles des 3 à 6 derniers mois, examens déjà faits par chacun, médicaments.
 
@@ -112,18 +116,21 @@ Note : la définition OMS (CIM-11) est **uniquement** celle des 12 mois. Le dél
 | 41 ans, homme 45 ans, 2 mois | Orange, sans attendre, remarque âge de l'homme, question réserve ovarienne |
 | 29 ans, SOPK, 3 mois | Orange, sans attendre, question sur l'ovulation, SOPK dans le message WhatsApp |
 | GEU | question sur les trompes |
-| Homme : varicocèle, 4 mois | Orange, sans attendre |
+| Homme : varicocèle, 4 mois / 7 mois | Vert, repère 6 mois, « encore 2 mois » / Orange, bilan conseillé |
+| Fibrome, 2 mois | repère 6 mois |
+| Infection génitale chez la femme / oreillons chez l'homme | sans attendre |
+| 2 fausses couches ou plus, 2 mois | repère inchangé (12 mois), message sur les fausses couches à répétition |
 | 14 mois, rapports moins d'une fois par semaine | remarque sur la fréquence |
 | 0 mois | remarque sur l'arrêt de la contraception |
 
-## 7. Questions pour Gilbert
+## 7. Décisions de Gilbert (21/11/2026)
 
-1. **Liste des antécédents** : faut-il ajouter ou retirer des cases (par exemple drépanocytose, diabète, tuberculose génitale, excision, prise de poids importante, tabac ou alcool) ?
-2. Toute case cochée déclenche « bilan sans attendre ». Certaines (fibrome, curetage simple) doivent-elles plutôt raccourcir le délai à 6 mois ?
-3. Phrase « Dans environ la moitié des couples, une cause masculine participe à la difficulté » : la garder telle quelle ?
-4. L'âge de l'homme n'agit pas sur le délai (pas de seuil reconnu). Un seuil, par exemple 50 ans, vous semble-t-il utile ?
-5. La liste « Ce que le bilan peut comprendre » est-elle conforme à votre pratique au CMS HOSANNA (examens disponibles sur place, laboratoire partenaire pour le spermogramme) ?
-6. **Mesure d'audience** : la page charge, comme tout le site, la mesure d'audience Cloudflare (visite de la page, sans les réponses). La retirer de cette page ?
-7. Les textes conviennent-ils (ton, sensibilité culturelle, place de l'homme dans le bilan) ?
+1. ~~Liste des antécédents~~ : **gardée** telle quelle.
+2. ~~« Sans attendre » pour toute case~~ : **nuancé** (décision laissée à Claude) : voir le tableau de la section 2.
+3. ~~Phrase sur la cause masculine~~ : **gardée** telle quelle.
+4. ~~Seuil d'âge chez l'homme~~ : **pas de seuil**, remarque d'information à partir de 45 ans seulement.
+5. ~~Examens~~ : au CMS HOSANNA, bilan hormonal et échographies (pelvienne et testiculaire) sur place ; spermogramme dans un **laboratoire partenaire**. Textes mis à jour.
+6. ~~Mesure d'audience~~ : **retirée de cette page**.
+7. ~~Textes~~ : **validés** sur le fond.
 
-Après validation : retirer le bandeau, passer la page en `index, follow`, l'ajouter au sitemap, au menu « Outils » et sur la page `/infertilite` (bouton « Faire le point »).
+Après validation finale : retirer le bandeau, passer la page en `index, follow`, l'ajouter au sitemap, au menu « Outils » et sur la page `/infertilite` (bouton « Faire le point »).

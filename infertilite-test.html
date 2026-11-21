@@ -398,8 +398,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           <label><input type="checkbox" class="i-ff" value="grossesse extra-utérine"> Grossesse extra-utérine dans le passé</label>
           <label><input type="checkbox" class="i-ff" value="chirurgie du ventre ou du bassin"> Opération du ventre ou du bassin (trompes, ovaires, césarienne, appendicite compliquée)</label>
           <label><input type="checkbox" class="i-ff" value="curetage ou avortement compliqué"> Curetage, ou avortement suivi de complications</label>
-          <label><input type="checkbox" class="i-ff" value="fibrome connu"> Fibrome (myome) connu</label>
-          <label><input type="checkbox" class="i-ff" value="2 fausses couches ou plus"> 2 fausses couches ou plus</label>
+          <label><input type="checkbox" class="i-ff" data-delai="6" value="fibrome connu"> Fibrome (myome) connu</label>
+          <label><input type="checkbox" class="i-ff" data-delai="fc" value="2 fausses couches ou plus"> 2 fausses couches ou plus</label>
           <label><input type="checkbox" class="i-ff" value="traitement d'un cancer"> Traitement d'un cancer (chimiothérapie, rayons)</label>
         </fieldset>
       </div>
@@ -409,9 +409,9 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <fieldset class="cases">
           <legend>Cochez ce qui est connu <small>(ne cochez rien si rien ne correspond)</small></legend>
           <label><input type="checkbox" class="i-fh" value="oreillons avec testicules gonflés"> Oreillons après la puberté avec gonflement des testicules</label>
-          <label><input type="checkbox" class="i-fh" value="infection génitale ancienne"> Infection génitale (écoulement, brûlures, IST) dans le passé</label>
+          <label><input type="checkbox" class="i-fh" data-delai="6" value="infection génitale ancienne"> Infection génitale (écoulement, brûlures, IST) dans le passé</label>
           <label><input type="checkbox" class="i-fh" value="testicule non descendu ou opéré"> Testicule non descendu dans l'enfance, ou opération des testicules</label>
-          <label><input type="checkbox" class="i-fh" value="varicocèle ou hernie opérée"> Varicocèle connue, ou opération d'une hernie</label>
+          <label><input type="checkbox" class="i-fh" data-delai="6" value="varicocèle ou hernie opérée"> Varicocèle connue, ou opération d'une hernie</label>
           <label><input type="checkbox" class="i-fh" value="troubles de l'érection ou de l'éjaculation"> Troubles de l'érection ou de l'éjaculation</label>
           <label><input type="checkbox" class="i-fh" value="traitement d'un cancer"> Traitement d'un cancer (chimiothérapie, rayons)</label>
         </fieldset>
@@ -445,8 +445,9 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       <p class="aide">Le médecin choisit les examens selon votre situation : cette liste n'est pas une ordonnance.</p>
       <ul>
         <li><b>Pour les deux :</b> consultation, antécédents, examen clinique, et souvent des analyses de sang (sérologies).</li>
-        <li><b>Chez la femme :</b> vérification de l'ovulation (cycles, prise de sang), échographie pelvienne, et selon le cas, examen des trompes (hystérosalpingographie).</li>
-        <li><b>Chez l'homme :</b> spermogramme et spermocytogramme (analyse du sperme, après 2 à 7 jours sans éjaculation).</li>
+        <li><b>Chez la femme :</b> vérification de l'ovulation (cycles, bilan hormonal), échographie pelvienne, et selon le cas, examen des trompes (hystérosalpingographie).</li>
+        <li><b>Chez l'homme :</b> spermogramme et spermocytogramme (analyse du sperme, après 2 à 7 jours sans éjaculation), et selon le cas bilan hormonal et échographie des testicules.</li>
+        <li><b>Au CMS HOSANNA :</b> consultation, bilan hormonal et échographies (pelvienne et testiculaire) sur place ; spermogramme dans un laboratoire partenaire.</li>
       </ul>
       <div class="fiche">
         <h3 class="titre-echo">Notre fiche pour la consultation</h3>
@@ -565,9 +566,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
-<!-- Cloudflare Web Analytics -->
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "49ef6eb473ba42779b00cfac15d8ef0d"}'></script>
-<!-- End Cloudflare Web Analytics -->
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -607,15 +605,20 @@ if ("serviceWorker" in navigator) {
   function calculer(){
     var af = entier('i-agef'), ah = entier('i-ageh'), m = entier('i-mois'), fr = $('i-freq').value;
     var ff = coches('i-ff'), fh = coches('i-fh'), facteurs = ff.concat(fh);
+    // Antécédents : « fort » = bilan sans attendre ; data-delai="6" = bilan dès 6 mois ; data-delai="fc" = fausses couches (pas de changement du délai).
+    var cases = Array.prototype.slice.call(f.querySelectorAll('.i-ff:checked, .i-fh:checked'));
+    var forts = cases.filter(function(c){ return !c.getAttribute('data-delai'); }).map(function(c){ return c.value; });
+    var moyens = cases.filter(function(c){ return c.getAttribute('data-delai') === '6'; }).map(function(c){ return c.value; });
+    var fc = cases.some(function(c){ return c.getAttribute('data-delai') === 'fc'; });
     var gf = radio('i-gf'), gh = radio('i-gh');
-    // Repère du bilan : 12 mois avant 35 ans, 6 mois de 35 à 39 ans, sans attendre à 40 ans et plus ou si un facteur est connu.
-    var seuil = (af >= 40 || facteurs.length) ? 0 : (af >= 35 ? 6 : 12);
+    // Repère du bilan : 12 mois avant 35 ans ; 6 mois de 35 à 39 ans ou si un antécédent « moyen » est connu ; sans attendre à 40 ans et plus ou si un antécédent « fort » est connu.
+    var seuil = (af >= 40 || forts.length) ? 0 : (af >= 35 || moyens.length) ? 6 : 12;
     var oms = m >= 12, bilan = m >= seuil, constats = [], questions = [];
     var type = gf === 'oui' ? 'secondaire' : 'primaire';
 
     $('i-c1').textContent = duree(m); $('i-c1n').textContent = 'de rapports sans contraception';
     $('i-c2').textContent = seuil === 0 ? 'sans attendre' : 'dès ' + seuil + ' mois';
-    $('i-c2n').textContent = facteurs.length ? 'un facteur de risque est connu' : (af >= 40 ? 'femme de 40 ans ou plus' : af >= 35 ? 'femme de 35 à 39 ans' : 'femme de moins de 35 ans');
+    $('i-c2n').textContent = forts.length ? 'un antécédent important est connu' : af >= 40 ? 'femme de 40 ans ou plus' : af >= 35 ? 'femme de 35 à 39 ans' : moyens.length ? 'un antécédent est connu' : 'femme de moins de 35 ans';
 
     var nv = $('i-niveau');
     if (oms) {
@@ -624,14 +627,15 @@ if ("serviceWorker" in navigator) {
       constats.push('Chez la femme, on parle d\'infertilité ' + type + (type === 'primaire' ? ' (aucune grossesse auparavant).' : ' (au moins une grossesse auparavant, même sans enfant né vivant).'));
     } else if (bilan) {
       nv.className = 'classe c-surpoids'; nv.textContent = 'Orange · bilan conseillé dans les prochaines semaines';
-      constats.push('Ce n\'est pas encore une infertilité au sens de l\'OMS (12 mois), mais un bilan est conseillé dès maintenant : ' + (facteurs.length ? 'un antécédent qui peut gêner la fertilité est connu (' + facteurs.join(', ') + ').' : af >= 40 ? 'à partir de 40 ans, la fertilité de la femme baisse vite et il ne faut pas perdre de temps.' : 'à partir de 35 ans, le bilan est conseillé après 6 mois d\'essais.'));
+      constats.push('Ce n\'est pas encore une infertilité au sens de l\'OMS (12 mois), mais un bilan est conseillé dès maintenant : ' + (forts.length ? 'un antécédent qui peut gêner la fertilité est connu (' + forts.join(', ') + ').' : af >= 40 ? 'à partir de 40 ans, la fertilité de la femme baisse vite et il ne faut pas perdre de temps.' : af >= 35 ? 'à partir de 35 ans, le bilan est conseillé après 6 mois d\'essais.' : 'avec cet antécédent (' + moyens.join(', ') + '), le bilan est conseillé après 6 mois d\'essais.'));
     } else {
       nv.className = 'classe c-normal'; nv.textContent = 'Vert · délai habituel, continuez';
       var reste = seuil - m;
-      constats.push('Ce n\'est pas une infertilité : plus de 8 couples sur 10 obtiennent une grossesse en moins d\'un an de rapports réguliers. Le repère pour un bilan est de ' + seuil + ' mois' + (seuil === 6 ? ' à partir de 35 ans' : ' avant 35 ans') + ' : encore ' + reste + ' mois. C\'est un repère, pas une obligation d\'attendre : vous pouvez consulter plus tôt si vous êtes inquiets.');
+      constats.push('Ce n\'est pas une infertilité : plus de 8 couples sur 10 obtiennent une grossesse en moins d\'un an de rapports réguliers. Le repère pour un bilan est de ' + seuil + ' mois' + (seuil === 6 ? (af >= 35 ? ' à partir de 35 ans' : ' avec l\'antécédent signalé') : ' avant 35 ans') + ' : encore ' + reste + ' mois. C\'est un repère, pas une obligation d\'attendre : vous pouvez consulter plus tôt si vous êtes inquiets.');
       constats.push('Conseil : des rapports tous les 2 à 3 jours tout au long du cycle donnent les meilleures chances, sans avoir besoin de calculer l\'ovulation.');
     }
     constats.push('La fertilité concerne les deux partenaires. Dans environ la moitié des couples, une cause masculine participe à la difficulté : le bilan se fait donc chez la femme et chez l\'homme, en même temps.');
+    if (fc) constats.push('2 fausses couches ou plus : ce n\'est pas une infertilité, puisque la grossesse survient, mais une consultation est conseillée pour en rechercher la cause, sans attendre la prochaine grossesse.');
     if (fr === '0' || fr === 'sep') constats.push('Avec des rapports moins d\'une fois par semaine ou irréguliers, les chances à chaque cycle sont plus faibles et le repère de 12 mois s\'applique mal : des rapports tous les 2 à 3 jours sont conseillés. Parlez-en au médecin.');
     if (af >= 35 && af < 40 && !oms) constats.push('À partir de 35 ans, la fertilité de la femme diminue plus vite : c\'est pourquoi le bilan est conseillé dès 6 mois.');
     if (ah >= 45) constats.push('La fertilité de l\'homme diminue aussi avec l\'âge, plus lentement que celle de la femme.');
@@ -652,8 +656,8 @@ if ("serviceWorker" in navigator) {
     liste('i-constats', constats); liste('i-questions', questions);
 
     var lignes = [
-      [0, 6, 'Moins de 6 mois', 'Délai habituel : la plupart des couples conçoivent dans l\'année. Bilan sans attendre si la femme a 40 ans ou plus, ou si un antécédent est connu.'],
-      [6, 12, '6 à 11 mois', 'Femme de 35 ans ou plus : bilan des deux partenaires conseillé. Femme de moins de 35 ans : continuer, rapports tous les 2 à 3 jours.'],
+      [0, 6, 'Moins de 6 mois', 'Délai habituel : la plupart des couples conçoivent dans l\'année. Bilan sans attendre si la femme a 40 ans ou plus, ou si un antécédent important est connu.'],
+      [6, 12, '6 à 11 mois', 'Femme de 35 ans ou plus, ou antécédent signalé (fibrome, varicocèle, infection génitale chez l\'homme) : bilan des deux partenaires conseillé. Femme de moins de 35 ans : continuer, rapports tous les 2 à 3 jours.'],
       [12, 9999, '12 mois ou plus', 'Infertilité selon la définition de l\'OMS : bilan des deux partenaires, quel que soit l\'âge.']
     ];
     var tb = $('i-table'); tb.textContent = '';

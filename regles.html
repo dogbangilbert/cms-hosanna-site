@@ -636,9 +636,6 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
-<!-- Cloudflare Web Analytics -->
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "49ef6eb473ba42779b00cfac15d8ef0d"}'></script>
-<!-- End Cloudflare Web Analytics -->
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -656,7 +653,7 @@ if ("serviceWorker" in navigator) {
   // Warner 2004, NHS : signes pratiques d'abondance ; ASRM 2024 : aménorrhée ; FSRH 2015 : saignements sous contraception hormonale ;
   // OMS 1996 : ménopause (12 mois) ; OMS, manuel de planification familiale : allaitement (MAMA) ; SOGC 2017, ACOG 760, ESHRE 2022 : dysménorrhée, endométriose.
   var f = document.getElementById('f-regles'), err = document.getElementById('r-erreur'), res = document.getElementById('r-resultat');
-  var SEUIL_GARN = 7; // garnitures par 24 h au jour le plus abondant (à valider)
+  var SEUIL_GARN = 4; // garnitures par 24 h au jour le plus abondant (décision de Gilbert DOGBAN, 21/11/2026)
   var HORMONAL = { pilule: 'la pilule', injection: 'l\'injection', implant: 'l\'implant', 'sterilet-h': 'le stérilet hormonal' };
   function $(id){ return document.getElementById(id); }
   function coche(id){ return $(id).checked; }
@@ -702,7 +699,7 @@ if ("serviceWorker" in navigator) {
     allait: ['Absence de règles de l\'allaitement', 'Pendant l\'allaitement, les règles peuvent être absentes ou irrégulières pendant plusieurs mois : c\'est normal.'],
     contra: ['Saignements modifiés par la contraception', 'Sous pilule, injection, implant ou stérilet hormonal, les règles peuvent devenir rares, absentes, irrégulières ou remplacées par de petits saignements : effet fréquent et sans danger de la méthode.'],
     meno: ['Ménopause', 'Arrêt définitif des règles, retenu après 12 mois sans règles, en général entre 45 et 55 ans.'],
-    prol: ['Règles prolongées', 'Règles qui durent plus de 8 jours.'],
+    prol: ['Règles prolongées', 'Règles qui durent plus de 8 jours (plus de 7 jours dans les 3 premières années après les premières règles).'],
     hyper: ['Hyperménorrhée (ménorragie)', 'Règles trop abondantes : plus de 80 mL de sang par cycle, ou abondance qui gêne la vie quotidienne (fatigue, débordements, absences).'],
     hypo: ['Hypoménorrhée', 'Règles très peu abondantes.'],
     metro: ['Métrorragies', 'Saignements d\'origine utérine en dehors des règles.'],
@@ -762,7 +759,7 @@ if ("serviceWorker" in navigator) {
       var cycle = entier('r-cycle'), duree = entier('r-duree'), garn = entier('r-garn'), jd = entier('r-jdouleur');
       var bas = ado ? 21 : 24, haut = ado ? 45 : 38;
       c1t = 'Votre cycle'; c1 = cycle + ' jours'; c1n = 'repère : ' + bas + ' à ' + haut + ' jours' + (ado ? ' (premières années)' : '');
-      c2t = 'Vos règles'; c2 = duree + ' jour' + (duree > 1 ? 's' : ''); c2n = 'repère : 8 jours au plus';
+      c2t = 'Vos règles'; c2 = duree + ' jour' + (duree > 1 ? 's' : ''); var dmax = ado ? 7 : 8; c2n = 'repère : ' + dmax + ' jours au plus';
       // Fréquence et régularité : sous contraception hormonale ou pendant l'allaitement, les repères FIGO ne s'appliquent pas.
       var cyc = [];
       if (cycle < bas) cyc.push(['poly', 'Polyménorrhée : votre cycle de ' + cycle + ' jours est plus court que le repère (' + bas + ' jours au moins' + (ado ? ' dans les premières années' : '') + '). Des règles trop rapprochées peuvent fatiguer et causer une anémie.', 'cycles courts (' + cycle + ' j)']);
@@ -781,7 +778,7 @@ if ("serviceWorker" in navigator) {
         if (c[0] === 'metro') q('D\'où viennent ces saignements entre les règles ? Faut-il une échographie ?');
         else if (c[0] !== 'hypo') q('Faut-il un bilan hormonal ou une échographie pour comprendre mes cycles ?');
       });
-      if (duree > 8) { ajoute('prol', 'Règles prolongées : ' + duree + ' jours de saignement, au-delà du repère de 8 jours. Consultez.', 2); resume.push('règles prolongées (' + duree + ' j)'); q('Pourquoi mes règles durent-elles si longtemps ?'); }
+      if (duree > dmax) { ajoute('prol', 'Règles prolongées : ' + duree + ' jours de saignement, au-delà du repère de ' + dmax + ' jours' + (ado ? ' dans les premières années' : '') + '. Consultez.', 2); resume.push('règles prolongées (' + duree + ' j)'); q('Pourquoi mes règles durent-elles si longtemps ?'); }
       // Abondance (indices, pas une mesure)
       var signes = [];
       if (garn !== null && garn >= SEUIL_GARN) signes.push(garn + ' garnitures par jour');
