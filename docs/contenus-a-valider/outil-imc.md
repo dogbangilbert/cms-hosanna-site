@@ -6,8 +6,8 @@ Aucune donnée n'est enregistrée ni envoyée : le calcul se fait dans le naviga
 
 ## 1. Saisies
 
-Sexe (femme / homme), âge (18 à 120 ans), taille (120 à 220 cm), poids (30 à 250 kg), tour de taille facultatif (50 à 200 cm).
-Moins de 18 ans : refusé, avec le message « Cet outil est prévu pour les adultes de 18 ans et plus. »
+Sexe (femme ou fille / homme ou garçon), âge (ans, et mois facultatifs pour l'enfant), taille (70 à 220 cm), poids (8 à 250 kg), tour de taille facultatif.
+Décision de Gilbert (21/11) : **ouvert aux moins de 18 ans** (un parent peut calculer pour son enfant). Avant 2 ans : « Avant 2 ans, la croissance se suit sur le carnet de santé de l'enfant, avec le médecin ou la sage-femme. »
 
 ## 2. Formules et seuils
 
@@ -57,3 +57,30 @@ Note : la Fédération internationale du diabète (IDF) recommande les seuils eu
 3. Les textes ci-dessus conviennent-ils, ou faut-il les adapter (langue, ton) ?
 
 Après validation : retirer le bandeau « Version en attente de validation médicale », passer la page en `index, follow`, l'ajouter au sitemap et au menu « Outils ».
+
+## 6. Enfants et adolescents (2 à 17 ans) — ajouté le 21/11/2026
+
+L'IMC est lu sur les courbes de croissance de l'OMS (IMC pour l'âge, selon le sexe), par la méthode LMS : z = ((IMC / M)^L − 1) / (L × S), au mois près.
+
+| Âge | Données | Classes affichées (OMS) |
+|---|---|---|
+| 2 à 5 ans | Normes de croissance OMS 2006 | Émaciation sévère (< −3 ET), émaciation (−3 à −2), poids normal (−2 à +1), risque de surpoids (+1 à +2), surpoids (+2 à +3), obésité (> +3) |
+| 5 à 17 ans | Référence de croissance OMS 2007 (5-19 ans) | Maigreur sévère (< −3 ET), maigreur (−3 à −2), poids normal (−2 à +1), surpoids (+1 à +2), obésité (> +2) |
+
+- Le tableau affiche les valeurs d'IMC qui correspondent à ces seuils pour l'âge et le sexe saisis ; la ligne de l'enfant est surlignée.
+- Cartes : « IMC normal à cet âge (OMS) » (−2 à +1 ET) et « Poids normal pour cet âge et cette taille ».
+- Percentile affiché (« au-dessus du 99e », « en dessous du 1er » aux extrêmes).
+- Pas de pourcentage de graisse ni de seuils de tour de taille adultes avant 18 ans.
+- Tables : `assets/oms-imc-enfant.json` (chargé seulement si l'âge est inférieur à 18 ans). Contrôles : garçon de 10 ans, normal 13,7 à 18,5, obésité > 21,4 ; fille de 19 ans, +1 ET = 25,0 et +2 ET = 29,7 (concordance avec les seuils adultes, comme prévu par l'OMS).
+
+Textes : maigreur « Le poids est bas pour l'âge. Faites examiner l'enfant ou l'adolescent par un professionnel de santé : croissance, alimentation, recherche d'une maladie. » ; normal « Le poids est dans la norme de l'OMS pour l'âge et le sexe. » ; surpoids « Chez l'enfant, pas de régime strict : repas équilibrés, moins de boissons et de produits sucrés, plus d'activité. » ; obésité « Un avis médical est conseillé : bilan et accompagnement adaptés à la croissance. »
+
+## 7. Pourcentage de graisse (adultes) — ajouté le 21/11/2026
+
+- Formule de Deurenberg (1991) : graisse (%) = 1,20 × IMC + 0,23 × âge − 10,8 × sexe (1 = homme, 0 = femme) − 5,4. Sans saisie supplémentaire.
+- Niveaux (American Council on Exercise ; l'OMS n'a pas de classement du pourcentage de graisse) :
+  - Homme : < 2 % trop faible ; 2 à 5 % graisse essentielle ; 6 à 13 % athlétique ; 14 à 17 % bonne forme ; 18 à 24 % moyen ; ≥ 25 % excès de graisse (obésité).
+  - Femme : < 10 % trop faible ; 10 à 13 % graisse essentielle ; 14 à 20 % athlétique ; 21 à 24 % bonne forme ; 25 à 31 % moyen ; ≥ 32 % excès de graisse (obésité).
+- Mention : « Estimation à partir de l'IMC, de l'âge et du sexe (formule de Deurenberg). Seule une mesure en cabinet est précise. »
+- Exemple : homme de 66 ans, IMC 35,3 → 41 %, excès de graisse.
+- Question : votre calculateur utilise le tour de cou et le tour de taille (formule de l'US Navy), plus précise mais avec une saisie de plus. Garder Deurenberg (simple) ou ajouter le tour de cou ?

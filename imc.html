@@ -265,6 +265,9 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
   header,footer,nav,.wa-float,.vie-barre,.vie-bandeau,.vie-progress,.vie-haut,#cms-bandeau,.page-hero,.outil form,.actions-outil,.brouillon{display:none!important}
   body{padding:0!important}.resultat{border:0;background:#fff}.date-impr{display:block;margin-bottom:8px;color:#333} .impr-rdv{display:block;margin-top:14px;padding:10px 12px;border:1.5px solid #003399;border-radius:8px}
 }
+.imc-percentile{text-align:center;font-weight:600;color:#003399;margin:-6px 0 12px}
+.titre-graisse{font-size:1.05rem;margin:18px 0 4px;color:#003399;text-align:center}
+.jauge-2{font-size:2.2rem}
 </style>
 <link rel="stylesheet" href="/assets/vie.css">
 </head>
@@ -310,16 +313,17 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
     <p class="brouillon" role="note">Version en attente de validation médicale. Ne pas diffuser.</p>
     <form id="f-imc" novalidate>
       <fieldset>
-        <legend>Vous êtes</legend>
+        <legend>La personne est</legend>
         <div class="choix">
-          <label><input type="radio" name="sexe" value="F" required> Une femme</label>
-          <label><input type="radio" name="sexe" value="H"> Un homme</label>
+          <label><input type="radio" name="sexe" value="F" required> Femme ou fille</label>
+          <label><input type="radio" name="sexe" value="H"> Homme ou garçon</label>
         </div>
       </fieldset>
       <div class="ligne">
-        <div><label for="age">Âge <small>(ans)</small></label><input type="number" id="age" inputmode="numeric" min="18" max="120" required></div>
-        <div><label for="taille">Taille <small>(cm)</small></label><input type="number" id="taille" inputmode="decimal" min="120" max="220" step="0.5" required></div>
-        <div><label for="poids">Poids <small>(kg)</small></label><input type="number" id="poids" inputmode="decimal" min="30" max="250" step="0.1" required></div>
+        <div><label for="age">Âge <small>(ans)</small></label><input type="number" id="age" inputmode="numeric" min="2" max="120" required></div>
+        <div><label for="mois">et mois <small>(enfant, facultatif)</small></label><input type="number" id="mois" inputmode="numeric" min="0" max="11"></div>
+        <div><label for="taille">Taille <small>(cm)</small></label><input type="number" id="taille" inputmode="decimal" min="70" max="220" step="0.5" required></div>
+        <div><label for="poids">Poids <small>(kg)</small></label><input type="number" id="poids" inputmode="decimal" min="8" max="250" step="0.1" required></div>
         <div><label for="taillecm">Tour de taille <small>(cm, facultatif)</small></label><input type="number" id="taillecm" inputmode="decimal" min="50" max="200" step="0.5"></div>
       </div>
       <p class="erreur" id="imc-erreur" role="alert" hidden></p>
@@ -333,17 +337,27 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       <p class="imc-titre">Mon IMC (indice de masse corporelle)</p>
       <p class="imc-grand"><span class="jauge" id="imc-valeur"></span></p>
       <div class="ideal">
-        <div><span>IMC normal (OMS)</span><b>18,5 à 24,9</b></div>
-        <div><span>Poids normal pour votre taille</span><b id="imc-poids-ideal"></b></div>
+        <div><span id="imc-ref-titre">IMC normal (OMS)</span><b id="imc-ref">18,5 à 24,9</b></div>
+        <div><span id="imc-poids-titre">Poids normal pour cette taille</span><b id="imc-poids-ideal"></b></div>
       </div>
+      <p class="imc-percentile" id="imc-percentile" hidden></p>
       <table class="classes" aria-label="Classes de l'IMC">
-        <thead><tr><th scope="col">IMC</th><th scope="col">Classe</th></tr></thead>
+        <thead><tr><th scope="col">IMC</th><th scope="col">Classe (OMS)</th></tr></thead>
         <tbody id="imc-table"></tbody>
       </table>
       <p><span class="classe" id="imc-classe"></span></p>
       <p id="imc-message"></p>
       <ul id="imc-details"></ul>
-      <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> L'IMC ne s'applique pas pendant la grossesse, avant 18 ans, ni chez les personnes très musclées. Chez les personnes âgées, il s'interprète avec prudence.</p>
+      <div id="imc-graisse" hidden>
+        <h3 class="titre-graisse">Pourcentage de graisse (estimation)</h3>
+        <p class="imc-grand"><span class="jauge jauge-2" id="imc-graisse-valeur"></span></p>
+        <table class="classes" aria-label="Pourcentage de graisse">
+          <thead><tr><th scope="col">Graisse</th><th scope="col">Niveau</th></tr></thead>
+          <tbody id="imc-graisse-table"></tbody>
+        </table>
+        <p class="mention">Estimation à partir de l'IMC, de l'âge et du sexe (formule de Deurenberg). Seule une mesure en cabinet est précise.</p>
+      </div>
+      <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> Avant 18 ans, l'IMC est lu sur les courbes de croissance de l'OMS selon l'âge et le sexe. L'IMC ne s'applique pas pendant la grossesse ni chez les personnes très musclées ; chez les personnes âgées, il s'interprète avec prudence.</p>
       <p class="impr-rdv"><b>Prenez rendez-vous au CMS HOSANNA</b> (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com</p>
       <div class="actions-outil">
         <a href="/contact" class="btn btn-primary">Prendre rendez-vous</a>
@@ -458,57 +472,115 @@ if ("serviceWorker" in navigator) {
 <script>
 (function(){
   // Outil IMC : tout est calculé ici, rien n'est enregistré ni envoyé.
-  // Références (à valider) : classes de l'IMC de l'OMS ; tour de taille : OMS 2008 ; classes et poids normal de l'OMS (choix de Gilbert).
+  // Références : classes de l'IMC de l'OMS (adultes) ; courbes de croissance OMS, IMC pour l'âge (2-5 ans : normes 2006 ; 5-19 ans : référence 2007) ;
+  // tour de taille : OMS 2008 ; pourcentage de graisse : formule de Deurenberg (1991), niveaux de l'American Council on Exercise.
   var f = document.getElementById('f-imc'), err = document.getElementById('imc-erreur'), res = document.getElementById('imc-resultat');
+  var TABLES = null;
   function nb(id){ var v = document.getElementById(id).value.replace(',', '.'); return v === '' ? null : parseFloat(v); }
   function fr(x, d){ return x.toFixed(d).replace('.', ','); }
   function refuser(id, texte){ err.textContent = texte; err.hidden = false; if (id) document.getElementById(id).focus(); }
   function ligne(texte){ var li = document.createElement('li'); li.textContent = texte; document.getElementById('imc-details').appendChild(li); }
+  function tableau(id, lignes, valeur){
+    var corps = document.getElementById(id), trouve = ''; corps.textContent = '';
+    lignes.forEach(function(k){
+      var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td');
+      a.textContent = k[2]; b.textContent = k[3]; tr.appendChild(a); tr.appendChild(b);
+      if (!trouve && valeur >= k[0] && valeur < k[1]) { tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); trouve = k[3]; }
+      corps.appendChild(tr);
+    });
+    return trouve;
+  }
+  function phi(z){ var t = 1 / (1 + 0.2316419 * Math.abs(z)), d = 0.3989423 * Math.exp(-z * z / 2);
+    var p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z > 0 ? 1 - p : p; }
+  function calculer(sexe, age, mois, t, p, tt){
+    var m = t / 100, imc = Math.round(p * 100000 / (t * t)) / 10, cls, message, classe;
+    var enfant = age < 18;
+    document.getElementById('imc-valeur').textContent = fr(imc, 1);
+    document.getElementById('imc-details').textContent = '';
+    if (enfant) {
+      // Enfant ou adolescent : IMC pour l'âge (OMS), z-score par la méthode LMS
+      var mm = Math.min(228, Math.max(24, Math.floor(age * 12 + (mois || 0))));
+      var r = TABLES[sexe === 'H' ? 'garcons' : 'filles'].filter(function(x){ return x[0] === mm; })[0], L = r[1], M = r[2], S = r[3];
+      var z = (Math.pow(imc / M, L) - 1) / (L * S);
+      function seuil(k){ return M * Math.pow(1 + L * S * k, 1 / L); }
+      var avant5 = mm <= 60, Z = [-3, -2, 1, 2, 3].map(seuil);
+      var lignes = avant5 ? [
+        [-Infinity, -3, '< ' + fr(Z[0], 1), 'Émaciation sévère'], [-3, -2, fr(Z[0], 1) + ' à ' + fr(Z[1], 1), 'Émaciation'],
+        [-2, 1, fr(Z[1], 1) + ' à ' + fr(Z[2], 1), 'Poids normal'], [1, 2, fr(Z[2], 1) + ' à ' + fr(Z[3], 1), 'Risque de surpoids'],
+        [2, 3, fr(Z[3], 1) + ' à ' + fr(Z[4], 1), 'Surpoids'], [3, Infinity, '> ' + fr(Z[4], 1), 'Obésité']
+      ] : [
+        [-Infinity, -3, '< ' + fr(Z[0], 1), 'Maigreur sévère'], [-3, -2, fr(Z[0], 1) + ' à ' + fr(Z[1], 1), 'Maigreur'],
+        [-2, 1, fr(Z[1], 1) + ' à ' + fr(Z[2], 1), 'Poids normal'], [1, 2, fr(Z[2], 1) + ' à ' + fr(Z[3], 1), 'Surpoids'],
+        [2, Infinity, '> ' + fr(Z[3], 1), 'Obésité']
+      ];
+      classe = tableau('imc-table', lignes, z);
+      document.getElementById('imc-ref-titre').textContent = 'IMC normal à cet âge (OMS)';
+      document.getElementById('imc-ref').textContent = fr(Z[1], 1) + ' à ' + fr(Z[2], 1);
+      document.getElementById('imc-poids-titre').textContent = 'Poids normal pour cet âge et cette taille';
+      document.getElementById('imc-poids-ideal').textContent = fr(Z[1] * m * m, 0) + ' à ' + fr(Z[2] * m * m, 0) + ' kg';
+      var pc = document.getElementById('imc-percentile'); pc.hidden = false;
+      var pv = phi(z) * 100, pr = Math.round(pv);
+      var ptxt = pv >= 99.5 ? 'au-dessus du 99e percentile' : pv < 0.5 ? 'en dessous du 1er percentile' : (pr === 1 ? '1er' : pr + 'e') + ' percentile';
+      pc.textContent = 'Courbe de croissance OMS : ' + ptxt + ' (écart-type ' + (z >= 0 ? '+' : '') + fr(z, 1) + ')';
+      if (z < -2) { cls = 'c-maigre'; message = 'Le poids est bas pour l\'âge. Faites examiner l\'enfant ou l\'adolescent par un professionnel de santé : croissance, alimentation, recherche d\'une maladie.'; }
+      else if (z <= 1) { cls = 'c-normal'; message = 'Le poids est dans la norme de l\'OMS pour l\'âge et le sexe. Continuez une alimentation variée et une activité physique régulière.'; }
+      else if (avant5 ? z <= 3 : z <= 2) { cls = 'c-surpoids'; message = 'Le poids est au-dessus de la norme pour l\'âge. Chez l\'enfant, pas de régime strict : repas équilibrés, moins de boissons et de produits sucrés, plus d\'activité. Un professionnel de santé peut accompagner la famille.'; }
+      else { cls = 'c-obese'; message = 'Un avis médical est conseillé : bilan et accompagnement adaptés à la croissance de l\'enfant ou de l\'adolescent.'; }
+      document.getElementById('imc-graisse').hidden = true;
+      if (tt !== null) ligne('Tour de taille : chez l\'enfant et l\'adolescent, il s\'interprète avec des courbes selon l\'âge ; parlez-en lors de la consultation.');
+    } else {
+      // Adulte : classes de l'OMS
+      classe = tableau('imc-table', [
+        [0, 16, '< 16,0', 'Maigreur sévère'], [16, 17, '16,0 à 16,9', 'Maigreur modérée'], [17, 18.5, '17,0 à 18,4', 'Maigreur légère'],
+        [18.5, 25, '18,5 à 24,9', 'Poids normal'], [25, 30, '25,0 à 29,9', 'Surpoids (préobésité)'],
+        [30, 35, '30,0 à 34,9', 'Obésité de classe I (modérée)'], [35, 40, '35,0 à 39,9', 'Obésité de classe II (sévère)'],
+        [40, Infinity, '≥ 40,0', 'Obésité de classe III (très sévère)']
+      ], imc);
+      document.getElementById('imc-ref-titre').textContent = 'IMC normal (OMS)';
+      document.getElementById('imc-ref').textContent = '18,5 à 24,9';
+      document.getElementById('imc-poids-titre').textContent = 'Poids normal pour cette taille';
+      document.getElementById('imc-poids-ideal').textContent = fr(18.5 * m * m, 0) + ' à ' + fr(24.9 * m * m, 0) + ' kg';
+      document.getElementById('imc-percentile').hidden = true;
+      if (imc < 18.5) { cls = 'c-maigre'; message = 'Le poids est inférieur au poids normal. Un poids trop bas peut cacher une carence ou une maladie : parlez-en à un médecin, surtout en cas de perte de poids non voulue.'; }
+      else if (imc < 25) { cls = 'c-normal'; message = 'Le poids est normal. Gardez une alimentation variée et une activité physique régulière.'; }
+      else if (imc < 30) { cls = 'c-surpoids'; message = 'Une perte de poids modérée, même de quelques kilos, peut améliorer la tension artérielle, la glycémie et le cholestérol. Un professionnel de santé peut vous accompagner.'; }
+      else { cls = 'c-obese'; message = 'Un bilan est conseillé : tension artérielle, glycémie et cholestérol. Prenez rendez-vous pour en parler avec un professionnel de santé.'; }
+      // Pourcentage de graisse estimé (Deurenberg, adulte) et niveaux ACE
+      var g = 1.2 * imc + 0.23 * age - 10.8 * (sexe === 'H' ? 1 : 0) - 5.4;
+      document.getElementById('imc-graisse').hidden = false;
+      document.getElementById('imc-graisse-valeur').textContent = fr(Math.max(0, g), 0) + ' %';
+      tableau('imc-graisse-table', sexe === 'H' ? [
+        [-Infinity, 2, '< 2 %', 'Trop faible'], [2, 6, '2 à 5 %', 'Graisse essentielle'], [6, 14, '6 à 13 %', 'Athlétique'],
+        [14, 18, '14 à 17 %', 'Bonne forme'], [18, 25, '18 à 24 %', 'Moyen'], [25, Infinity, '≥ 25 %', 'Excès de graisse (obésité)']
+      ] : [
+        [-Infinity, 10, '< 10 %', 'Trop faible'], [10, 14, '10 à 13 %', 'Graisse essentielle'], [14, 21, '14 à 20 %', 'Athlétique'],
+        [21, 25, '21 à 24 %', 'Bonne forme'], [25, 32, '25 à 31 %', 'Moyen'], [32, Infinity, '≥ 32 %', 'Excès de graisse (obésité)']
+      ], Math.round(g));
+      if (tt !== null) {
+        var s1 = sexe === 'H' ? 94 : 80, s2 = sexe === 'H' ? 102 : 88;
+        ligne('Tour de taille ' + fr(tt, 0) + ' cm : ' + (tt >= s2 ? 'risque nettement accru (graisse abdominale). Un bilan est conseillé.' : tt >= s1 ? 'risque accru. Surveillez votre tour de taille.' : 'pas de risque accru lié au tour de taille.') + ' (Seuils OMS : ' + s1 + ' et ' + s2 + ' cm.)');
+      }
+    }
+    var c = document.getElementById('imc-classe'); c.textContent = 'Classe : ' + classe; c.className = 'classe ' + cls;
+    document.getElementById('imc-message').textContent = message;
+    document.getElementById('imc-date').textContent = 'CMS HOSANNA, Lomé · Calcul du ' + new Date().toLocaleDateString('fr-FR') + ' · ' + (sexe === 'H' ? (enfant ? 'Garçon' : 'Homme') : (enfant ? 'Fille' : 'Femme')) + ', ' + age + ' ans' + (enfant && mois ? ' ' + mois + ' mois' : '') + ', ' + fr(t, 0) + ' cm, ' + fr(p, 1) + ' kg';
+    res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
   f.addEventListener('submit', function(e){
     e.preventDefault(); err.hidden = true;
     var sexe = (f.querySelector('input[name=sexe]:checked') || {}).value;
-    var age = nb('age'), t = nb('taille'), p = nb('poids'), tt = nb('taillecm');
-    if (!sexe) return refuser(null, 'Indiquez si vous êtes une femme ou un homme.');
-    if (age === null || age < 18 || age > 120) return refuser('age', 'Cet outil est prévu pour les adultes de 18 ans et plus.');
-    if (t === null || t < 120 || t > 220) return refuser('taille', 'Indiquez votre taille en centimètres (entre 120 et 220).');
-    if (p === null || p < 30 || p > 250) return refuser('poids', 'Indiquez votre poids en kilos (entre 30 et 250).');
-    if (tt !== null && (tt < 50 || tt > 200)) return refuser('taillecm', 'Le tour de taille doit être en centimètres (entre 50 et 200).');
-    var m = t / 100, imc = Math.round(p * 100000 / (t * t)) / 10; // calcul en cm : arrondi exact au dixième
-    // Classes de l'OMS (choix de Gilbert, 21/11/2026) : maigreur, poids normal, surpoids, obésité I à III
-    var CLASSES = [
-      [0, 16, '< 16,0', 'Maigreur sévère'],
-      [16, 17, '16,0 à 16,9', 'Maigreur modérée'],
-      [17, 18.5, '17,0 à 18,4', 'Maigreur légère'],
-      [18.5, 25, '18,5 à 24,9', 'Poids normal'],
-      [25, 30, '25,0 à 29,9', 'Surpoids (préobésité)'],
-      [30, 35, '30,0 à 34,9', 'Obésité de classe I (modérée)'],
-      [35, 40, '35,0 à 39,9', 'Obésité de classe II (sévère)'],
-      [40, Infinity, '≥ 40,0', 'Obésité de classe III (très sévère)']
-    ];
-    var corps = document.getElementById('imc-table'); corps.textContent = '';
-    var classe = '';
-    CLASSES.forEach(function(k){
-      var tr = document.createElement('tr'), a = document.createElement('td'), b = document.createElement('td');
-      a.textContent = k[2]; b.textContent = k[3]; tr.appendChild(a); tr.appendChild(b);
-      if (imc >= k[0] && imc < k[1]) { tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); classe = k[3]; }
-      corps.appendChild(tr);
-    });
-    var cls, message;
-    if (imc < 18.5) { cls = 'c-maigre'; message = 'Votre poids est inférieur au poids normal. Un poids trop bas peut cacher une carence ou une maladie : parlez-en à un médecin, surtout si vous avez perdu du poids sans le vouloir.'; }
-    else if (imc < 25) { cls = 'c-normal'; message = 'Votre poids est normal. Gardez une alimentation variée et une activité physique régulière.'; }
-    else if (imc < 30) { cls = 'c-surpoids'; message = 'Une perte de poids modérée, même de quelques kilos, peut améliorer la tension artérielle, la glycémie et le cholestérol. Un professionnel de santé peut vous accompagner.'; }
-    else { cls = 'c-obese'; message = 'Un bilan est conseillé : tension artérielle, glycémie et cholestérol. Prenez rendez-vous pour en parler avec un professionnel de santé.'; }
-    document.getElementById('imc-valeur').textContent = fr(imc, 1);
-    document.getElementById('imc-poids-ideal').textContent = fr(18.5 * m * m, 0) + ' à ' + fr(24.9 * m * m, 0) + ' kg';
-    var c = document.getElementById('imc-classe'); c.textContent = 'Votre classe : ' + classe; c.className = 'classe ' + cls;
-    document.getElementById('imc-message').textContent = message;
-    document.getElementById('imc-details').textContent = '';
-    if (tt !== null) {
-      var s1 = sexe === 'H' ? 94 : 80, s2 = sexe === 'H' ? 102 : 88;
-      ligne('Tour de taille ' + fr(tt, 0) + ' cm : ' + (tt >= s2 ? 'risque nettement accru (graisse abdominale). Un bilan est conseillé.' : tt >= s1 ? 'risque accru. Surveillez votre tour de taille.' : 'pas de risque accru lié au tour de taille.') + ' (Seuils : ' + s1 + ' et ' + s2 + ' cm.)');
-    }
-    document.getElementById('imc-date').textContent = 'CMS HOSANNA, Lomé · Calcul du ' + new Date().toLocaleDateString('fr-FR') + ' · ' + (sexe === 'H' ? 'Homme' : 'Femme') + ', ' + age + ' ans, ' + fr(t, 0) + ' cm, ' + fr(p, 1) + ' kg';
-    res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'});
+    var age = nb('age'), mois = nb('mois'), t = nb('taille'), p = nb('poids'), tt = nb('taillecm');
+    if (!sexe) return refuser(null, 'Indiquez s\'il s\'agit d\'une femme ou fille, ou d\'un homme ou garçon.');
+    if (age === null || age > 120) return refuser('age', 'Indiquez l\'âge en années.');
+    if (age < 2) return refuser('age', 'Avant 2 ans, la croissance se suit sur le carnet de santé de l\'enfant, avec le médecin ou la sage-femme.');
+    if (mois !== null && (mois < 0 || mois > 11)) return refuser('mois', 'Les mois vont de 0 à 11.');
+    if (t === null || t < 70 || t > 220) return refuser('taille', 'Indiquez la taille en centimètres (entre 70 et 220).');
+    if (p === null || p < 8 || p > 250) return refuser('poids', 'Indiquez le poids en kilos (entre 8 et 250).');
+    if (tt !== null && (tt < 40 || tt > 200)) return refuser('taillecm', 'Le tour de taille doit être en centimètres (entre 40 et 200).');
+    age = Math.floor(age);
+    if (age >= 18 || TABLES) return calculer(sexe, age, mois, t, p, tt);
+    fetch('/assets/oms-imc-enfant.json').then(function(r){ return r.json(); }).then(function(d){ TABLES = d; calculer(sexe, age, mois, t, p, tt); })
+      .catch(function(){ refuser(null, 'Les courbes de croissance n\'ont pas pu être chargées. Vérifiez votre connexion et réessayez.'); });
   });
   document.getElementById('imc-imprimer').addEventListener('click', function(){ window.print(); });
 })();
