@@ -32,6 +32,8 @@
       var f = c.fin.split('-'), jusqua = 'jusqu\'au ' + (+f[2]) + ' ' + mois[+f[1] - 1];
       var b = document.createElement('a'); b.className = 'vie-bandeau'; b.href = c.lien || '/contact';
       if (c.couleurs && c.couleurs.length === 2) b.style.backgroundImage = 'linear-gradient(90deg,' + c.couleurs[0] + ',' + c.couleurs[1] + ',' + c.couleurs[0] + ')';
+      if (c.couleur_texte) { b.style.color = c.couleur_texte; b.classList.add('vie-bandeau-clair'); }
+      if (c.couleur_prix) b.style.setProperty('--vie-prix', c.couleur_prix);
       function morceau(classe, parties){
         var s = document.createElement('span'); s.className = classe;
         parties.forEach(function(p){
@@ -45,6 +47,18 @@
       var fleche = document.createElement('span'); fleche.className = 'vie-fleche'; fleche.textContent = '→';
       b.appendChild(document.createTextNode(' ')); b.appendChild(fleche);
       b.setAttribute('aria-label', c.nom + ' : ' + c.offre + ', ' + c.prix + (c.prix_barre ? ' au lieu de ' + c.prix_barre : '') + ', ' + jusqua + '. ' + (c.action || 'Prendre rendez-vous'));
+      // Phrases qui s'écrivent lettre par lettre, puis restent affichées, puis la suivante (texte fixe si animations désactivées)
+      if (c.phrases && c.phrases.length && !calme) {
+        var zone = document.createElement('span'); zone.className = 'vie-machine'; zone.setAttribute('aria-hidden', 'true');
+        b.insertBefore(zone, b.firstChild); b.classList.add('vie-anime');
+        var ph = 0, n = 0;
+        (function tape(){
+          var t = Array.from(c.phrases[ph]);
+          zone.textContent = t.slice(0, n).join('');
+          if (n < t.length) { n++; setTimeout(tape, 55); }
+          else setTimeout(function(){ ph = (ph + 1) % c.phrases.length; n = 0; tape(); }, 2200);
+        })();
+      }
       header.insertBefore(b, header.firstChild);
       placerMenu();
     }).catch(function(){});

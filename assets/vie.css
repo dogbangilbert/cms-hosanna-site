@@ -155,3 +155,10 @@ header.vie-scrolled .nav-wrap{padding-top:8px; padding-bottom:8px;}
   .parcours{padding:48px 0 28px;}
 }
 .vie-bandeau s{opacity:.85; margin-right:2px;}
+
+/* Campagne du mois : fond clair réglable et texte qui s'écrit */
+.vie-bandeau-clair b{color:var(--vie-prix,#003399);}
+.vie-bandeau-clair s{opacity:.8;}
+.vie-bandeau.vie-anime .vie-long,.vie-bandeau.vie-anime .vie-court{display:none !important;}
+.vie-machine{display:inline-block;min-height:1.3em;font-weight:700;}
+.vie-machine::after{content:"";display:inline-block;width:2px;height:1em;margin-left:3px;vertical-align:-2px;background:currentColor;opacity:.6;}

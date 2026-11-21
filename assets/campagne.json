@@ -1,5 +1,5 @@
 {
-  "_aide": "Campagne du mois. Le bandeau s'affiche en haut de toutes les pages du site du jour 'debut' au jour 'fin' inclus (dates au format AAAA-MM-JJ), puis disparaît tout seul. Pour le masquer plus tôt : \"actif\": false. Mode d'emploi : docs/campagnes/campagne-du-mois.md",
+  "_aide": "Campagne du mois. Le bandeau s'affiche en haut de toutes les pages du site du jour 'debut' au jour 'fin' inclus (dates au format AAAA-MM-JJ), puis disparaît tout seul. Pour le masquer plus tôt : \"actif\": false. Mode d'emploi : docs/campagnes/campagne-du-mois.md Les « phrases » défilent en machine à écrire (texte fixe si le visiteur a désactivé les animations).",
   "actif": true,
   "nom": "Novembre Bleu",
   "emoji": "💙",
@@ -11,5 +11,16 @@
   "fin": "2026-11-30",
   "lien": "/contact",
   "action": "Prendre rendez-vous",
-  "couleurs": ["#0B3D91", "#1565C0"]
+  "couleurs": [
+    "#F9A825",
+    "#FB8C00"
+  ],
+  "couleur_texte": "#1A1200",
+  "couleur_prix": "#003399",
+  "phrases": [
+    "💙 Novembre Bleu",
+    "Bilan prostate complet",
+    "19 500 F CFA au lieu de 30 000 F CFA",
+    "Prenez rendez-vous"
+  ]
 }
