@@ -82,3 +82,7 @@ Pour une échographie dont la période est passée : « 💬 Pas encore faite ? 
 Sources consultées :
 - MSF, 1.2 Consultations prénatales : https://medicalguidelines.msf.org/fr/viewport/ONC/francais/1-2-consultations-prenatales-51415994.html
 - Santé.fr, âge de la grossesse et date d'accouchement : https://www.sante.fr/node/1068443
+
+## Ton neutre (décision de Gilbert, 22/11/2026, pour tous les outils)
+
+Plus de « Prendre rendez-vous » dans les résultats : « Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre. » Bouton « Demander un avis (WhatsApp) », messages pré-remplis neutres (« j'ai une question… »). Le texte imprimé dit « consultez un professionnel de santé », suivi des coordonnées du centre. Les boutons « Prendre RDV » de l'en-tête du site ne changent pas.

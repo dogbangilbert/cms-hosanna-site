@@ -268,6 +268,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 .imc-percentile{text-align:center;font-weight:600;color:#003399;margin:-6px 0 12px}
 .titre-graisse{font-size:1.05rem;margin:18px 0 4px;color:#003399;text-align:center}
 .jauge-2{font-size:2.2rem}
+.avis-pro{margin-top:10px}
+@media print{.avis-pro{display:none!important}}
 </style>
 <link rel="stylesheet" href="/assets/vie.css">
 </head>
@@ -358,9 +360,10 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <p class="mention">Estimation à partir de l'IMC, de l'âge et du sexe (formule de Deurenberg). Seule une mesure en cabinet est précise.</p>
       </div>
       <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> Avant 18 ans, l'IMC est lu sur les courbes de croissance de l'OMS selon l'âge et le sexe. L'IMC ne s'applique pas pendant la grossesse ni chez les personnes très musclées ; chez les personnes âgées, il s'interprète avec prudence.</p>
-      <p class="impr-rdv"><b>Prenez rendez-vous au CMS HOSANNA</b> (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com</p>
+      <p class="avis-pro"><b>Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé.</b> Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre.</p>
+      <p class="impr-rdv"><b>Pour un avis adapté : consultez un professionnel de santé.</b> CMS HOSANNA (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com</p>
       <div class="actions-outil">
-        <a href="/contact" class="btn btn-primary">Prendre rendez-vous</a>
+        <a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20j%27ai%20une%20question%20apr%C3%A8s%20le%20calcul%20de%20mon%20IMC." class="btn btn-primary" target="_blank" rel="noopener">Demander un avis (WhatsApp)</a>
         <button type="button" class="btn btn-outline" id="imc-imprimer">Imprimer ou enregistrer en PDF</button>
       </div>
     </div>
@@ -544,7 +547,7 @@ if ("serviceWorker" in navigator) {
       if (imc < 18.5) { cls = 'c-maigre'; message = 'Le poids est inférieur au poids normal. Un poids trop bas peut cacher une carence ou une maladie : parlez-en à un médecin, surtout en cas de perte de poids non voulue.'; }
       else if (imc < 25) { cls = 'c-normal'; message = 'Le poids est normal. Gardez une alimentation variée et une activité physique régulière.'; }
       else if (imc < 30) { cls = 'c-surpoids'; message = 'Une perte de poids modérée, même de quelques kilos, peut améliorer la tension artérielle, la glycémie et le cholestérol. Un professionnel de santé peut vous accompagner.'; }
-      else { cls = 'c-obese'; message = 'Un bilan est conseillé : tension artérielle, glycémie et cholestérol. Prenez rendez-vous pour en parler avec un professionnel de santé.'; }
+      else { cls = 'c-obese'; message = 'Un bilan est conseillé : tension artérielle, glycémie et cholestérol. Parlez-en avec un professionnel de santé.'; }
       // Pourcentage de graisse estimé (Deurenberg, adulte) et niveaux ACE
       var g = 1.2 * imc + 0.23 * age - 10.8 * (sexe === 'H' ? 1 : 0) - 5.4;
       document.getElementById('imc-graisse').hidden = false;

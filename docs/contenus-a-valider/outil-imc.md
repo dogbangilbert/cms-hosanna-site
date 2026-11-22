@@ -86,3 +86,7 @@ Textes : maigreur « Le poids est bas pour l'âge. Faites examiner l'enfant ou l
 - Mention : « Estimation à partir de l'IMC, de l'âge et du sexe (formule de Deurenberg). Seule une mesure en cabinet est précise. »
 - Exemple : homme de 66 ans, IMC 35,3 → 41 %, excès de graisse.
 - Question : votre calculateur utilise le tour de cou et le tour de taille (formule de l'US Navy), plus précise mais avec une saisie de plus. Garder Deurenberg (simple) ou ajouter le tour de cou ?
+
+## Ton neutre (décision de Gilbert, 22/11/2026, pour tous les outils)
+
+Plus de « Prendre rendez-vous » dans les résultats : « Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre. » Bouton « Demander un avis (WhatsApp) », messages pré-remplis neutres (« j'ai une question… »). Le texte imprimé dit « consultez un professionnel de santé », suivi des coordonnées du centre. Les boutons « Prendre RDV » de l'en-tête du site ne changent pas.

@@ -422,7 +422,7 @@ footer a{color:#fff;}
     <h1>Teste ton risque de cancer du sein</h1>
     <p>Quelques questions simples, un résultat immédiat et des conseils adaptés à votre situation. Le résultat sera revu avec vous en consultation.</p>
     <div class="puces"><span>2 minutes</span><span>Gratuit</span><span>Anonyme : vos réponses restent sur votre téléphone</span></div>
-    <div class="hero-btns"><a href="#f" class="btn btn-jaune">Commencer le test</a><a href="/octobre-rose#reserver" class="btn btn-blanc" id="rdv-direct">Prendre rendez-vous directement</a></div>
+    <div class="hero-btns"><a href="#f" class="btn btn-jaune">Commencer le test</a><a href="/octobre-rose#reserver" class="btn btn-blanc" id="rdv-direct">Demander un avis à un professionnel</a></div>
   </div>
 </section>
 
@@ -530,11 +530,11 @@ footer a{color:#fff;}
       <p class="note" style="margin-top:16px">Ce résultat est un classement du risque, pas un diagnostic. Un risque moyen n'est jamais un risque nul : la plupart des femmes qui ont un cancer du sein n'avaient aucun facteur de risque particulier, à part leur âge.</p>
 
       <div class="cta">
-        <h3>Passez de la théorie à l'examen</h3>
-        <p>Votre résultat sera revu avec vous, puis notre équipe examine vos seins et réalise l'échographie.</p>
+        <h3>Faites-vous examiner par un professionnel de santé</h3>
+        <p>Seul un examen permet de vérifier : examen clinique des seins et, selon votre âge et votre situation, échographie ou mammographie. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre.</p>
         <a class="btn btn-jaune" id="r-reserver" href="/octobre-rose#reserver">Réserver mon examen des seins</a>
         <div class="ligne">
-          <a class="btn" id="r-wa" href="https://wa.me/22890038313" target="_blank" rel="noopener">💬 Envoyer mon résultat</a>
+          <a class="btn" id="r-wa" href="https://wa.me/22890038313" target="_blank" rel="noopener">💬 Demander un avis (WhatsApp)</a>
           <a class="btn" href="tel:+22890038313">📞 Appeler</a>
           <button type="button" class="btn" id="r-garder">📄 Garder mon résultat</button>
         </div>
@@ -690,13 +690,14 @@ footer a{color:#fff;}
 
     var campagne = enCampagne();
     $('r-reserver').href = campagne ? '/octobre-rose#reserver' : '/contact';
-    $('r-reserver').textContent = campagne ? 'Réserver mon examen des seins (Octobre rose)' : 'Prendre rendez-vous pour mon examen des seins';
+    $('r-reserver').textContent = campagne ? 'Réserver mon examen des seins (Octobre rose)' : '';
+    $('r-reserver').style.display = campagne ? '' : 'none';
 
     var msg = 'Bonjour CMS HOSANNA, j\'ai fait le test « risque de cancer du sein » sur votre site.\n'
       + 'Résultat : ' + r.titre + ' (' + r.age + ' ans' + (r.m.imc ? ', IMC ' + r.m.imc.toFixed(1).replace('.', ',') : '') + ').\n'
       + (r.signes.length ? 'Signes remarqués : ' + r.signes.join(', ') + '.\n' : '')
       + (r.list.length ? 'Cancers dans la famille : ' + r.list.length + '.\n' : '')
-      + 'Je souhaite un rendez-vous pour l\'examen des seins.';
+      + 'J\'aimerais un avis.';
     $('r-wa').href = 'https://wa.me/22890038313?text=' + encodeURIComponent(msg);
 
     f.style.display = 'none';
