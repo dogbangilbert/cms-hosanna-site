@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Octobre rose 2026 : réservez votre dépistage du cancer du sein — CMS HOSANNA</title>
-<meta name="description" content="Du 15 au 30 octobre au CMS HOSANNA, Attiégou, Lomé : consultation, examen des seins et échographie mammaire pour 10 000 F CFA. Places limitées, réservez en 1 minute.">
+<title>Octobre rose 2026 : campagne de dépistage du cancer du sein (terminée) — CMS HOSANNA</title>
+<meta name="description" content="Archive : du 15 au 30 octobre 2026, le CMS HOSANNA (Attiégou, Lomé) a mené une campagne de dépistage du cancer du sein : examen des seins et échographie mammaire.">
 <link rel="canonical" href="https://cmshosanna.com/octobre-rose">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Octobre rose au CMS HOSANNA : réservez votre place">
-<meta property="og:description" content="Consultation + examen des seins + échographie mammaire, 10 000 F CFA, du 15 au 30 octobre. Places limitées.">
+<meta property="og:title" content="Octobre rose 2026 au CMS HOSANNA : campagne terminée">
+<meta property="og:description" content="Campagne de dépistage du cancer du sein menée du 15 au 30 octobre 2026 : consultation, examen des seins et échographie mammaire.">
 <meta property="og:url" content="https://cmshosanna.com/octobre-rose">
 <meta property="og:site_name" content="CMS HOSANNA">
 <meta property="og:image" content="https://cmshosanna.com/img/octobre-rose-consultation.jpg">
@@ -32,14 +32,13 @@
   "endDate": "2026-10-30",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
-  "description": "Consultation, examen clinique des seins et échographie mammaire. Forfait 10 000 F CFA. Places limitées, sur réservation.",
+  "description": "Campagne terminée. Consultation, examen clinique des seins et échographie mammaire, du 15 au 30 octobre 2026.",
   "image": "https://cmshosanna.com/img/octobre-rose-consultation.jpg",
   "location": {
     "@type": "MedicalClinic",
     "name": "Centre Médico-Social HOSANNA",
     "address": {"@type": "PostalAddress", "streetAddress": "Attiégou, non loin de la Gendarmerie d'Adidomé", "addressLocality": "Lomé", "addressCountry": "TG"}
   },
-  "offers": {"@type": "Offer", "price": "10000", "priceCurrency": "XOF", "url": "https://cmshosanna.com/octobre-rose", "availability": "https://schema.org/LimitedAvailability", "validFrom": "2026-10-07T00:00:00+00:00"},
   "organizer": {"@type": "MedicalClinic", "name": "CMS HOSANNA", "url": "https://cmshosanna.com/"},
   "performer": {"@type": "MedicalClinic", "name": "CMS HOSANNA, équipe médicale (sages-femmes et médecin gynécologue)", "url": "https://cmshosanna.com/"}
 }
@@ -76,6 +75,7 @@ header{background:#fff; border-bottom:1px solid var(--bord);}
 .btn-bleu{background:var(--bleu); color:#fff;}
 .btn-vert{background:var(--vert); color:#fff;}
 .btn-contour{background:#fff; color:var(--bleu); border:2px solid var(--bleu);}
+.liens-archive{display:flex; flex-wrap:wrap; gap:10px;}
 .hero-photo{border-radius:22px; overflow:hidden; box-shadow:0 24px 50px rgba(0,0,0,.35); aspect-ratio:5/6;}
 .hero-photo img{width:100%; height:100%; object-fit:cover; display:block;}
 
@@ -176,15 +176,13 @@ footer a{color:#fff;}
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="ruban">🎀 Octobre rose 2026</span>
-      <h1>Prenez soin de vos seins.<br>Réservez votre place.</h1>
-      <p class="lead">Un bilan des seins complet en toute discrétion, avec notre équipe : sages-femmes, médecin gynécologue et échographistes. Les places sont limitées chaque jour.</p>
+      <span class="ruban">🎀 Octobre rose 2026 · campagne terminée</span>
+      <h1>Octobre rose 2026 :<br>merci d'être venues.</h1>
+      <p class="lead">Du 15 au 30 octobre 2026, notre équipe (sages-femmes, médecin gynécologue et échographistes) a proposé un bilan des seins complet. Cette campagne est terminée ; cette page en garde la trace. Le dépistage reste possible toute l'année : faites-vous examiner par un professionnel de santé.</p>
       <div class="faits">
-        <div class="fait"><b>15 → 30 oct.</b><span>tous les jours</span></div>
-        <div class="fait"><b>10 000 F CFA</b><span>tout compris</span></div>
-        <div class="fait"><b>5 places</b><span>par jour</span></div>
+        <div class="fait"><b>15 → 30 oct. 2026</b><span>campagne terminée</span></div>
       </div>
-      <a href="#reserver" class="btn btn-jaune">Réserver ma place</a>
+      <div class="liens-archive"><a href="/test-sein" class="btn btn-jaune">Faire l'auto-test du sein</a> <a href="/campagnes" class="btn btn-contour">Toutes nos campagnes</a></div>
     </div>
     <div class="hero-photo"><img src="img/octobre-rose-consultation.jpg" alt="Une patiente souriante en consultation avec une sage-femme portant un ruban rose" width="720" height="864"></div>
   </div>
@@ -198,143 +196,6 @@ footer a{color:#fff;}
   </div>
 </div>
 
-<section class="form-zone" id="reserver">
-  <div class="wrap form-grid">
-    <div class="carte">
-      <div id="formulaire">
-        <h2>Réserver ma place</h2>
-        <p class="sous">Une minute suffit. Nous vous écrivons ensuite sur WhatsApp pour fixer l'heure.</p>
-        <a class="test-lien" href="/test-sein">Pas sûre ? <b>Testez votre risque en 2 minutes</b> →</a>
-        <div class="erreur" id="erreur" role="alert"></div>
-        <form id="rdv" novalidate>
-          <input type="text" name="siteweb" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-          <fieldset>
-            <label class="titre" for="nom">Nom et prénom</label>
-            <input type="text" id="nom" name="nom" autocomplete="name" required maxlength="80" placeholder="Ex. Afi Mensah">
-          </fieldset>
-
-          <div class="deux">
-            <fieldset>
-              <label class="titre" for="telephone">Numéro WhatsApp <span class="aide">(ou téléphone)</span></label>
-              <input type="tel" id="telephone" name="telephone" autocomplete="tel" inputmode="tel" required placeholder="90 00 00 00">
-            </fieldset>
-            <fieldset>
-              <label class="titre" for="quartier">Quartier <span class="aide">(facultatif)</span></label>
-              <input type="text" id="quartier" name="quartier" maxlength="60" placeholder="Ex. Adidogomé">
-            </fieldset>
-          </div>
-
-          <fieldset>
-            <legend>Votre âge</legend>
-            <div class="choix">
-              <label><input type="radio" name="age" value="moins de 25 ans"><span>Moins de 25 ans</span></label>
-              <label><input type="radio" name="age" value="25-39 ans"><span>25 à 39 ans</span></label>
-              <label><input type="radio" name="age" value="40-49 ans"><span>40 à 49 ans</span></label>
-              <label><input type="radio" name="age" value="50 ans et plus"><span>50 ans et plus</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Choisissez votre jour</legend>
-            <div class="jours" id="jours"></div>
-            <p class="jours-msg" id="jours-msg">Chargement des places disponibles…</p>
-          </fieldset>
-
-          <fieldset>
-            <legend>Avez-vous déjà fait un examen ou une échographie des seins ?</legend>
-            <div class="choix">
-              <label><input type="radio" name="dejaFait" value="jamais"><span>Jamais</span></label>
-              <label><input type="radio" name="dejaFait" value="il y a plus d'un an"><span>Il y a plus d'un an</span></label>
-              <label><input type="radio" name="dejaFait" value="dans l'année"><span>Dans l'année</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Une mère, une sœur, une fille ou une tante a-t-elle eu un cancer du sein ?</legend>
-            <div class="choix">
-              <label><input type="radio" name="antecedent" value="oui"><span>Oui</span></label>
-              <label><input type="radio" name="antecedent" value="non"><span>Non</span></label>
-              <label><input type="radio" name="antecedent" value="je ne sais pas"><span>Je ne sais pas</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Remarquez-vous en ce moment un de ces signes ? <span class="aide">(plusieurs choix possibles)</span></legend>
-            <div class="choix" id="signes">
-              <label><input type="checkbox" name="signes" value="aucun"><span>Aucun</span></label>
-              <label><input type="checkbox" name="signes" value="une boule"><span>Une boule</span></label>
-              <label><input type="checkbox" name="signes" value="un écoulement"><span>Un écoulement</span></label>
-              <label><input type="checkbox" name="signes" value="un changement de la peau ou du mamelon"><span>Peau ou mamelon qui change</span></label>
-              <label><input type="checkbox" name="signes" value="autre"><span>Autre</span></label>
-            </div>
-          </fieldset>
-
-          <label class="consent">
-            <input type="checkbox" id="consentement">
-            <span>J'accepte que le CMS HOSANNA utilise ces informations uniquement pour organiser mon rendez-vous. Elles ne sont ni publiées ni partagées, et sont supprimées après la campagne.</span>
-          </label>
-
-          <button type="submit" class="btn btn-bleu envoyer" id="envoyer">Confirmer ma réservation</button>
-        </form>
-      </div>
-
-      <div id="confirmation" aria-live="polite">
-        <div class="ok-tete">
-          <div class="ok-rond">✓</div>
-          <h2 id="ok-titre">Votre place est réservée</h2>
-          <p class="sous" style="margin:6px 0 0">Nous vous écrivons sur WhatsApp pour fixer l'heure de votre passage.</p>
-        </div>
-        <div class="ticket">
-          <div><small>Votre jour</small><b id="ok-jour"></b></div>
-          <div><small>Référence</small><b id="ok-ref"></b></div>
-          <div><small>Forfait</small><b>10 000 F CFA</b></div>
-          <div><small>Lieu</small><b>CMS HOSANNA, Attiégou</b></div>
-        </div>
-        <div class="alerte" id="ok-alerte" style="display:none">
-          <b>Vous nous avez signalé un signe.</b> N'attendez pas votre date : appelez-nous dès aujourd'hui pour être vue plus tôt.
-        </div>
-        <div class="actions">
-          <a class="btn btn-bleu" href="tel:+22890038313">📞 Appeler</a>
-          <a class="btn btn-vert" id="ok-wa" href="https://wa.me/22890038313" target="_blank" rel="noopener">💬 WhatsApp</a>
-          <a class="btn btn-contour" href="https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4" target="_blank" rel="noopener">📍 Itinéraire</a>
-          <button class="btn btn-contour" type="button" id="ok-agenda">🗓️ Ajouter à l'agenda</button>
-        </div>
-        <div class="conseils">
-          <h3>Pour le jour J</h3>
-          <ul>
-            <li>Apportez vos anciens examens des seins s'il y en a (échographie, mammographie, compte rendu).</li>
-            <li>Portez une tenue en deux pièces, plus simple pour l'examen.</li>
-            <li>Si possible, venez dans la semaine qui suit vos règles : l'examen est plus confortable.</li>
-            <li>Le règlement de 10 000 F CFA se fait sur place.</li>
-          </ul>
-        </div>
-        <a class="test-lien" href="/test-sein" style="margin-top:16px">En attendant votre passage : <b>testez votre risque de cancer du sein</b> →</a>
-        <p class="sous" style="margin:16px 0 0; font-size:.85rem">Gardez votre référence. Faites une capture d'écran de cette page.</p>
-      </div>
-    </div>
-
-    <aside>
-      <div class="carte signes">
-        <h3>N'attendez pas octobre si vous remarquez :</h3>
-        <ul>
-          <li>une boule dans le sein ou sous l'aisselle, même sans douleur</li>
-          <li>une peau qui se creuse ou prend l'aspect « peau d'orange »</li>
-          <li>un mamelon qui rentre</li>
-          <li>un écoulement, surtout avec du sang</li>
-        </ul>
-        <p style="font-size:.85rem; color:var(--doux)">Au début, le cancer du sein ne fait souvent pas mal.</p>
-      </div>
-      <div class="carte contacts">
-        <h3>Une question ?</h3>
-        <a href="tel:+22890038313">📞 90 03 83 13</a>
-        <a href="tel:+22896658989">📞 96 65 89 89</a>
-        <a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20une%20question%20sur%20Octobre%20rose" target="_blank" rel="noopener">💬 WhatsApp</a>
-        <a href="https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4" target="_blank" rel="noopener">📍 Attiégou, Lomé</a>
-      </div>
-    </aside>
-  </div>
-</section>
 
 <footer>
   <div class="wrap">
@@ -343,121 +204,6 @@ footer a{color:#fff;}
   </div>
 </footer>
 
-<script>
-(function(){
-  var JOURS_SEM = ['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
-  var MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-  var form = document.getElementById('rdv');
-  var box = document.getElementById('jours');
-  var msg = document.getElementById('jours-msg');
-  var err = document.getElementById('erreur');
-  var btn = document.getElementById('envoyer');
-
-  function dateLongue(iso){
-    var d = new Date(iso + 'T12:00:00Z');
-    return ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'][d.getUTCDay()] + ' ' + d.getUTCDate() + ' ' + MOIS[d.getUTCMonth()];
-  }
-
-  function afficherJours(jours){
-    box.innerHTML = '';
-    var dispo = 0;
-    jours.forEach(function(j){
-      var d = new Date(j.jour + 'T12:00:00Z');
-      var plein = j.restantes <= 0;
-      if (!plein) dispo++;
-      var lab = document.createElement('label'); lab.className = 'jour';
-      var inp = document.createElement('input'); inp.type = 'radio'; inp.name = 'jour'; inp.value = j.jour; inp.disabled = plein;
-      var sp = document.createElement('span');
-      var etat = j.passe ? 'passé' : (plein ? 'complet' : j.restantes + (j.restantes > 1 ? ' places' : ' place'));
-      sp.innerHTML = '<small>' + JOURS_SEM[d.getUTCDay()] + '</small><b>' + d.getUTCDate() + '</b><em>' + etat + '</em>';
-      lab.appendChild(inp); lab.appendChild(sp); box.appendChild(lab);
-    });
-    msg.textContent = dispo ? 'Les jours grisés sont complets.' : 'Toutes les places sont prises. Appelez-nous pour la liste d\'attente.';
-  }
-
-  function chargerJours(){
-    fetch('/api/octobre-rose/places', {cache:'no-store'})
-      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-      .then(function(d){ afficherJours(d.jours); })
-      .catch(function(){ msg.textContent = 'Impossible de charger les places. Vérifiez votre connexion ou appelez le 90 03 83 13.'; });
-  }
-  chargerJours();
-
-  // « Aucun » et les autres signes s'excluent
-  document.getElementById('signes').addEventListener('change', function(e){
-    if (e.target.name !== 'signes') return;
-    var cases = form.querySelectorAll('input[name=signes]');
-    cases.forEach(function(c){
-      if (e.target.value === 'aucun' && e.target.checked && c.value !== 'aucun') c.checked = false;
-      if (e.target.value !== 'aucun' && e.target.checked && c.value === 'aucun') c.checked = false;
-    });
-  });
-
-  function montrerErreur(t){ err.textContent = t; err.style.display = 'block'; err.scrollIntoView({behavior:'smooth', block:'center'}); }
-  function radio(n){ var x = form.querySelector('input[name="' + n + '"]:checked'); return x ? x.value : ''; }
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    err.style.display = 'none';
-    var data = {
-      siteweb: form.siteweb.value,
-      nom: form.nom.value.trim(),
-      telephone: form.telephone.value.trim(),
-      quartier: form.quartier.value.trim(),
-      age: radio('age'),
-      jour: radio('jour'),
-      dejaFait: radio('dejaFait'),
-      antecedent: radio('antecedent'),
-      signes: Array.prototype.map.call(form.querySelectorAll('input[name=signes]:checked'), function(c){ return c.value; }),
-      consentement: document.getElementById('consentement').checked
-    };
-    if (data.nom.length < 2) return montrerErreur('Merci d\'indiquer votre nom.');
-    if (data.telephone.replace(/\D/g,'').length < 8) return montrerErreur('Merci d\'indiquer un numéro valide.');
-    if (!data.age) return montrerErreur('Merci de choisir votre tranche d\'âge.');
-    if (!data.jour) return montrerErreur('Merci de choisir un jour.');
-    if (!data.dejaFait) return montrerErreur('Merci de répondre à la question sur les examens passés.');
-    if (!data.antecedent) return montrerErreur('Merci de répondre à la question sur la famille.');
-    if (!data.signes.length) return montrerErreur('Merci de cocher « Aucun » ou les signes que vous remarquez.');
-    if (!data.consentement) return montrerErreur('Merci de cocher la case de consentement.');
-
-    btn.disabled = true; btn.textContent = 'Envoi en cours…';
-    fetch('/api/octobre-rose/reserver', {method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify(data)})
-      .then(function(r){ return r.json().then(function(d){ return {status:r.status, d:d}; }); })
-      .then(function(res){
-        var d = res.d;
-        if (d.ok || d.dejaReserve) return confirmer(d, data);
-        if (d.complet) chargerJours();
-        montrerErreur(d.erreur || 'Une erreur est survenue. Réessayez ou appelez-nous.');
-      })
-      .catch(function(){ montrerErreur('Connexion impossible. Réessayez ou appelez le 90 03 83 13.'); })
-      .then(function(){ btn.disabled = false; btn.textContent = 'Confirmer ma réservation'; });
-  });
-
-  function confirmer(d, data){
-    var jourTxt = dateLongue(d.jour);
-    document.getElementById('ok-titre').textContent = d.dejaReserve ? 'Vous avez déjà une réservation' : 'Votre place est réservée';
-    document.getElementById('ok-jour').textContent = jourTxt.charAt(0).toUpperCase() + jourTxt.slice(1);
-    document.getElementById('ok-ref').textContent = d.ref;
-    var signe = data.signes.some(function(s){ return s !== 'aucun'; });
-    document.getElementById('ok-alerte').style.display = (d.prioritaire || signe) ? 'block' : 'none';
-    document.getElementById('ok-wa').href = 'https://wa.me/22890038313?text=' + encodeURIComponent('Bonjour CMS HOSANNA, j\'ai réservé pour Octobre rose le ' + jourTxt + ' (réf. ' + d.ref + ').');
-    document.getElementById('ok-agenda').onclick = function(){
-      var j = d.jour.replace(/-/g,'');
-      var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//CMS HOSANNA//Octobre rose//FR','BEGIN:VEVENT',
-        'UID:' + d.ref + '@cmshosanna.com','DTSTAMP:' + new Date().toISOString().replace(/[-:]/g,'').slice(0,15) + 'Z',
-        'DTSTART;VALUE=DATE:' + j,'SUMMARY:Octobre rose - CMS HOSANNA (réf. ' + d.ref + ')',
-        'LOCATION:CMS HOSANNA\\, Attiégou\\, Lomé','DESCRIPTION:Consultation + examen des seins + échographie mammaire. 10 000 F CFA. Tél : 90 03 83 13',
-        'END:VEVENT','END:VCALENDAR'].join('\r\n');
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
-      a.download = 'octobre-rose-' + d.ref + '.ics'; document.body.appendChild(a); a.click(); a.remove();
-    };
-    document.getElementById('formulaire').style.display = 'none';
-    document.getElementById('confirmation').style.display = 'block';
-    document.getElementById('reserver').scrollIntoView({behavior:'smooth'});
-  }
-})();
-</script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "49ef6eb473ba42779b00cfac15d8ef0d"}'></script>
 <script src="/assets/compteur.js" defer></script>
 <script src="/assets/consent.js" defer></script>
