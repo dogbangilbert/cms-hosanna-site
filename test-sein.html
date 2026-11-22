@@ -12,10 +12,10 @@
 <meta property="og:description" content="Gratuit et anonyme : vos réponses restent sur votre téléphone. Résultat et conseils immédiats, par le CMS HOSANNA à Lomé.">
 <meta property="og:url" content="https://cmshosanna.com/test-sein">
 <meta property="og:site_name" content="CMS HOSANNA">
-<meta property="og:image" content="https://cmshosanna.com/img/octobre-rose-consultation.jpg">
+<meta property="og:image" content="https://cmshosanna.com/img/apercu-reseaux.jpg">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cmshosanna.com/img/octobre-rose-consultation.jpg">
+<meta name="twitter:image" content="https://cmshosanna.com/img/apercu-reseaux.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" href="img/favicon-180.png">
 <link rel="manifest" href="/manifest.json">
@@ -422,7 +422,7 @@ footer a{color:#fff;}
     <h1>Teste ton risque de cancer du sein</h1>
     <p>Quelques questions simples, un résultat immédiat et des conseils adaptés à votre situation. Le résultat sera revu avec vous en consultation.</p>
     <div class="puces"><span>2 minutes</span><span>Gratuit</span><span>Anonyme : vos réponses restent sur votre téléphone</span></div>
-    <div class="hero-btns"><a href="#f" class="btn btn-jaune">Commencer le test</a><a href="/octobre-rose#reserver" class="btn btn-blanc" id="rdv-direct">Demander un avis à un professionnel</a></div>
+    <div class="hero-btns"><a href="#f" class="btn btn-jaune">Commencer le test</a><a href="/contact" class="btn btn-blanc" id="rdv-direct">Demander un avis à un professionnel</a></div>
   </div>
 </section>
 
@@ -532,7 +532,6 @@ footer a{color:#fff;}
       <div class="cta">
         <h3>Faites-vous examiner par un professionnel de santé</h3>
         <p>Seul un examen permet de vérifier : examen clinique des seins et, selon votre âge et votre situation, échographie ou mammographie. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre.</p>
-        <a class="btn btn-jaune" id="r-reserver" href="/octobre-rose#reserver">Réserver mon examen des seins</a>
         <div class="ligne">
           <a class="btn" id="r-wa" href="https://wa.me/22890038313" target="_blank" rel="noopener">💬 Demander un avis (WhatsApp)</a>
           <a class="btn" href="tel:+22890038313">📞 Appeler</a>
@@ -590,10 +589,7 @@ footer a{color:#fff;}
   var f = $('f'), rels = $('rels');
   var CANCERS = [["4","Cancer du sein avant 30 ans"],["3","Cancer du sein entre 30 et 39 ans"],["2","Cancer du sein entre 40 et 49 ans"],["1","Cancer du sein entre 50 et 70 ans"],["0","Cancer du sein après 70 ans"],["3o","Cancer de l'ovaire"],["4h","Cancer du sein chez un homme"]];
   var COTES = [["m","Côté de ma mère (mère, grand-mère, tante maternelle…)"],["p","Côté de mon père (père, grand-mère, tante paternelle…)"],["b","Ma sœur, mon frère, ma fille ou mon fils"]];
-  var FIN_CAMPAGNE = '2026-10-30';
   var dernier = null;
-  function enCampagne(){ return new Date().toISOString().slice(0,10) <= FIN_CAMPAGNE; }
-  if (!enCampagne()) $('rdv-direct').href = '/contact';
 
   function opts(list){ return list.map(function(c){ return '<option value="'+c[0]+'">'+c[1]+'</option>'; }).join(''); }
   $('add').onclick = function(){
@@ -647,7 +643,7 @@ footer a{color:#fff;}
     }
 
     var cat = [];
-    if (signes.length) cat.push("Venez faire examiner vos seins dès aujourd'hui, sans attendre une date de campagne.");
+    if (signes.length) cat.push("Faites examiner vos seins par un professionnel de santé dès aujourd'hui, sans attendre.");
     cat.push("Le bilan des seins au CMS Hosanna : revue de ce résultat, examen de vos seins par notre équipe (sage-femme ou médecin gynécologue), puis échographie mammaire.");
     if (lvl === 'tres') cat.push("Suivi rapproché : examen des seins tous les 6 mois et imagerie chaque année.", "Avis d'un spécialiste du risque familial (consultation d'oncogénétique), vers lequel nous vous orientons.");
     else if (lvl === 'eleve') { cat.push("Suivi rapproché : examen des seins tous les 6 à 12 mois, avec imagerie chaque année."); if (eis >= 3) cat.push("Avis spécialisé pour préciser votre risque familial : nous vous orientons."); }
@@ -688,10 +684,6 @@ footer a{color:#fff;}
     $('r-facbox').hidden = !r.fac.length;
     $('r-fac').textContent = r.fac.length ? r.fac.join(' ; ') + '. Ces éléments augmentent un peu le risque mais ne changent pas le classement à eux seuls.' : '';
 
-    var campagne = enCampagne();
-    $('r-reserver').href = campagne ? '/octobre-rose#reserver' : '/contact';
-    $('r-reserver').textContent = campagne ? 'Réserver mon examen des seins (Octobre rose)' : '';
-    $('r-reserver').style.display = campagne ? '' : 'none';
 
     var msg = 'Bonjour CMS HOSANNA, j\'ai fait le test « risque de cancer du sein » sur votre site.\n'
       + 'Résultat : ' + r.titre + ' (' + r.age + ' ans' + (r.m.imc ? ', IMC ' + r.m.imc.toFixed(1).replace('.', ',') : '') + ').\n'
