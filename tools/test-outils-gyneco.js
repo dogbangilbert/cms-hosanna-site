@@ -115,7 +115,8 @@ const CAS_R = [
 ];
 const INV_R = [
   ['Âge vide', { cycle: 28, duree: 5 }, /votre âge/],
-  ['Âge 5 ans', { age: 5, cycle: 28, duree: 5 }, /entre 9 et 60/],
+  ['Âge 5 ans : orientation (règles précoces)', { age: 5, cycle: 28, duree: 5 }, /trop précoces/],
+  ['Âge 65 ans : orientation (saignement anormal)', { age: 65, cycle: 28, duree: 5 }, /Après 60 ans, tout saignement/],
   ['Premières règles après l\'âge', { age: 12, premieres: 14, cycle: 28, duree: 5 }, /premières règles/],
   ['Cycle vide', { age: 25, duree: 5 }, /durée habituelle/],
   ['Cycle 200 j', { age: 25, cycle: 200, duree: 5 }, /entre 10 et 120/],

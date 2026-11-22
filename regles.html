@@ -675,7 +675,9 @@ if ("serviceWorker" in navigator) {
 
   function valider(){
     var age = entier('r-age'), s = statut(), pr = entier('r-premieres');
-    if (hors(age, 9, 60)) return { id: 'r-age', msg: 'Indiquez votre âge : un nombre entre 9 et 60 ans.' };
+    if (age === null || isNaN(age)) return { id: 'r-age', msg: 'Indiquez votre âge en années.' };
+    if (age < 9) return { id: 'r-age', msg: 'Cet outil s\'adresse aux filles et aux femmes de 9 à 60 ans. Avant 9 ans, des saignements ou des règles sont trop précoces : montrez l\'enfant à un médecin.' };
+    if (age > 60) return { id: 'r-age', msg: 'Cet outil s\'adresse aux femmes de 9 à 60 ans. Après 60 ans, tout saignement par le vagin doit être examiné rapidement par un médecin : consultez.' };
     if (s !== 'jamais' && pr !== null && (hors(pr, 8, 18) || pr > age)) return { id: 'r-premieres', msg: 'L\'âge des premières règles doit être un nombre entre 8 et 18 ans, et ne pas dépasser votre âge. Vous pouvez aussi laisser la case vide.' };
     if (s === 'arretees' && hors(entier('r-mois'), 1, 240)) return { id: 'r-mois', msg: 'Indiquez depuis combien de mois vos règles sont arrêtées : un nombre entre 1 et 240.' };
     if (s === 'viennent') {
