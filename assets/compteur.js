@@ -14,7 +14,7 @@
   // Origine de la demande, pour le message WhatsApp pré-rempli
   function origine() {
     var p = location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
-    var noms = { '/': 'la page d\'accueil', '/imc': 'l\'outil IMC', '/date-accouchement': 'l\'outil grossesse',
+    var noms = { '/': 'la page d\'accueil', '/imc': 'l\'outil IMC', '/date-accouchement': 'l\'outil grossesse', '/fecondite': 'l\'outil période de fécondité',
       '/test-sein': 'le test du cancer du sein', '/outils': 'la page Outils santé',
       '/regles': 'l\'outil « Mes règles sont-elles normales ? »', '/infertilite-test': 'l\'outil infertilité du couple', '/contact': 'la page Contact' };
     if (noms[p]) return noms[p];

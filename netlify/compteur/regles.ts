@@ -8,6 +8,7 @@ export const EVENEMENTS = [
   "sein_test_fini",      // test du cancer du sein terminé
   "regles_resultat",     // résultat affiché dans l'outil « Mes règles sont-elles normales ? »
   "infertilite_resultat", // résultat affiché dans l'outil « Infertilité du couple »
+  "fecondite_calcul",    // calcul fait dans l'outil période de fécondité
   "imprimer_clic",       // bouton « imprimer / PDF » d'un outil
   "rdv_whatsapp_clic",   // clic sur un lien WhatsApp du centre
   "rdv_formulaire",      // envoi du formulaire de rendez-vous (page Contact)
