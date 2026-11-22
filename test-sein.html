@@ -9,7 +9,7 @@
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Teste ton risque de cancer du sein en 2 minutes">
-<meta property="og:description" content="Gratuit, anonyme, rien n'est enregistré. Résultat et conseils immédiats, par le CMS HOSANNA à Lomé.">
+<meta property="og:description" content="Gratuit et anonyme : vos réponses restent sur votre téléphone. Résultat et conseils immédiats, par le CMS HOSANNA à Lomé.">
 <meta property="og:url" content="https://cmshosanna.com/test-sein">
 <meta property="og:site_name" content="CMS HOSANNA">
 <meta property="og:image" content="https://cmshosanna.com/img/octobre-rose-consultation.jpg">
@@ -421,7 +421,7 @@ footer a{color:#fff;}
     <span class="ruban">🎀 Santé des seins</span>
     <h1>Teste ton risque de cancer du sein</h1>
     <p>Quelques questions simples, un résultat immédiat et des conseils adaptés à votre situation. Le résultat sera revu avec vous en consultation.</p>
-    <div class="puces"><span>2 minutes</span><span>Gratuit</span><span>Anonyme : rien n'est enregistré</span></div>
+    <div class="puces"><span>2 minutes</span><span>Gratuit</span><span>Anonyme : vos réponses restent sur votre téléphone</span></div>
     <div class="hero-btns"><a href="#f" class="btn btn-jaune">Commencer le test</a><a href="/octobre-rose#reserver" class="btn btn-blanc" id="rdv-direct">Prendre rendez-vous directement</a></div>
   </div>
 </section>
@@ -702,9 +702,10 @@ footer a{color:#fff;}
     f.style.display = 'none';
     $('resultat').style.display = 'block';
     $('resultat').scrollIntoView({behavior:'smooth', block:'start'});
+    (window.hosannaCompte && hosannaCompte('sein_test_fini'));
   });
 
-  $('r-garder').onclick = function(){ window.print(); };
+  $('r-garder').onclick = function(){ (window.hosannaCompte && hosannaCompte('imprimer_clic')); window.print(); };
   $('r-refaire').onclick = function(){
     f.reset(); rels.textContent = ''; majCalc();
     $('resultat').style.display = 'none'; f.style.display = 'block';
@@ -713,6 +714,7 @@ footer a{color:#fff;}
 })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "49ef6eb473ba42779b00cfac15d8ef0d"}'></script>
+<script src="/assets/compteur.js" defer></script>
 <script src="/assets/consent.js" defer></script>
 </body>
 </html>

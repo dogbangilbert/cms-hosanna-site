@@ -693,9 +693,10 @@ document.addEventListener('DOMContentLoaded', function(){
       const service = document.getElementById('service').value;
       const date = document.getElementById('date').value;
       const message = document.getElementById('message').value;
-      let texte = `Bonjour CMS HOSANNA, je souhaite un rendez-vous.\nNom: ${nom}\nTéléphone: ${tel}\nService: ${service}`;
+      let texte = `Bonjour CMS HOSANNA, je viens du formulaire de rendez-vous du site HOSANNA. Je souhaite un rendez-vous.\nNom: ${nom}\nTéléphone: ${tel}\nService: ${service}`;
       if(date) texte += `\nDate souhaitée: ${date}`;
       if(message) texte += `\nMessage: ${message}`;
+      (window.hosannaCompte && hosannaCompte('rdv_formulaire'));
       window.open(`https://wa.me/22890038313?text=${encodeURIComponent(texte)}`, '_blank');
     });
   }
@@ -713,6 +714,7 @@ if ("serviceWorker" in navigator) {
 }
 </script>
 <script src="/assets/vie.js" defer></script>
+<script src="/assets/compteur.js" defer></script>
 <script src="/assets/consent.js" defer></script>
 </body>
 </html>

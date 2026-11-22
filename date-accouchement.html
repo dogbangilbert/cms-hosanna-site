@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Date d'accouchement et âge de la grossesse (calcul gratuit) — CMS HOSANNA</title>
-<meta name="description" content="Calculez la date prévue d'accouchement et l'âge de votre grossesse en semaines, à partir de vos dernières règles. Rien n'est enregistré. CMS HOSANNA, Lomé.">
+<meta name="description" content="Date d'accouchement et âge de la grossesse en semaines, à partir des dernières règles, avec vos échographies. Gratuit. CMS HOSANNA, Lomé.">
 <link rel="canonical" href="https://cmshosanna.com/date-accouchement">
 <meta name="robots" content="noindex">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Date d'accouchement et âge de la grossesse (calcul gratuit) — CMS HOSANNA">
-<meta property="og:description" content="Calculez la date prévue d'accouchement et l'âge de votre grossesse en semaines, à partir de vos dernières règles. Rien n'est enregistré. CMS HOSANNA, Lomé.">
+<meta property="og:description" content="Date d'accouchement et âge de la grossesse en semaines, à partir des dernières règles, avec vos échographies. Gratuit. CMS HOSANNA, Lomé.">
 <meta property="og:url" content="https://cmshosanna.com/date-accouchement">
 <meta property="og:site_name" content="CMS HOSANNA">
 <meta property="og:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Date d'accouchement et âge de la grossesse (calcul gratuit) — CMS HOSANNA">
-<meta name="twitter:description" content="Calculez la date prévue d'accouchement et l'âge de votre grossesse en semaines, à partir de vos dernières règles. Rien n'est enregistré. CMS HOSANNA, Lomé.">
+<meta name="twitter:description" content="Date d'accouchement et âge de la grossesse en semaines, à partir des dernières règles, avec vos échographies. Gratuit. CMS HOSANNA, Lomé.">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" href="img/favicon-180.png">
 <link rel="manifest" href="/manifest.json">
@@ -341,7 +341,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       </div>
       <p class="erreur" id="dpa-erreur" role="alert" hidden></p>
       <button type="submit" class="btn btn-primary">Calculer</button>
-      <p class="mention">Le calcul se fait dans votre téléphone ou votre ordinateur. Aucune donnée n'est enregistrée ni envoyée.</p>
+      <p class="mention">Vos réponses ne quittent pas votre téléphone. Nous comptons seulement le nombre d'utilisations, de façon anonyme.</p>
     </form>
 
     <div class="resultat" id="dpa-resultat" hidden aria-live="polite">
@@ -477,7 +477,7 @@ if ("serviceWorker" in navigator) {
 </script>
 <script>
 (function(){
-  // Date d'accouchement : tout est calculé ici, rien n'est enregistré ni envoyé.
+  // Date d'accouchement : tout est calculé ici ; seul un compteur anonyme d'utilisation est envoyé (compteur.js).
   // Références (à valider) : règle de Naegele (DDR + 280 jours = 9 mois + 7 jours, 40 SA, corrigée selon la durée du cycle ; limite 41 SA, MSF) ; OMS 2016, soins prénatals ; fenêtres d'échographie usuelles (11-13, 20-25, 30-35 SA).
   var JOUR = 86400000, f = document.getElementById('f-dpa'), err = document.getElementById('dpa-erreur'), res = document.getElementById('dpa-resultat');
   var auj = new Date(), AUJ = Date.UTC(auj.getFullYear(), auj.getMonth(), auj.getDate());
@@ -542,11 +542,13 @@ if ("serviceWorker" in navigator) {
     });
     document.getElementById('dpa-date').textContent = 'CMS HOSANNA, Lomé · Calcul du ' + fd(AUJ, false) + ' · Dernières règles : ' + fd(DDR, false) + ' · Cycle : ' + cycle + ' jours';
     res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'});
+    (window.hosannaCompte && hosannaCompte('grossesse_calcul'));
   });
-  document.getElementById('dpa-imprimer').addEventListener('click', function(){ window.print(); });
+  document.getElementById('dpa-imprimer').addEventListener('click', function(){ (window.hosannaCompte && hosannaCompte('imprimer_clic')); window.print(); });
 })();
 </script>
 <script src="/assets/vie.js" defer></script>
+<script src="/assets/compteur.js" defer></script>
 <script src="/assets/consent.js" defer></script>
 </body>
 </html>

@@ -74,5 +74,15 @@ try:
 except (ValueError, KeyError, OSError) as e:
     controle(False, f'campagne.json illisible ({e})')
 
+# 7. Compteur anonyme : événements appelés dans les pages = événements autorisés
+autorises = set(re.findall(r'^\s*"([a-z_]+)",', open('netlify/compteur/regles.ts', encoding='utf-8').read(), re.M))
+appeles = set()
+for p in pages:
+    appeles |= set(re.findall(r"hosannaCompte\('([a-z_]+)'\)", open(p, encoding='utf-8').read()))
+inconnus = sorted(appeles - autorises)
+controle(bool(autorises) and not inconnus, f'compteur : {len(appeles)} événements appelés, tous autorisés {inconnus or ""}')
+sans_compteur = [p for p in pages if '/assets/consent.js' in open(p, encoding='utf-8').read() and '/assets/compteur.js' not in open(p, encoding='utf-8').read()]
+controle(not sans_compteur, f'compteur.js inclus sur les pages publiques {sans_compteur or ""}')
+
 print(f'\n{len(echecs)} échec(s)')
 sys.exit(1 if echecs else 0)
