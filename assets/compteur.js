@@ -15,7 +15,8 @@
   function origine() {
     var p = location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
     var noms = { '/': 'la page d\'accueil', '/imc': 'l\'outil IMC', '/date-accouchement': 'l\'outil grossesse',
-      '/test-sein': 'le test du cancer du sein', '/outils': 'la page Outils santé', '/contact': 'la page Contact' };
+      '/test-sein': 'le test du cancer du sein', '/outils': 'la page Outils santé',
+      '/regles': 'l\'outil « Mes règles sont-elles normales ? »', '/infertilite-test': 'l\'outil infertilité du couple', '/contact': 'la page Contact' };
     if (noms[p]) return noms[p];
     var h1 = document.querySelector('h1'), titre = h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : document.title;
     return (/^\/(conseils|blog)\//.test(p) ? 'l\'article « ' : 'la page « ') + titre + ' »';

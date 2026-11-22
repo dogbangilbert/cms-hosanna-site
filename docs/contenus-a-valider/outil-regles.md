@@ -1,7 +1,7 @@
 # Outil « Mes règles sont-elles normales ? » : fiche à valider
 
-**Statut : en attente de validation médicale par Gilbert DOGBAN.** Décisions de Gilbert du 21/11/2026 intégrées (section 7). Page `regles.html` (adresse `/regles`), `noindex, nofollow`, hors menu et hors sitemap, bandeau « Version en attente de validation médicale. Ne pas diffuser. »
-Outil d'**orientation**, pas de diagnostic. Tout le calcul se fait dans le navigateur : aucune donnée n'est enregistrée ni envoyée. Le message WhatsApp pré-rempli n'est envoyé que si la patiente appuie sur « Prendre rendez-vous ».
+**Statut : mis en ligne le 22/11/2026 sur décision de Gilbert DOGBAN (« En ligne gynéco »).** Page `regles.html` (adresse `/regles`), présente sur la page `/outils`. **Indexation à activer après relecture finale de Gilbert** : la page reste en `noindex`, hors `sitemap.xml` et hors `llms.txt` jusque-là.
+Outil d'**orientation**, pas de diagnostic. Tout le calcul se fait dans le navigateur : les réponses ne sont ni enregistrées ni envoyées. Seul le compteur anonyme du site est appelé (`regles_resultat` au résultat, `imprimer_clic`, `rdv_whatsapp_clic`) : nom de l'événement, page et jour, rien d'autre (voir `docs/compteur-utilisation.md`). Phrase affichée (correction de Gilbert, 22/11) : « Vos réponses sont uniquement avec vous et ne vont nulle part ailleurs. Nous comptons seulement le nombre d'utilisations, de façon anonyme. »
 
 ## 1. Parcours (questionnaire par étapes)
 
@@ -13,7 +13,7 @@ Barre de progression « Étape X sur N ». Les étapes inutiles sont retirées s
 | Mes règles se sont arrêtées | 1 Vous · 2 Arrêt des règles · 3 Signes d'alerte |
 | Je n'ai jamais eu mes règles | 1 Vous · 2 Signes d'alerte |
 
-Au-dessus du questionnaire, en permanence : « **Saignement très abondant, malaise ou forte douleur ?** N'attendez pas : appelez le CMS HOSANNA, ouvert 24h/24, au 90 03 83 13. »
+Au-dessus du questionnaire, en permanence : « **Saignement très abondant, malaise ou forte douleur ?** N'attendez pas : consultez tout de suite un service de santé. Le CMS HOSANNA est ouvert 24h/24 au 90 03 83 13. »
 
 ## 2. Saisies
 
@@ -139,7 +139,7 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 
 **Mention** : « **Information générale. Ne remplace pas une consultation.** Cet outil oriente, il ne pose pas de diagnostic : seul un examen permet de trouver la cause d'un trouble des règles. Consultez en urgence en cas de saignement très abondant, de malaise, ou de saignement ou de forte douleur alors qu'une grossesse est possible. »
 
-**Message WhatsApp** : « Bonjour CMS HOSANNA, je souhaite prendre rendez-vous pour une consultation de gynécologie (troubles des règles). Résultat de l'outil « Mes règles sont-elles normales ? » : [résumé]. »
+**Message WhatsApp** (bouton « Demander un avis (WhatsApp) ») : « Bonjour CMS HOSANNA, je viens de l'outil « Mes règles sont-elles normales ? » du site HOSANNA. Je souhaiterais un avis sur mes règles. Résultat de l'outil : [résumé]. »
 
 ## 6. Exemples de contrôle (vérifiés par test automatique)
 
@@ -185,4 +185,10 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 8. ~~Âges limites~~ (22/11, décision laissée à Claude) : **9 à 60 ans gardés**, avec un message d'orientation au lieu d'une simple erreur : avant 9 ans « Cet outil s'adresse aux filles et aux femmes de 9 à 60 ans. Avant 9 ans, des saignements ou des règles sont trop précoces : montrez l'enfant à un médecin. » ; après 60 ans « Cet outil s'adresse aux femmes de 9 à 60 ans. Après 60 ans, tout saignement par le vagin doit être examiné rapidement par un médecin : consultez. »
 9. Restent ouvertes, pour plus tard : 9 et 60 ans ; saignement sous traitement hormonal de la ménopause ; version en éwé ou en mina plus tard.
 
-Après validation : retirer le bandeau « Version en attente de validation médicale », passer la page en `index, follow`, l'ajouter au sitemap et au menu « Outils ».
+
+## 8. Mise en ligne (22/11/2026)
+
+- Bandeau « en attente de validation » retiré ; page en `noindex` ; hors sitemap et `llms.txt` (indexation après relecture finale de Gilbert).
+- Ton neutre (décision de Gilbert, 22/11) : bouton « Demander un avis (WhatsApp) » ; phrase de fin « Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre. » ; même phrase sur la fiche imprimée, suivie des coordonnées du centre ; aucune mention d'argent ni de tarif.
+- Compteur anonyme : `regles_resultat`, `imprimer_clic`, `rdv_whatsapp_clic`. Le message WhatsApp commence automatiquement par l'origine (« je viens de l'outil … du site HOSANNA »).
+- Pour activer l'indexation : passer `noindex` en `index, follow`, ajouter la page à `sitemap.xml` et à `llms.txt`.

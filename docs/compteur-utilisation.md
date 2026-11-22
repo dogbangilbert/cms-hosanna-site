@@ -9,6 +9,8 @@ Mis en place le 22/11/2026 (mission validée par Gilbert : « go compteur »).
 | `imc_calcul` | un calcul est fait dans l'outil IMC (/imc) |
 | `grossesse_calcul` | un calcul est fait dans l'outil date d'accouchement (/date-accouchement) |
 | `sein_test_fini` | le test du cancer du sein est terminé (/test-sein) |
+| `regles_resultat` | un résultat est affiché dans l'outil « Mes règles sont-elles normales ? » (/regles) |
+| `infertilite_resultat` | un résultat est affiché dans l'outil « Infertilité du couple » (/infertilite-test) |
 | `imprimer_clic` | bouton « imprimer / PDF » d'un outil |
 | `rdv_whatsapp_clic` | clic sur un lien WhatsApp du centre, sur n'importe quelle page (articles /conseils compris) |
 | `rdv_formulaire` | envoi du formulaire de rendez-vous (/contact) |
@@ -22,7 +24,7 @@ Envoi par `navigator.sendBeacon` ; si l'envoi échoue, l'outil fonctionne normal
 
 Au clic sur un lien WhatsApp du centre, le message pré-rempli commence par l'origine, par exemple :
 « Bonjour CMS HOSANNA, je viens de l'outil grossesse du site HOSANNA. Je souhaite prendre rendez-vous pour la 3e échographie… »
-Origines : page d'accueil, outil IMC, outil grossesse, test du cancer du sein, page Outils santé, page Contact, « l'article « titre » », « la page « titre » ».
+Origines : page d'accueil, outil IMC, outil grossesse, test du cancer du sein, outil « Mes règles sont-elles normales ? », outil infertilité du couple, page Outils santé, page Contact, « l'article « titre » », « la page « titre » ».
 Le formulaire de contact envoie : « Bonjour CMS HOSANNA, je viens du formulaire de rendez-vous du site HOSANNA. … »
 
 ## Lire les chiffres (points du matin)

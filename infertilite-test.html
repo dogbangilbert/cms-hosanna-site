@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Infertilité du couple : où en sommes-nous ? (test gratuit) — CMS HOSANNA</title>
-<meta name="description" content="Votre couple entre-t-il dans la définition de l'infertilité de l'OMS ? Quand faire un bilan ? Rien n'est enregistré. CMS HOSANNA, Lomé.">
+<meta name="description" content="Votre couple entre-t-il dans la définition de l'infertilité de l'OMS ? Quand faire un bilan ? Vos réponses restent avec vous. CMS HOSANNA, Lomé.">
 <link rel="canonical" href="https://cmshosanna.com/infertilite-test">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Infertilité du couple : où en sommes-nous ? (test gratuit) — CMS HOSANNA">
-<meta property="og:description" content="Votre couple entre-t-il dans la définition de l'infertilité de l'OMS ? Quand faire un bilan ? Rien n'est enregistré. CMS HOSANNA, Lomé.">
+<meta property="og:description" content="Votre couple entre-t-il dans la définition de l'infertilité de l'OMS ? Quand faire un bilan ? Vos réponses restent avec vous. CMS HOSANNA, Lomé.">
 <meta property="og:url" content="https://cmshosanna.com/infertilite-test">
 <meta property="og:site_name" content="CMS HOSANNA">
 <meta property="og:image" content="https://cmshosanna.com/img/logo-3d-clair.jpg">
@@ -17,7 +17,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Infertilité du couple : où en sommes-nous ? (test gratuit) — CMS HOSANNA">
-<meta name="twitter:description" content="Votre couple entre-t-il dans la définition de l'infertilité de l'OMS ? Quand faire un bilan ? Rien n'est enregistré. CMS HOSANNA, Lomé.">
+<meta name="twitter:description" content="Votre couple entre-t-il dans la définition de l'infertilité de l'OMS ? Quand faire un bilan ? Vos réponses restent avec vous. CMS HOSANNA, Lomé.">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="apple-touch-icon" href="img/favicon-180.png">
 <link rel="manifest" href="/manifest.json">
@@ -272,6 +272,26 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 .echo-rdv{display:inline-block;margin-top:6px;font-weight:700;color:#0d5c2e;text-decoration:underline}
 @media print{.echo-rdv{display:none!important}}
 
+/* Impression sur une seule page A4 */
+@media print{
+  @page{size:A4;margin:9mm 11mm}
+  html,body{font-size:10pt!important;line-height:1.3!important}
+  section.about{padding:0!important}.container.outil{max-width:none!important;padding:0!important}
+  .resultat{padding:0!important;margin:0!important}
+  .resultat h2{font-size:12.5pt!important;margin:2px 0 4px!important}
+  .date-impr{font-size:8.5pt!important;margin-bottom:4px!important}
+  .ideal{margin-bottom:6px!important}.ideal div{padding:5px 6px!important}.ideal span{font-size:8pt!important}.ideal b{font-size:12pt!important}
+  #dpa-message,#dpa-alerte{margin:4px 0!important;font-size:9.5pt!important}
+  .titre-echo{font-size:10.5pt!important;margin:6px 0 2px!important}
+  .classes{margin-bottom:4px!important;font-size:8.8pt!important}
+  .classes th{padding:2px 6px!important;font-size:7.5pt!important}
+  .classes td,#dpa-echo td{padding:3px 6px!important}
+  #dpa-echo small{font-size:7.8pt!important}
+  .mention{font-size:7.8pt!important;margin-top:4px!important;line-height:1.25!important}
+  .impr-rdv{margin-top:5px!important;padding:5px 8px!important;font-size:9pt!important}
+  .resultat,.classes,tr{break-inside:avoid}
+}
+
 /* Outils règles et infertilité */
 .outil select{width:100%;border:1.5px solid #CBD5E1;border-radius:10px;padding:12px;font-size:1rem;min-height:48px;background:#fff;font-family:inherit;color:#1d2433}
 .outil .cases label{display:flex;align-items:flex-start;gap:10px;border:1.5px solid #CBD5E1;border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer;min-height:44px;margin-bottom:8px;background:#fff}
@@ -299,7 +319,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 .recap{width:100%;border-collapse:collapse;font-size:.92rem}
 .recap th,.recap td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid #E2EAF5}
 .recap th{width:42%;color:#3A4250;font-weight:700}
-@media print{.alerte-haut,.nav-etapes{display:none!important}.c-urgent{-webkit-print-color-adjust:exact;print-color-adjust:exact}.fiche{border:1.5px solid #003399}}
+.avis{font-weight:600;color:#1d2433;margin-top:10px}
+@media print{.avis{display:none!important}.resultat{break-inside:auto!important}.alerte-haut,.nav-etapes{display:none!important}.c-urgent{-webkit-print-color-adjust:exact;print-color-adjust:exact}.fiche{border:1.5px solid #003399}}
 .lien-texte{color:#003399;text-decoration:underline;font-weight:600}
 @media print{.urgence{-webkit-print-color-adjust:exact;print-color-adjust:exact}.actions-outil{display:none!important}}
 </style>
@@ -322,6 +343,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <li><a href="/apropos">Le centre</a></li>
         <li><a href="/temoignages">Témoignages</a></li>
         <li><a href="/blog">Blog santé</a></li>
+        <li><a href="/outils">🧮 Outils santé</a></li>
         <li><a href="/contact">Contact</a></li>
       <li><a href="/telecharger">📱 App</a></li>
       </ul>
@@ -344,7 +366,6 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 
 <section class="about">
   <div class="container outil">
-    <p class="brouillon" role="note">Version en attente de validation médicale. Ne pas diffuser.</p>
     <form id="f-inf" novalidate>
       <div class="progression"><p class="progression-texte" aria-live="polite"></p><div class="barre" aria-hidden="true"><span></span></div></div>
 
@@ -423,7 +444,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
         <button type="button" class="btn btn-primary e-suiv">Suivant →</button>
         <button type="submit" class="btn btn-primary e-fin">Voir où nous en sommes</button>
       </div>
-      <p class="mention">Le calcul se fait dans votre téléphone ou votre ordinateur. Aucune donnée n'est enregistrée ni envoyée.</p>
+      <p class="mention">Vos réponses sont uniquement avec vous et ne vont nulle part ailleurs. Nous comptons seulement le nombre d'utilisations, de façon anonyme.</p>
     </form>
 
     <div class="resultat" id="i-resultat" hidden aria-live="polite">
@@ -462,13 +483,14 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
           <li>La liste des médicaments que chacun prend.</li>
         </ul>
       </div>
-      <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> Définition de l'OMS : l'infertilité est l'absence de grossesse après 12 mois ou plus de rapports sexuels réguliers sans contraception. Les délais indiqués sont des repères : vous pouvez consulter plus tôt si vous êtes inquiets. En savoir plus : <a href="/infertilite" class="lien-texte">notre consultation infertilité</a>.</p>
-      <p class="impr-rdv"><b>Consultation infertilité du couple au CMS HOSANNA</b> (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com/infertilite</p>
+      <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> Définition de l'OMS : l'infertilité est l'absence de grossesse après 12 mois ou plus de rapports sexuels réguliers sans contraception. Les délais indiqués sont des repères : vous pouvez consulter plus tôt si vous êtes inquiets. En savoir plus : <a href="/infertilite" class="lien-texte">l'infertilité du couple</a>.</p>
+      <p class="avis">Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre.</p>
+      <p class="impr-rdv">Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre. CMS HOSANNA (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com/infertilite</p>
       <div class="actions-outil">
-        <a href="https://wa.me/22890038313" class="btn btn-primary" id="i-rdv" target="_blank" rel="noopener">Prendre rendez-vous</a>
+        <a href="https://wa.me/22890038313" class="btn btn-primary" id="i-rdv" target="_blank" rel="noopener">Demander un avis (WhatsApp)</a>
         <button type="button" class="btn btn-outline" id="i-imprimer">Imprimer ou enregistrer en PDF</button>
         <button type="button" class="btn btn-outline" id="i-modifier">Modifier nos réponses</button>
-        <a href="/infertilite" class="btn btn-outline">Notre consultation infertilité</a>
+        <a href="/infertilite" class="btn btn-outline">En savoir plus sur l'infertilité</a>
       </div>
     </div>
   </div>
@@ -576,7 +598,7 @@ if ("serviceWorker" in navigator) {
 <script src="/assets/outil-etapes.js"></script>
 <script>
 (function(){
-  // « Infertilité du couple : où en sommes-nous ? » : tout est calculé ici, rien n'est enregistré ni envoyé.
+  // « Infertilité du couple : où en sommes-nous ? » : tout est calculé ici ; seul un compteur anonyme d'utilisation est envoyé (compteur.js), jamais les réponses.
   // Références (à valider par Gilbert DOGBAN, détail dans docs/contenus-a-valider/outil-infertilite.md) :
   // OMS, CIM-11 et fiche « Infertilité » (définition à 12 mois) ; OMS, ligne directrice infertilité 2025 ; OMS, manuel d'analyse du sperme 2021 ;
   // ASRM 2021/2026 et ACOG/ASRM 781 (bilan à 6 mois dès 35 ans, plus tôt après 40 ans ou si cause connue) ;
@@ -677,17 +699,19 @@ if ("serviceWorker" in navigator) {
     var rc = $('i-recap'); rc.textContent = '';
     recap.forEach(function(l){ var tr = document.createElement('tr'), th = document.createElement('th'), td = document.createElement('td'); th.scope = 'row'; th.textContent = l[0]; td.textContent = l[1]; tr.appendChild(th); tr.appendChild(td); rc.appendChild(tr); });
 
-    var msg = 'Bonjour CMS HOSANNA, nous souhaitons prendre rendez-vous pour une consultation infertilité du couple. Nous essayons depuis ' + duree(m) + ' (femme ' + af + ' ans, homme ' + ah + ' ans).' + (facteurs.length ? ' Antécédents connus : ' + facteurs.join(', ') + '.' : '');
+    var msg = 'Bonjour CMS HOSANNA, nous souhaiterions un avis sur notre projet de grossesse. Nous essayons depuis ' + duree(m) + ' (femme ' + af + ' ans, homme ' + ah + ' ans).' + (facteurs.length ? ' Antécédents connus : ' + facteurs.join(', ') + '.' : '');
     $('i-rdv').href = 'https://wa.me/22890038313?text=' + encodeURIComponent(msg);
     var auj = new Date().toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}).replace(/^1 /, '1er ');
     $('i-date').textContent = 'CMS HOSANNA, Lomé · Résultat du ' + auj;
     f.hidden = true; res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'}); $('i-titre').focus({preventScroll: true});
+    (window.hosannaCompte && hosannaCompte('infertilite_resultat'));
   }
-  $('i-imprimer').addEventListener('click', function(){ window.print(); });
+  $('i-imprimer').addEventListener('click', function(){ (window.hosannaCompte && hosannaCompte('imprimer_clic')); window.print(); });
   $('i-modifier').addEventListener('click', function(){ res.hidden = true; f.hidden = false; pas.montrer(0, true); });
 })();
 </script>
 <script src="/assets/vie.js" defer></script>
+<script src="/assets/compteur.js" defer></script>
 <script src="/assets/consent.js" defer></script>
 </body>
 </html>

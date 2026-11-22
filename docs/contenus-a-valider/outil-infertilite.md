@@ -1,7 +1,7 @@
 # Outil « Infertilité du couple : où en sommes-nous ? » : fiche à valider
 
-**Statut : en attente de validation médicale par Gilbert DOGBAN.** Décisions de Gilbert du 21/11/2026 intégrées (section 7). Page `infertilite-test.html` (adresse `/infertilite-test`), `noindex, nofollow`, hors menu et hors sitemap, bandeau « Version en attente de validation médicale. Ne pas diffuser. » La page renvoie vers `/infertilite` (dans le texte et par un bouton).
-Outil d'**orientation**, pas de diagnostic. Tout le calcul se fait dans le navigateur : aucune donnée n'est enregistrée ni envoyée. Le message WhatsApp pré-rempli n'est envoyé que si le couple appuie sur « Prendre rendez-vous ».
+**Statut : mis en ligne le 22/11/2026 sur décision de Gilbert DOGBAN (« En ligne gynéco »).** Page `infertilite-test.html` (adresse `/infertilite-test`), présente sur la page `/outils` et la page `/infertilite`. **Indexation à activer après relecture finale de Gilbert** : la page reste en `noindex`, hors `sitemap.xml` et hors `llms.txt` jusque-là.
+Outil d'**orientation**, pas de diagnostic. Tout le calcul se fait dans le navigateur : les réponses ne sont ni enregistrées ni envoyées. Seul le compteur anonyme du site est appelé (`infertilite_resultat` au résultat, `imprimer_clic`, `rdv_whatsapp_clic`) : nom de l'événement, page et jour, rien d'autre (voir `docs/compteur-utilisation.md`). Phrase affichée (correction de Gilbert, 22/11) : « Vos réponses sont uniquement avec vous et ne vont nulle part ailleurs. Nous comptons seulement le nombre d'utilisations, de façon anonyme. »
 
 ## 1. Parcours et saisies (4 étapes, barre de progression)
 
@@ -101,7 +101,7 @@ Note : la définition OMS (CIM-11) est **uniquement** celle des 12 mois. Le dél
 
 **Mention** : « **Information générale. Ne remplace pas une consultation.** Définition de l'OMS : l'infertilité est l'absence de grossesse après 12 mois ou plus de rapports sexuels réguliers sans contraception. Les délais indiqués sont des repères : vous pouvez consulter plus tôt si vous êtes inquiets. En savoir plus : notre consultation infertilité. »
 
-**Message WhatsApp** : « Bonjour CMS HOSANNA, nous souhaitons prendre rendez-vous pour une consultation infertilité du couple. Nous essayons depuis [durée] (femme [X] ans, homme [X] ans). Antécédents connus : [liste]. »
+**Message WhatsApp** (bouton « Demander un avis (WhatsApp) ») : « Bonjour CMS HOSANNA, je viens de l'outil infertilité du couple du site HOSANNA. Nous souhaiterions un avis sur notre projet de grossesse. Nous essayons depuis [durée] (femme [X] ans, homme [X] ans). Antécédents connus : [liste]. »
 
 ## 6. Exemples de contrôle (vérifiés par test automatique)
 
@@ -133,4 +133,10 @@ Note : la définition OMS (CIM-11) est **uniquement** celle des 12 mois. Le dél
 6. ~~Mesure d'audience~~ : **retirée de cette page**.
 7. ~~Textes~~ : **validés** sur le fond.
 
-Après validation finale : retirer le bandeau, passer la page en `index, follow`, l'ajouter au sitemap, au menu « Outils » et sur la page `/infertilite` (bouton « Faire le point »).
+
+## 8. Mise en ligne (22/11/2026)
+
+- Bandeau « en attente de validation » retiré ; page en `noindex` ; hors sitemap et `llms.txt` (indexation après relecture finale de Gilbert).
+- Ton neutre (décision de Gilbert, 22/11) : bouton « Demander un avis (WhatsApp) » ; phrase de fin « Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre. » ; même phrase sur la fiche imprimée, suivie des coordonnées du centre ; aucune mention d'argent ni de tarif.
+- Compteur anonyme : `infertilite_resultat`, `imprimer_clic`, `rdv_whatsapp_clic`. Le message WhatsApp commence automatiquement par l'origine (« je viens de l'outil … du site HOSANNA »).
+- Pour activer l'indexation : passer `noindex` en `index, follow`, ajouter la page à `sitemap.xml` et à `llms.txt`.

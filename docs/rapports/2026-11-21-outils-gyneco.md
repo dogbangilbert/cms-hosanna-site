@@ -66,3 +66,14 @@ Les références exactes, avec liens, sont dans les fiches. Les références mar
 2. Point encore ouvert : version en langue locale (plus tard). Âges limites tranchés le 22/11 : 9 à 60 ans, avec un message d'orientation en dehors. (Tranché le 22/11 : définition actuelle FIGO 2018, cycles trop fréquents en dessous de 24 jours.)
 3. Vérifier les références marquées « à vérifier » dans les fiches.
 4. Après accord : retirer le bandeau, passer en `index, follow`, ajouter au sitemap, au menu « Outils » et sur `/infertilite`.
+
+## Mise en ligne (22/11/2026)
+
+Sur décision de Gilbert (« En ligne gynéco », transmise par l'orchestrateur, puis correction de la phrase de confidentialité par Gilbert lui-même dans cette session) :
+- branche reprise sur `main` (4a06933 : page `/outils`, compteur anonyme, impression A4) sans conflit ;
+- bandeau retiré, pages en `noindex`, hors `sitemap.xml` et `llms.txt` (indexation après relecture finale de Gilbert) ;
+- cartes ajoutées sur `/outils`, bouton « Faire le point » sur `/infertilite` ;
+- compteur : `regles_resultat`, `infertilite_resultat` (ajoutés dans `netlify/compteur/regles.ts`), `imprimer_clic`, `rdv_whatsapp_clic` ; origine WhatsApp des deux outils ajoutée dans `assets/compteur.js` ;
+- ton neutre : bouton « Demander un avis (WhatsApp) », phrase de fin, fiche imprimée neutre ;
+- phrase de confidentialité corrigée par Gilbert : « Vos réponses sont uniquement avec vous et ne vont nulle part ailleurs. Nous comptons seulement le nombre d'utilisations, de façon anonyme. » (appliquée aux deux nouveaux outils ; les autres outils gardent pour l'instant l'ancienne phrase « Vos réponses ne quittent pas votre téléphone », à harmoniser).
+- Vérifications : `tools/verifier-site.py` 0 échec ; `tools/test-outils-gyneco.js` 118/118 (le compteur n'envoie que le nom de l'événement et la page) ; `/outils` et `/infertilite` contrôlés sur 375 px et avec axe-core.

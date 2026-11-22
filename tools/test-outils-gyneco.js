@@ -15,11 +15,19 @@ function ok(cond, msg) { total++; if (!cond) { echecs++; console.log('ÉCHEC', m
 async function ouvrir(browser, page, opts = {}) {
   const ctx = await browser.newContext(opts);
   const p = await ctx.newPage();
-  const journal = { erreurs: [], nonGet: [], externes: new Set() };
+  const journal = { erreurs: [], nonGet: [], compteur: [], externes: new Set() };
   p.on('pageerror', e => journal.erreurs.push('pageerror: ' + e.message));
   p.on('console', m => { if (m.type() === 'error' && !/ERR_FAILED|ERR_BLOCKED|net::/.test(m.text())) journal.erreurs.push('console: ' + m.text()); });
-  p.on('request', r => { if (r.method() !== 'GET') journal.nonGet.push(r.method() + ' ' + r.url()); });
-  await p.route('**/*', r => { const u = new URL(r.request().url()); if (u.hostname !== 'localhost') { journal.externes.add(u.hostname); return r.abort(); } return r.continue(); });
+  p.on('request', r => {
+    if (r.method() === 'GET') return;
+    // Seule requête autorisée hors GET : le compteur anonyme, avec uniquement le nom de l'événement et la page.
+    if (r.method() === 'POST' && new URL(r.url()).pathname === '/api/compteur') {
+      let d = null; try { d = JSON.parse(r.postData() || ''); } catch (e) {}
+      if (d && Object.keys(d).sort().join() === 'e,p' && /^[a-z_]+$/.test(d.e) && /^\/[a-z-]+(\.html)?$/.test(d.p)) { journal.compteur.push(d.e); return; }
+    }
+    journal.nonGet.push(r.method() + ' ' + r.url() + ' ' + (r.postData() || ''));
+  });
+  await p.route('**/*', r => { const u = new URL(r.request().url()); if (u.hostname !== 'localhost') { journal.externes.add(u.hostname); return r.abort(); } if (u.pathname === '/api/compteur') return r.fulfill({ status: 204 }); return r.continue(); }); // compteur simulé (fonction Netlify absente en local)
   await p.goto(BASE + page);
   return { ctx, p, journal };
 }
@@ -179,9 +187,12 @@ const INV_I = [
   const browser = await chromium.launch();
   for (const [page, nom, fn, cas, inv, resCas] of [['/regles.html', 'Règles', regles, CAS_R, INV_R, 21], ['/infertilite-test.html', 'Infertilité', inf, CAS_I, INV_I, 6]]) {
     const { ctx, p, journal } = await ouvrir(browser, page);
-    const meta = await p.evaluate(() => ({ robots: document.querySelector('meta[name=robots]').content, bandeau: document.querySelector('.brouillon').textContent }));
-    ok(meta.robots === 'noindex, nofollow', nom + ' : page noindex, nofollow');
-    ok(/attente de validation médicale/.test(meta.bandeau), nom + ' : bandeau « Version en attente de validation médicale »');
+    const meta = await p.evaluate(() => ({ robots: document.querySelector('meta[name=robots]').content, bandeau: !!document.querySelector('p.brouillon'), mention: document.querySelector('form .mention').textContent, bouton: document.querySelector('.actions-outil a[href^="https://wa.me"]').textContent, avis: (document.querySelector('.avis') || {}).textContent || '' }));
+    ok(meta.robots === 'noindex', nom + ' : page en noindex (indexation après relecture finale de Gilbert)');
+    ok(!meta.bandeau, nom + ' : bandeau « en attente de validation » retiré');
+    ok(meta.mention === "Vos réponses sont uniquement avec vous et ne vont nulle part ailleurs. Nous comptons seulement le nombre d'utilisations, de façon anonyme.", nom + ' : phrase de confidentialité de Gilbert');
+    ok(meta.bouton === 'Demander un avis (WhatsApp)', nom + ' : bouton neutre « Demander un avis (WhatsApp) »');
+    ok(/^Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé\. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre\.$/.test(meta.avis), nom + ' : phrase de fin neutre');
     // Parcours par étapes
     const n = nom === 'Règles' ? 5 : 4;
     ok((await etape(p)) === 'Étape 1 sur ' + n + (nom === 'Règles' ? ' · Vous' : ' · Le couple'), nom + ' : progression « Étape 1 sur ' + n + ' »');
@@ -219,7 +230,9 @@ const INV_I = [
     await p.click(nom === 'Règles' ? '#r-modifier' : '#i-modifier');
     ok(/^Étape 1/.test(await etape(p)) && !(await p.isVisible(nom === 'Règles' ? '#r-resultat' : '#i-resultat')), nom + ' : « Modifier mes réponses » revient à l\'étape 1');
     ok(journal.erreurs.length === 0, nom + ' : aucune erreur JavaScript ' + journal.erreurs.join(' / '));
-    ok(journal.nonGet.length === 0, nom + ' : aucune requête autre que GET ' + journal.nonGet.join(' / '));
+    ok(journal.nonGet.length === 0, nom + ' : aucune requête autre que GET, sauf le compteur anonyme ' + journal.nonGet.join(' / '));
+    const evt = nom === 'Règles' ? 'regles_resultat' : 'infertilite_resultat';
+    ok(journal.compteur.includes(evt) && journal.compteur.every(e => [evt, 'imprimer_clic', 'rdv_whatsapp_clic'].includes(e)), nom + ' : compteur « ' + evt + ' » envoyé, sans aucune réponse (' + [...new Set(journal.compteur)].join(', ') + ')');
     ok(!journal.externes.has('static.cloudflareinsights.com'), nom + ' : pas de mesure d\'audience chargée');
     console.log('      hôtes externes demandés (bloqués pendant le test) :', [...journal.externes].join(', '));
     await ctx.close();
@@ -231,6 +244,10 @@ const INV_I = [
     await fn(m.p, cas[resCas][1]);
     await largeur(m.p, nom + ' mobile 375 px (résultat)');
     await m.p.locator(nom === 'Règles' ? '#r-resultat' : '#i-resultat').screenshot({ path: `${OUT}/${nom}-resultat-375.png` });
+    await m.p.evaluate(() => { window.print = () => {}; });
+    await m.p.click(nom === 'Règles' ? '#r-imprimer' : '#i-imprimer');
+    await m.p.waitForTimeout(200);
+    ok(m.journal.compteur.includes('imprimer_clic'), nom + ' : clic « Imprimer » compté');
     await m.p.emulateMedia({ media: 'print' });
     await m.p.pdf({ path: `${OUT}/${nom}-fiche.pdf`, format: 'A4', printBackground: true });
     ok(m.journal.erreurs.length === 0 && m.journal.nonGet.length === 0, nom + ' mobile : aucune erreur JS ni requête non-GET');
