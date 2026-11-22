@@ -59,7 +59,7 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 
 | Élément | Règle | Source |
 |---|---|---|
-| Fréquence normale | 24 à 38 jours ; < 24 = polyménorrhée (« fréquent ») ; > 38 = oligoménorrhée (« peu fréquent ») | FIGO 2018 (Munro et al.) [1] |
+| Fréquence normale | 24 à 38 jours ; < 24 = polyménorrhée (« fréquent ») ; > 38 = oligoménorrhée (« peu fréquent ») | FIGO 2018 (Munro et al.) [1] ; définition actuelle retenue par Gilbert le 22/11/2026 |
 | Adolescentes (premières règles depuis moins de 3 ans) | normal 21 à 45 jours ; l'irrégularité n'est pas signalée (message d'explication) | ACOG, avis n° 651, 2015 [2] |
 | Régularité | écart ≤ 7 jours normal ; ≤ 9 jours normal avant 26 ans et à partir de 42 ans ; au-delà = irrégulier | FIGO 2018 [1] |
 | Durée | > 8 jours = règles prolongées ; > 7 jours chez l'adolescente (premières règles depuis moins de 3 ans) | FIGO 2018 [1] ; ACOG 651 [2] et manuels francophones (décision de Gilbert, 21/11 : « ce qui est proche de nous ») |
@@ -181,6 +181,7 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 4. ~~Contraception hormonale~~ : **gardée en vert**, avec les conditions affichées. *Réponse de Gilbert comprise comme un accord (« Accord, je pense que c'est mieux ») : à confirmer d'un mot.*
 5. ~~Adolescentes~~ : « prendre ce qui est proche de nous » → **règles prolongées au-delà de 7 jours** pendant les 3 premières années (repère des manuels francophones, identique à l'ACOG) ; cycles de 21 à 45 jours.
 6. ~~Mesure d'audience~~ : laissée à l'appréciation de Claude → **retirée de cette page** (cohérent avec « aucune donnée n'est envoyée »).
-7. Restent ouvertes : terminologie FIGO (polyménorrhée < 24 j) ou ancienne définition française (< 21 j) ; âges limites 9 et 60 ans ; saignement sous traitement hormonal de la ménopause ; version en éwé ou en mina plus tard.
+7. ~~Terminologie~~ (22/11) : **définition actuelle FIGO 2018 retenue** : cycles de moins de 24 jours = trop fréquents, plus de 38 jours = trop espacés. L'ancienne définition française (< 21 jours) n'est pas utilisée. Justification : c'est la terminologie internationale de référence la plus récente (FIGO 2018) [1]. *À vérifier : que les RPC du CNGOF 2022 [4] reprennent bien cette terminologie (non contrôlé pendant ce travail).*
+8. Restent ouvertes : âges limites 9 et 60 ans ; saignement sous traitement hormonal de la ménopause ; version en éwé ou en mina plus tard.
 
 Après validation : retirer le bandeau « Version en attente de validation médicale », passer la page en `index, follow`, l'ajouter au sitemap et au menu « Outils ».

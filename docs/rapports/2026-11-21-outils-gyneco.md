@@ -63,6 +63,6 @@ Les références exactes, avec liens, sont dans les fiches. Les références mar
 ## Reste à faire avant la mise en ligne
 
 1. Relecture finale des deux pages par Gilbert (sur téléphone).
-2. Points encore ouverts : terminologie de la polyménorrhée (FIGO < 24 j ou ancienne définition française < 21 j), âges limites, version en langue locale.
+2. Points encore ouverts : âges limites, version en langue locale. (Tranché le 22/11 : définition actuelle FIGO 2018, cycles trop fréquents en dessous de 24 jours.)
 3. Vérifier les références marquées « à vérifier » dans les fiches.
 4. Après accord : retirer le bandeau, passer en `index, follow`, ajouter au sitemap, au menu « Outils » et sur `/infertilite`.
