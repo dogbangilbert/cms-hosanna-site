@@ -403,8 +403,8 @@ function historique(){
 }
 
 /* ---------- Statistiques (compteur anonyme du site) ---------- */
-var OUTILS=[["imc_calcul","IMC"],["grossesse_calcul","Grossesse (date d'accouchement)"],["sein_test_fini","Test du sein"],["regles_resultat","Mes règles"],["infertilite_resultat","Infertilité du couple"],["fecondite_calcul","Période de fécondité"]];
-var NOMS_PAGES={"/":"Accueil","/imc":"Outil IMC","/date-accouchement":"Outil grossesse","/test-sein":"Test du sein","/regles":"Mes règles","/infertilite-test":"Infertilité du couple","/fecondite":"Période de fécondité","/outils":"Page Outils santé","/contact":"Page Contact","autre":"Autre page"};
+var OUTILS=[["imc_calcul","IMC"],["grossesse_calcul","Grossesse (date d'accouchement)"],["sein_test_fini","Test du sein"],["regles_resultat","Mes règles"],["infertilite_resultat","Infertilité du couple"],["fecondite_calcul","Période de fécondité"],["prostate_resultat","Prostate"]];
+var NOMS_PAGES={"/":"Accueil","/imc":"Outil IMC","/date-accouchement":"Outil grossesse","/test-sein":"Test du sein","/regles":"Mes règles","/infertilite-test":"Infertilité du couple","/fecondite":"Période de fécondité","/prostate":"Outil prostate","/outils":"Page Outils santé","/contact":"Page Contact","autre":"Autre page"};
 function nomPage(p){return NOMS_PAGES[p]||p.replace(/^\/(conseils|blog)\//,"Article : ").replace(/-/g," ")}
 function n(o,k){return (o&&o[k])||0}
 function jourIso(d){return d.toISOString().slice(0,10)}
