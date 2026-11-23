@@ -49,3 +49,12 @@ Sans clé ou avec une mauvaise clé : réponse 401.
 - `netlify/compteur/regles.ts` : liste des événements, nettoyage de la page, résumé (logique pure, testée)
 - `netlify/functions/compteur.mts` : réception (`POST /api/compteur`) et lecture (`GET /api/compteur/stats`), stockage Netlify Blobs `compteur-site`, une clé par jour
 - `assets/compteur.js` : envoi depuis le site et message WhatsApp avec origine
+
+## Lire les chiffres sans ligne de commande : onglet « Statistiques »
+
+Dans `/redaction`, après connexion avec votre clé habituelle, touchez **📊 Statistiques**. L'écran affiche, sur 30 jours :
+- les utilisations des outils (aujourd'hui, 7 jours, 30 jours), outil par outil ;
+- les clics « Demander un avis (WhatsApp) », avec la page d'où ils viennent, et les demandes du formulaire de rendez-vous ;
+- un graphique des utilisations par jour.
+
+Tous les rôles de la Rédaction y ont accès. Aucune nouvelle donnée n'est collectée : l'écran lit le même compteur anonyme.
