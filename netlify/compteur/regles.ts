@@ -10,6 +10,7 @@ export const EVENEMENTS = [
   "infertilite_resultat", // résultat affiché dans l'outil « Infertilité du couple »
   "fecondite_calcul",    // calcul fait dans l'outil période de fécondité
   "prostate_resultat",   // résultat affiché dans l'outil prostate (score IPSS)
+  "lien_lire_aussi",     // clic dans le bloc « Pour aller plus loin » (articles et outils liés)
   "imprimer_clic",       // bouton « imprimer / PDF » d'un outil
   "rdv_whatsapp_clic",   // clic sur un lien WhatsApp du centre
   "rdv_formulaire",      // envoi du formulaire de rendez-vous (page Contact)

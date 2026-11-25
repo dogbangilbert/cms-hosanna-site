@@ -424,6 +424,7 @@ function dessinerStats(d){
     '<div><b>'+totalOutils(d.trente_jours)+'</b><span>30 jours</span></div></div>';
   h+='<div class="carte"><h2 style="font-size:18px;margin-bottom:6px">Par outil</h2><table class="stats-table"><thead><tr><th>Outil</th><th>Auj.</th><th>7 j</th><th>30 j</th></tr></thead><tbody>'+
     OUTILS.map(function(x){return '<tr><td>'+e(x[1])+'</td><td>'+n(d.aujourdhui,x[0])+'</td><td>'+n(d.sept_jours,x[0])+'</td><td>'+n(d.trente_jours,x[0])+'</td></tr>'}).join("")+
+    '<tr><td>Clics « Pour aller plus loin »</td><td>'+n(d.aujourdhui,"lien_lire_aussi")+'</td><td>'+n(d.sept_jours,"lien_lire_aussi")+'</td><td>'+n(d.trente_jours,"lien_lire_aussi")+'</td></tr>'+
     '<tr><td>Impressions / PDF</td><td>'+n(d.aujourdhui,"imprimer_clic")+'</td><td>'+n(d.sept_jours,"imprimer_clic")+'</td><td>'+n(d.trente_jours,"imprimer_clic")+'</td></tr></tbody></table></div>';
   h+='<div class="carte"><h2 style="font-size:18px;margin-bottom:6px">Demandes de contact</h2><table class="stats-table"><thead><tr><th></th><th>Auj.</th><th>7 j</th><th>30 j</th></tr></thead><tbody>'+
     '<tr><td>« Demander un avis (WhatsApp) »</td><td>'+n(d.aujourdhui,"rdv_whatsapp_clic")+'</td><td>'+n(d.sept_jours,"rdv_whatsapp_clic")+'</td><td>'+n(d.trente_jours,"rdv_whatsapp_clic")+'</td></tr>'+
