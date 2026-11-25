@@ -364,7 +364,6 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 
 <section class="about">
   <div class="container outil">
-    <p class="brouillon" role="note">Version en attente de validation médicale. Ne pas diffuser.</p>
     <form id="f-pro" novalidate>
       <p style="margin:0 0 6px"><b>Pensez au dernier mois.</b> Choisissez la réponse la plus proche pour chaque question.</p>
       <div class="q-pro"><label for="q1">1. Avez-vous eu la sensation que votre vessie n'était pas complètement vidée après avoir uriné ?</label><select id="q1" required><option value="">Choisir…</option><option value="0">Jamais</option><option value="1">Environ 1 fois sur 5</option><option value="2">Environ 1 fois sur 3</option><option value="3">Environ 1 fois sur 2</option><option value="4">Environ 2 fois sur 3</option><option value="5">Presque toujours</option></select></div>
@@ -555,7 +554,7 @@ if ("serviceWorker" in navigator) {
     var a = document.getElementById('pro-alerte'); a.textContent = ''; a.hidden = true;
     if (al.retention) { para(a, 'Ne plus arriver à uriner est une urgence : rendez-vous sans attendre dans un service d\'urgence ou au centre de santé le plus proche.', true); a.hidden = false; }
     if (al.fievre) { para(a, 'Fièvre et brûlures en urinant : faites-vous consulter le jour même (risque d\'infection de la prostate).', true); a.hidden = false; }
-    if (al.sang || al.os) { para(a, 'Du sang dans les urines ou le sperme, des douleurs des os ou un amaigrissement inexpliqué : faites-vous consulter rapidement par un professionnel de santé.', true); a.hidden = false; }
+    if (al.sang || al.os) { para(a, 'Du sang dans les urines ou le sperme, des douleurs des os ou un amaigrissement inexpliqué : faites-vous consulter dans la semaine par un professionnel de santé.', true); a.hidden = false; }
     var d = document.getElementById('pro-depistage'); d.textContent = '';
     var h = document.createElement('h3'); h.textContent = 'Et le dépistage du cancer de la prostate ?'; d.appendChild(h);
     // Décision finale (Gilbert DOGBAN via l'Orchestrateur, 25/11, après l'étude de la Branche Études) :

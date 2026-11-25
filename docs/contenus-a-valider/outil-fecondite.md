@@ -1,5 +1,7 @@
 # Outil « Période de fécondité et ovulation » : fiche à valider
 
+**Statut (25/11) :** relu et validé par l'Orchestrateur, sur délégation de Gilbert DOGBAN. Mention « en attente » retirée. Reste en `noindex`, comme les autres outils, jusqu'à la relecture finale de Gilbert.
+
 **Statut : en attente de validation médicale par Gilbert DOGBAN.** Page `fecondite.html` (adresse `/fecondite`), `noindex`, mention « Version en attente de validation médicale ». Présente sur la branche `feature/site-vivant` uniquement (pas dans `main`).
 Mention affichée : « Information générale. Ne remplace pas une consultation. » et « Ce n'est pas une méthode de contraception fiable. »
 Vos réponses ne quittent pas le téléphone ; seul le compteur anonyme `fecondite_calcul` est envoyé.

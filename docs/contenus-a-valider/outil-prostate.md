@@ -1,6 +1,6 @@
 # Outil « Prostate : vos symptômes urinaires » (/prostate) — à valider
 
-**Statut :** en attente de validation médicale (mention « Ne pas diffuser » et `noindex`).
+**Statut (25/11) :** relu et validé par l'Orchestrateur, sur délégation de Gilbert DOGBAN. Mention « en attente » retirée. Reste en `noindex`, comme les autres outils, jusqu'à la relecture finale de Gilbert.
 **Décisions de Gilbert DOGBAN appliquées :** outil permanent, sans campagne ni prix ; ton neutre (« faites-vous consulter par un professionnel de santé », « Demander un avis (WhatsApp) ») ; phrase de confidentialité harmonisée ; impression sur une page.
 
 ## Contenu

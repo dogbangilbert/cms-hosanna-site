@@ -351,7 +351,6 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
 
 <section class="about">
   <div class="container outil">
-    <p class="brouillon" role="note">Version en attente de validation médicale. Ne pas diffuser.</p>
     <form id="f-fec" novalidate>
       <div class="ligne">
         <div><label for="ddr">Premier jour des dernières règles</label><input type="date" id="ddr" required></div>
@@ -380,6 +379,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       </div>
       <p id="fec-alerte" class="erreur" hidden></p>
       <p id="fec-message"></p>
+      <p id="fec-norme" class="erreur" hidden>Un cycle de moins de 24 jours ou de plus de 38 jours sort de la normale : parlez-en à un professionnel de santé.</p>
       <h3 class="titre-echo">Vos 3 prochains cycles</h3>
       <table class="classes cycles" aria-label="Vos 3 prochains cycles">
         <thead><tr><th scope="col">Cycle</th><th scope="col">Jours fertiles</th><th scope="col">Ovulation</th><th scope="col">Règles suivantes</th></tr></thead>
@@ -387,7 +387,8 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       </table>
       </div>
       <div class="conseil" id="fec-conseil" hidden></div>
-      <p class="mention"><b>Information générale. Ne remplace pas une consultation.</b> Le jour de l'ovulation varie d'un cycle à l'autre, même chez les femmes réglées : ce calcul donne une estimation. <b>Ce n'est pas une méthode de contraception fiable.</b> Pour mieux repérer l'ovulation : glaire cervicale plus abondante et filante, tests d'ovulation, courbe de température. Sans grossesse après 12 mois de rapports réguliers sans contraception (6 mois à partir de 35 ans), faites-vous consulter : <a href="/infertilite">bilan de fertilité du couple</a>.</p>
+      <p class="mention" id="fec-mention-court" hidden><b>Information générale. Ne remplace pas une consultation.</b></p>
+      <p class="mention" id="fec-mention"><b>Information générale. Ne remplace pas une consultation.</b> Le jour de l'ovulation varie d'un cycle à l'autre, même chez les femmes réglées : ce calcul donne une estimation. <b>Ce n'est pas une méthode de contraception fiable.</b> Pour mieux repérer l'ovulation : glaire cervicale plus abondante et filante, tests d'ovulation, courbe de température. Sans grossesse après 12 mois de rapports réguliers sans contraception (6 mois à partir de 35 ans), faites-vous consulter : <a href="/infertilite">bilan de fertilité du couple</a>.</p>
       <p class="avis-pro"><b>Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé.</b> Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre.</p>
       <p class="impr-rdv"><b>Pour un avis adapté : consultez un professionnel de santé.</b> CMS HOSANNA (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com</p>
       <div class="actions-outil">
@@ -517,6 +518,7 @@ if ("serviceWorker" in navigator) {
     paragraphes.forEach(function(t){ var p = document.createElement('p'); p.textContent = t; c.appendChild(p); });
     if (liste) { var ul = document.createElement('ul'); liste.forEach(function(t){ var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); }); c.appendChild(ul); }
     c.hidden = false; document.getElementById('fec-calcul').hidden = true; document.getElementById('fec-message').textContent = '';
+    document.getElementById('fec-mention').hidden = true; document.getElementById('fec-mention-court').hidden = false;
   }
   f.addEventListener('submit', function(e){
     e.preventDefault(); err.hidden = true;
@@ -524,6 +526,7 @@ if ("serviceWorker" in navigator) {
     var v = document.getElementById('ddr').value, cycle = parseInt(document.getElementById('cycle').value, 10);
     var al = document.getElementById('fec-alerte'); al.hidden = true; al.textContent = '';
     document.getElementById('fec-conseil').hidden = true; document.getElementById('fec-calcul').hidden = false;
+    document.getElementById('fec-mention').hidden = false; document.getElementById('fec-mention-court').hidden = true; document.getElementById('fec-norme').hidden = true;
     var montrer = function(){ res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'}); (window.hosannaCompte && hosannaCompte('fecondite_calcul')); };
     document.getElementById('fec-date').textContent = 'CMS HOSANNA, Lomé · ' + fd(AUJ, true);
     if (but === 'eviter') {
@@ -543,7 +546,7 @@ if ("serviceWorker" in navigator) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return refuser('ddr', 'Indiquez la date du premier jour de vos dernières règles.');
     var p = v.split('-'), DDR = Date.UTC(+p[0], +p[1] - 1, +p[2]);
     if (DDR > AUJ) return refuser('ddr', 'Cette date est dans le futur.');
-    if (AUJ - DDR > 120 * JOUR) return refuser('ddr', 'Indiquez vos dernières règles (moins de 4 mois). Sans règles depuis plus longtemps, faites-vous consulter par un professionnel de santé.');
+    if (AUJ - DDR > 120 * JOUR) return refuser('ddr', 'Vos dernières règles datent de plus de 4 mois : faites un test de grossesse, et faites-vous consulter par un professionnel de santé.');
     if (isNaN(cycle) || cycle < 21 || cycle > 45) return refuser('cycle', 'La durée du cycle doit être comprise entre 21 et 45 jours. En dehors de ces durées, demandez l\'avis d\'un professionnel de santé.');
     // Cycle commençant à la date d : ovulation au jour (cycle − 14) ; fenêtre J−5 à J+1
     function calc(d){ var ovu = d + (cycle - 15) * JOUR; return { debut: ovu - 5 * JOUR, fin: ovu + JOUR, ovu: ovu, fort: ovu - 2 * JOUR, suivantes: d + cycle * JOUR }; }
@@ -564,6 +567,8 @@ if ("serviceWorker" in navigator) {
     document.getElementById('fec-message').textContent = 'Pour un cycle de ' + cycle + ' jours, l\'ovulation a lieu vers le ' + (cycle - 14) + 'e jour du cycle, soit le ' + fd(premier.ovu, true) +
       '. La période fertile va des 5 jours qui précèdent l\'ovulation au lendemain de l\'ovulation. Les jours les plus fertiles sont les 2 jours avant l\'ovulation et le jour de l\'ovulation (du ' + fd(premier.fort) + ' au ' + fd(premier.ovu) +
       '). Prochaines règles prévues vers le ' + fd(premier.suivantes, true) + '.';
+    // Normes FIGO (cycle normal de 24 à 38 jours), décision de l'Orchestrateur 25/11
+    document.getElementById('fec-norme').hidden = !(cycle < 24 || cycle > 38);
     if (retard >= 7) { al.hidden = false; al.textContent = 'Vos règles ont environ ' + retard + ' jours de retard : faites un test de grossesse, ou faites-vous consulter.'; }
     document.getElementById('fec-date').textContent = 'CMS HOSANNA, Lomé · Calcul du ' + fd(AUJ, true) + ' · Dernières règles : ' + fd(DDR, true) + ' · Cycle : ' + cycle + ' jours';
     montrer();
