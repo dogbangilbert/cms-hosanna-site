@@ -369,7 +369,7 @@ footer{background:#001a4d; color:rgba(255,255,255,0.8); padding:56px 0 24px;}
       <p class="avis-pro"><b>Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé.</b> Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre.</p>
       <p class="impr-rdv"><b>Pour le suivi de votre grossesse : consultez un professionnel de santé.</b> CMS HOSANNA (Attiégou, Lomé, ouvert 24h/24) : 90 03 83 13, appel ou WhatsApp · cmshosanna.com</p>
       <div class="actions-outil">
-        <a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20j%27ai%20une%20question%20sur%20ma%20grossesse." class="btn btn-primary" target="_blank" rel="noopener">Demander un avis (WhatsApp)</a>
+        <a href="https://wa.me/22890038313?text=Bonjour%20CMS%20HOSANNA%2C%20j%27ai%20une%20question%20sur%20ma%20grossesse." class="btn btn-primary" target="_blank" rel="noopener"><img src="/img/whatsapp.svg" alt="" width="20" height="20" style="vertical-align:-4px;margin-right:6px;flex:none">Demander un avis (WhatsApp)</a>
         <button type="button" class="btn btn-outline" id="dpa-imprimer">Imprimer ou enregistrer en PDF</button>
       </div>
     </div>
@@ -536,7 +536,8 @@ if ("serviceWorker" in navigator) {
       var but = document.createElement('small'); but.textContent = Math.floor(x[0] / 7) + ' à ' + Math.floor(x[1] / 7) + ' SA + 6 j · ' + x[3]; but.style.display = 'block'; a.appendChild(but);
       var wa = document.createElement('a'); wa.className = 'echo-rdv'; wa.target = '_blank'; wa.rel = 'noopener';
       wa.href = 'https://wa.me/22890038313?text=' + encodeURIComponent('Bonjour CMS HOSANNA, j\'ai une question sur la ' + x[2].replace(/ \(.*\)$/, '') + ' (' + x[2].replace(/^.*\((.*)\)$/, '$1') + '). Ma grossesse : ' + (jours < 0 ? 'moins de 2' : sa) + ' SA, à faire entre le ' + fd(debut + x[0] * JOUR, false) + ' et le ' + fd(debut + x[1] * JOUR, false) + '.');
-      wa.textContent = jours > x[1] ? '💬 Pas encore faite ? Demander un avis' : '💬 Demander un avis (WhatsApp)'; a.appendChild(wa);
+      var ic = document.createElement('img'); ic.src = '/img/whatsapp.svg'; ic.alt = ''; ic.width = 18; ic.height = 18; ic.style.cssText = 'vertical-align:-4px;margin-right:5px';
+      wa.appendChild(ic); wa.appendChild(document.createTextNode(jours > x[1] ? 'Pas encore faite ? Demander un avis' : 'Demander un avis (WhatsApp)')); a.appendChild(wa);
       b.textContent = fc(debut + x[0] * JOUR, false) + ' → ' + fc(debut + x[1] * JOUR, true);
       if (jours < x[0]) c.textContent = 'À venir';
       else if (jours <= x[1]) { c.textContent = 'Maintenant'; tr.className = 'vous'; tr.setAttribute('aria-current', 'true'); }

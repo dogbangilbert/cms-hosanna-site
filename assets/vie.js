@@ -68,7 +68,7 @@
   if (!/octobre-rose|test-sein/.test(location.pathname)) {
     var barreBas = document.createElement('div'); barreBas.setAttribute('role', 'navigation'); barreBas.className = 'vie-barre'; barreBas.setAttribute('aria-label', 'Actions rapides');
     barreBas.innerHTML = '<a href="tel:+22890038313"><span>📞</span>Appeler</a>'
-      + '<a href="https://wa.me/22890038313?text=' + encodeURIComponent('Bonjour CMS HOSANNA, ') + '" target="_blank" rel="noopener"><span>💬</span>WhatsApp</a>'
+      + '<a href="https://wa.me/22890038313?text=' + encodeURIComponent('Bonjour CMS HOSANNA, ') + '" target="_blank" rel="noopener"><span><img src="/img/whatsapp.svg" alt="" width="22" height="22"></span>WhatsApp</a>'
       + '<a href="https://www.google.com/maps/place/?q=place_id:ChIJYcQs0OrjIxAR3Bw_aQrvbj4" target="_blank" rel="noopener"><span>📍</span>Itinéraire</a>'
       + '<a href="/contact" class="rdv"><span>📅</span>Rendez-vous</a>';
     document.body.appendChild(barreBas); document.body.classList.add('vie-avec-barre');

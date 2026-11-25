@@ -166,7 +166,7 @@ ${c.featured_image ? `<figure class="art-image"><img src="${echap(c.featured_ima
     <div class="panel-dark" style="max-width:640px; margin:0 auto; padding:32px;">
       <h3 style="margin-bottom:12px;">${echap(c.cta.text || "Une question après cette lecture ?")}</h3>
       <p style="margin-bottom:20px;">Écrivez-nous directement sur WhatsApp, nous répondons personnellement.</p>
-      <a href="${wa}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">💬 Écrire sur WhatsApp</a>
+      <a href="${wa}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><img src="/img/whatsapp.svg" alt="" width="20" height="20" style="vertical-align:-4px;margin-right:6px">Écrire sur WhatsApp</a>
     </div>
   </div>
 </section>
