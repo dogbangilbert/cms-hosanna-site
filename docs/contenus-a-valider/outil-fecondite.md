@@ -54,3 +54,5 @@ Vos réponses ne quittent pas le téléphone ; seul le compteur anonyme `fecondi
 Toutes tranchées le 22/11 (voir « Décisions »). Reste : validation finale du texte de la fiche contraception.
 
 Après validation : retirer la mention « en attente », puis avancer `main` pour le déploiement (la page reste en `noindex` jusqu'à la relecture finale, comme les autres outils).
+
+**Indexation (25/11) :** accord de Gilbert DOGBAN transmis par l'Orchestrateur. Page passée en `index, follow` et ajoutée au sitemap, pour la mise en ligne du 5/12.

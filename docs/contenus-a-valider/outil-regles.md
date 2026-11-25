@@ -192,3 +192,5 @@ Le rouge l'emporte toujours, y compris sous contraception : l'outil ne rassure j
 - Ton neutre (décision de Gilbert, 22/11) : bouton « Demander un avis (WhatsApp) » ; phrase de fin « Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre. » ; même phrase sur la fiche imprimée, suivie des coordonnées du centre ; aucune mention d'argent ni de tarif.
 - Compteur anonyme : `regles_resultat`, `imprimer_clic`, `rdv_whatsapp_clic`. Le message WhatsApp commence automatiquement par l'origine (« je viens de l'outil … du site HOSANNA »).
 - Pour activer l'indexation : passer `noindex` en `index, follow`, ajouter la page à `sitemap.xml` et à `llms.txt`.
+
+**Indexation (25/11) :** accord de Gilbert DOGBAN transmis par l'Orchestrateur. Page passée en `index, follow` et ajoutée au sitemap, pour la mise en ligne du 5/12.

@@ -15,6 +15,13 @@ Services : médecine générale, gynécologie et maternité (suivi de grossesse,
 - [Prise en charge du VIH](https://cmshosanna.com/pvvih): dépistage confidentiel et suivi des PVVIH
 - [Téléconsultation et soins à domicile](https://cmshosanna.com/teleconsultation)
 - [Dépistage du cancer du sein](https://cmshosanna.com/test-sein): test de risque en ligne
+- [Outils santé gratuits](https://cmshosanna.com/outils): tous les outils en ligne du centre
+- [IMC et poids normal](https://cmshosanna.com/imc): indice de masse corporelle (OMS), enfants dès 2 ans, masse grasse
+- [Date d'accouchement](https://cmshosanna.com/date-accouchement): terme, fenêtre 37-41 SA et dates d'échographie
+- [Période de fécondité](https://cmshosanna.com/fecondite): jours fertiles et ovulation selon le cycle
+- [Mes règles sont-elles normales ?](https://cmshosanna.com/regles): repères sur le cycle et les règles
+- [Infertilité du couple](https://cmshosanna.com/infertilite-test): quand faire un bilan de fertilité
+- [Prostate](https://cmshosanna.com/prostate): score des symptômes urinaires (IPSS) et dépistage
 - [Le centre](https://cmshosanna.com/apropos): mission, équipe, identité légale
 - [Contact et accès](https://cmshosanna.com/contact)
 

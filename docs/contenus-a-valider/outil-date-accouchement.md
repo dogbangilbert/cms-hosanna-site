@@ -86,3 +86,5 @@ Sources consultées :
 ## Ton neutre (décision de Gilbert, 22/11/2026, pour tous les outils)
 
 Plus de « Prendre rendez-vous » dans les résultats : « Pour un avis adapté à votre situation, faites-vous consulter par un professionnel de santé. Si vous le souhaitez, l'équipe du CMS HOSANNA peut aussi vous répondre. » Bouton « Demander un avis (WhatsApp) », messages pré-remplis neutres (« j'ai une question… »). Le texte imprimé dit « consultez un professionnel de santé », suivi des coordonnées du centre. Les boutons « Prendre RDV » de l'en-tête du site ne changent pas.
+
+**Indexation (25/11) :** accord de Gilbert DOGBAN transmis par l'Orchestrateur. Page passée en `index, follow` et ajoutée au sitemap, pour la mise en ligne du 5/12.

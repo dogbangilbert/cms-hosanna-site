@@ -33,3 +33,5 @@
 - [ ] Validation finale : retirer la mention « en attente » et passer en `index` après la relecture.
 
 Compteur anonyme : événement `prostate_resultat`, visible dans /redaction → Statistiques.
+
+**Indexation (25/11) :** accord de Gilbert DOGBAN transmis par l'Orchestrateur. Page passée en `index, follow` et ajoutée au sitemap, pour la mise en ligne du 5/12.
