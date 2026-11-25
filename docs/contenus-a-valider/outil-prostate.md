@@ -18,18 +18,18 @@
    - rétention (impossible d'uriner) → **urgence** ;
    - fièvre et brûlures → consulter le jour même (prostatite) ;
    - sang dans les urines ou le sperme, douleurs osseuses, amaigrissement → consulter rapidement.
-5. **Dépistage du cancer** selon l'âge :
-   - en général, discussion avec un professionnel à partir de **45 ans** chez l'homme d'origine africaine ;
-   - à partir de **40 ans** si le père ou un frère a été touché ;
-   - au cas par cas après 75 ans.
-   - Le dépistage comprend le toucher rectal et le PSA, après une décision partagée. Repères : recommandations de l'AUA, de l'EAU et du NCCN pour les hommes à risque élevé.
+5. **Dépistage du cancer** — DÉCISION FINALE (25/11, confiée par Gilbert à l'Orchestrateur après l'étude de la Branche Études) :
+   - PSA dès **45 ans**, dès **40 ans** si le père ou un frère a été touché, puis tous les 2 ans si le résultat est normal ;
+   - **après 70 ans** : au cas par cas avec le soignant (bénéfice visible après 10 à 15 ans ; espérance de vie d'un Togolais de 70 ans ≈ 9 ans, ONU 2025) ;
+   - repères pour les soignants (non affichés dans l'outil) : PSA < 2,5 → contrôle à 2 ans ; 2,5 à 3,9 → contrôle à 1 an ; ≥ 4 confirmé → avis urologue ; toucher rectal normal ne rassure pas seul, suspect → avis.
+   - Phrase affichée : « Faites un dosage du PSA dès 45 ans, ou dès 40 ans si votre père ou un frère a eu un cancer de la prostate, puis tous les 2 ans si le résultat est normal ; après 70 ans, le dépistage se décide au cas par cas avec le soignant, selon votre état de santé. »
 6. **Mention :** le score ne pose pas de diagnostic, et **un score bas n'exclut pas un cancer**.
 
 ## Points à trancher par Gilbert
 
-- [ ] Seuils de dépistage : 45 ans (40 ans si antécédent familial) et 75 ans. Faut-il les adapter à la pratique au Togo ?
+- [x] Seuils de dépistage : 45 / 40 ans validés par Gilbert (23/11) ; arrêt à 70 ans décidé le 25/11.
 - [ ] Libellés simplifiés des questions : faut-il garder ceux-ci, ou revenir au texte officiel de l'AFU ?
-- [ ] Faut-il aussi un lien vers l'article « Prévenir les problèmes de prostate » ?
+- [x] Lien vers l'article « Prévenir les problèmes de prostate » : fait via « Pour aller plus loin » (25/11).
 - [ ] Validation finale : retirer la mention « en attente » et passer en `index` après la relecture.
 
 Compteur anonyme : événement `prostate_resultat`, visible dans /redaction → Statistiques.

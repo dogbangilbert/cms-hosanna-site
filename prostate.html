@@ -558,14 +558,17 @@ if ("serviceWorker" in navigator) {
     if (al.sang || al.os) { para(a, 'Du sang dans les urines ou le sperme, des douleurs des os ou un amaigrissement inexpliqué : faites-vous consulter rapidement par un professionnel de santé.', true); a.hidden = false; }
     var d = document.getElementById('pro-depistage'); d.textContent = '';
     var h = document.createElement('h3'); h.textContent = 'Et le dépistage du cancer de la prostate ?'; d.appendChild(h);
+    // Décision finale (Gilbert DOGBAN via l'Orchestrateur, 25/11, après l'étude de la Branche Études) :
+    // début 45 ans (40 si père ou frère touché), PSA tous les 2 ans si normal, au cas par cas après 70 ans.
     var seuil = al.famille ? 40 : 45;
-    if (age >= seuil && age < 75) {
-      para(d, 'Les hommes d\'origine africaine sont plus exposés au cancer de la prostate' + (al.famille ? ', et le risque est encore plus élevé quand un père ou un frère en a eu un' : '') + '. À votre âge, parlez avec un professionnel de santé de l\'intérêt d\'un dépistage : examen de la prostate (toucher rectal) et prise de sang (PSA).');
-    } else if (age >= 75) {
-      para(d, 'Après 75 ans, l\'intérêt d\'un dépistage se décide au cas par cas, selon votre santé. Parlez-en avec un professionnel de santé, surtout si vous avez des symptômes.');
+    if (age >= 70) {
+      para(d, 'À votre âge, le dépistage se décide au cas par cas avec le soignant, selon votre état de santé. Si vous avez des symptômes, consultez quel que soit votre âge.');
+    } else if (age >= seuil) {
+      para(d, 'Les hommes d\'origine africaine sont plus exposés au cancer de la prostate' + (al.famille ? ', et le risque est encore plus élevé quand un père ou un frère en a eu un' : '') + '. À votre âge, le dépistage est conseillé.');
     } else {
-      para(d, 'Chez les hommes d\'origine africaine, le dépistage se discute en général à partir de ' + seuil + ' ans' + (al.famille ? ' quand un père ou un frère a été touché' : '') + '. Avant cet âge, consultez si vos symptômes vous gênent ou si vous avez un signe d\'alerte.');
+      para(d, 'À votre âge, le dépistage n\'est pas encore conseillé' + (al.famille ? ' (il commencera à 40 ans, car un père ou un frère a été touché)' : '') + '. Consultez si vos symptômes vous gênent ou si vous avez un signe d\'alerte.');
     }
+    para(d, 'Faites un dosage du PSA dès 45 ans, ou dès 40 ans si votre père ou un frère a eu un cancer de la prostate, puis tous les 2 ans si le résultat est normal ; après 70 ans, le dépistage se décide au cas par cas avec le soignant, selon votre état de santé.', true);
     document.getElementById('pro-date').textContent = 'CMS HOSANNA, Lomé · Test du ' + new Date().toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'}) + ' · Âge : ' + age + ' ans';
     res.hidden = false; res.scrollIntoView({behavior: 'smooth', block: 'start'});
     (window.hosannaCompte && hosannaCompte('prostate_resultat'));
