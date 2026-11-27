@@ -8,7 +8,7 @@ Destinataire : la nouvelle session Site, qui reprend le relais, y compris le dé
 | Élément | Valeur |
 |---|---|
 | Branche de travail | `feature/site-vivant` |
-| Tête actuelle | `0077c49` (poussée sur GitHub) |
+| Tête actuelle | `995f68e` (poussée sur GitHub ; ce dernier commit ajoute seulement cette fiche) |
 | `main` (= production) | `3bfb68a` (déploiement Netlify `6b042a9c41bdd5c1ce383782`, 23/11) |
 | Fusion | avance rapide possible : `main` est ancêtre de la branche, sans conflit |
 | Site Netlify | ID `26111be2-f0dc-4450-934c-1066a36fc904`. `main` ne se déploie pas tout seul : c'est l'Orchestrateur qui déclenche. |
